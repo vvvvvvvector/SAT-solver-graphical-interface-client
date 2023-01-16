@@ -1,7 +1,7 @@
 import React from "react";
 import { toast } from "react-hot-toast";
 
-import axios from "axios";
+import axiosInstance from "./axiosInstance";
 
 import Textarea from "@mui/joy/Textarea";
 import Button from "@mui/material/Button";
@@ -10,7 +10,7 @@ import { Stack } from "@mui/system";
 import "./styles.scss";
 
 export default function App() {
-  const [value, setValue] = React.useState("");
+  const [formula, setFormula] = React.useState("p cnf 3 2\n1 -3 0\n2 3 -1 0");
   const [response, setResponse] = React.useState({});
 
   return (
@@ -19,11 +19,12 @@ export default function App() {
         sx={{
           marginBottom: "20px",
         }}
-        onChange={(event) => setValue(event.target.value)}
+        value={formula}
+        onChange={(event) => setFormula(event.target.value)}
         minRows={15}
         maxRows={15}
         size="lg"
-        placeholder="cnf file text here..."
+        placeholder="*.cnf file text here..."
       />
       <Stack
         direction="row"
@@ -35,20 +36,17 @@ export default function App() {
         <Button
           onClick={async () => {
             try {
-              if (value.length > 0) {
-                const response = await axios.post(
-                  "http://localhost:8000/solve-my-problem",
-                  {
-                    formula: value,
-                  }
-                );
+              if (formula.length > 0) {
+                const response = await axiosInstance.post("solve-my-problem", {
+                  formula,
+                });
 
                 setResponse(response.data);
                 console.log(response.data);
 
                 toast.success("Successfully solved!");
               } else {
-                toast.error("input can't be empty!");
+                toast.error("Input can't be empty!");
               }
             } catch (error) {
               toast.error("Something went wrong!");
@@ -64,10 +62,8 @@ export default function App() {
           variant="outlined"
           onClick={async () => {
             try {
-              if (value.length > 0) {
-                const response = await axios.get(
-                  "http://localhost:8000/solve-one-more"
-                );
+              if (formula.length > 0) {
+                const response = await axiosInstance.get("solve-one-more");
 
                 if (!response.data.satisfiable) {
                   toast.error("There are no more solutions!");
@@ -78,7 +74,7 @@ export default function App() {
                 setResponse(response.data);
                 console.log(response.data);
               } else {
-                toast.error("input can't be empty!");
+                toast.error("Input can't be empty!");
               }
             } catch (error) {
               toast.error("Something went wrong!");
