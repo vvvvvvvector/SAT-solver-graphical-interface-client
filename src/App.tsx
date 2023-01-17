@@ -9,6 +9,67 @@ import { Stack } from "@mui/system";
 
 import "./styles.scss";
 
+const solvers = [
+  {
+    name: "Cadical",
+    short: "cd",
+  },
+  {
+    name: "Gluecard3",
+    short: "gc3",
+  },
+  {
+    name: "Gluecard41",
+    short: "gc4",
+  },
+  {
+    name: "Glucose3",
+    short: "g3",
+  },
+  {
+    name: "Glucose4",
+    short: "g4",
+  },
+  {
+    name: "Lingeling",
+    short: "lgl",
+  },
+  {
+    name: "Maplechrono",
+    short: "mcb",
+  },
+  {
+    name: "Maplecm",
+    short: "mcm",
+  },
+  {
+    name: "Maplesat",
+    short: "mpl",
+  },
+  {
+    name: "Mergesat3",
+    short: "mg3",
+  },
+  {
+    name: "Minicard",
+    short: "mc",
+  },
+  {
+    name: "Minisat22",
+    short: "m22",
+  },
+  {
+    name: "Minisatgh",
+    short: "mgh",
+  },
+];
+
+// 1. variable component
+// 2. clause component
+// 3. formula component
+
+import { Variable, Clause, Formula } from "./components";
+
 export default function App() {
   const [formula, setFormula] = React.useState("p cnf 3 2\n1 -3 0\n2 3 -1 0");
   const [response, setResponse] = React.useState({});
@@ -87,6 +148,21 @@ export default function App() {
         </Button>
       </Stack>
       <pre>{JSON.stringify(response, null, 2)}</pre>
+      <Variable index={1} />
+      <Variable index={-2} />
+      <Clause variables={[1, 2, 3]} />
+      <Clause variables={[1, -2, -3]} />
+      <Formula
+        clauses={[
+          [1, -3],
+          [2, 3, -1],
+          [1, 2, 3],
+          [1, -2, 3],
+          [-1, -2, 3],
+          [-1, -2, -3],
+          [-1, 2, -3],
+        ]}
+      />
     </>
   );
 }
