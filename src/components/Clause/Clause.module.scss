@@ -1,6 +1,10 @@
 .clause {
   display: flex;
 
+  &:hover {
+    background-color: aquamarine;
+  }
+
   li {
     display: flex;
 

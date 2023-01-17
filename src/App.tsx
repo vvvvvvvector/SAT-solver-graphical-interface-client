@@ -4,75 +4,29 @@ import { toast } from "react-hot-toast";
 import axiosInstance from "./axiosInstance";
 
 import Textarea from "@mui/joy/Textarea";
-import Button from "@mui/material/Button";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material/";
 import { Stack } from "@mui/system";
 
 import "./styles.scss";
 
-const solvers = [
-  {
-    name: "Cadical",
-    short: "cd",
-  },
-  {
-    name: "Gluecard3",
-    short: "gc3",
-  },
-  {
-    name: "Gluecard41",
-    short: "gc4",
-  },
-  {
-    name: "Glucose3",
-    short: "g3",
-  },
-  {
-    name: "Glucose4",
-    short: "g4",
-  },
-  {
-    name: "Lingeling",
-    short: "lgl",
-  },
-  {
-    name: "Maplechrono",
-    short: "mcb",
-  },
-  {
-    name: "Maplecm",
-    short: "mcm",
-  },
-  {
-    name: "Maplesat",
-    short: "mpl",
-  },
-  {
-    name: "Mergesat3",
-    short: "mg3",
-  },
-  {
-    name: "Minicard",
-    short: "mc",
-  },
-  {
-    name: "Minisat22",
-    short: "m22",
-  },
-  {
-    name: "Minisatgh",
-    short: "mgh",
-  },
-];
-
-// 1. variable component
-// 2. clause component
-// 3. formula component
+import solvers from "./assets/solvers.json";
 
 import { Variable, Clause, Formula } from "./components";
 
 export default function App() {
   const [formula, setFormula] = React.useState("p cnf 3 2\n1 -3 0\n2 3 -1 0");
   const [response, setResponse] = React.useState({});
+
+  const [solveLoading, setSolveLoading] = React.useState(false);
+  const [solveOneMoreLoading, setSolveOneMoreLoading] = React.useState(false);
+
+  const [solver, setSolver] = React.useState("cd");
 
   return (
     <>
@@ -95,12 +49,18 @@ export default function App() {
         }}
       >
         <Button
+          disabled={solveLoading}
           onClick={async () => {
             try {
               if (formula.length > 0) {
+                setSolveLoading(true);
+
                 const response = await axiosInstance.post("solve-my-problem", {
+                  solver,
                   formula,
                 });
+
+                setSolveLoading(false);
 
                 setResponse(response.data);
                 console.log(response.data);
@@ -117,14 +77,19 @@ export default function App() {
           }}
           variant="contained"
         >
-          Solve problem
+          {solveLoading ? "Solving..." : "Solve Problem"}
         </Button>
         <Button
+          disabled={solveOneMoreLoading}
           variant="outlined"
           onClick={async () => {
             try {
               if (formula.length > 0) {
+                setSolveOneMoreLoading(true);
+
                 const response = await axiosInstance.get("solve-one-more");
+
+                setSolveOneMoreLoading(false);
 
                 if (!response.data.satisfiable) {
                   toast.error("There are no more solutions!");
@@ -144,8 +109,26 @@ export default function App() {
             }
           }}
         >
-          Solve one more
+          {solveOneMoreLoading ? "Solving..." : "Solve one more"}
         </Button>
+        <FormControl>
+          <InputLabel id="select-solver-label">SAT-solver</InputLabel>
+          <Select
+            labelId="select-solver-label"
+            label="SAT-solver"
+            id="select-solver"
+            value={solver}
+            onChange={(event) => {
+              setSolver(event.target.value);
+            }}
+          >
+            {solvers.map((i, index) => (
+              <MenuItem key={index} value={i.short}>
+                {i.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Stack>
       <pre>{JSON.stringify(response, null, 2)}</pre>
       <Variable index={1} />
