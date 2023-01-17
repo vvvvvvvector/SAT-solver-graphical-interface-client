@@ -30,6 +30,9 @@ export default function App() {
 
   return (
     <>
+      <h1>
+        SAT-solver graphical interface <span>🤖</span>
+      </h1>
       <Textarea
         sx={{
           marginBottom: "20px",
@@ -49,6 +52,9 @@ export default function App() {
         }}
       >
         <Button
+          sx={{
+            minWidth: "175px",
+          }}
           disabled={solveLoading}
           onClick={async () => {
             try {
@@ -80,6 +86,9 @@ export default function App() {
           {solveLoading ? "Solving..." : "Solve Problem"}
         </Button>
         <Button
+          sx={{
+            minWidth: "175px",
+          }}
           disabled={solveOneMoreLoading}
           variant="outlined"
           onClick={async () => {
@@ -87,14 +96,14 @@ export default function App() {
               if (formula.length > 0) {
                 setSolveOneMoreLoading(true);
 
-                const response = await axiosInstance.get("solve-one-more");
+                const response = await axiosInstance.get("find-next-solution");
 
                 setSolveOneMoreLoading(false);
 
                 if (!response.data.satisfiable) {
                   toast.error("There are no more solutions!");
                 } else {
-                  toast.success("One more solution successfully founded!");
+                  toast.success("One more solution was successfully found!");
                 }
 
                 setResponse(response.data);
@@ -109,9 +118,9 @@ export default function App() {
             }
           }}
         >
-          {solveOneMoreLoading ? "Solving..." : "Solve one more"}
+          {solveOneMoreLoading ? "Finding..." : "Find next solution"}
         </Button>
-        <FormControl>
+        <FormControl sx={{ minWidth: "175px" }}>
           <InputLabel id="select-solver-label">SAT-solver</InputLabel>
           <Select
             labelId="select-solver-label"
@@ -130,7 +139,6 @@ export default function App() {
           </Select>
         </FormControl>
       </Stack>
-      <pre>{JSON.stringify(response, null, 2)}</pre>
       <Variable index={1} />
       <Variable index={-2} />
       <Clause variables={[1, 2, 3]} />
@@ -146,6 +154,7 @@ export default function App() {
           [-1, 2, -3],
         ]}
       />
+      <pre>{JSON.stringify(response, null, 2)}</pre>
     </>
   );
 }

@@ -8,9 +8,9 @@ type VariableType = {
 
 export const Variable: React.FC<VariableType> = ({ index }) => {
   return (
-    <p className={styles.variable}>
-      {index > 0 ? "x" : "~x"}
+    <div className={styles.variable}>
+      {index > 0 ? "x" : <span>&#172;x</span>}
       <sub>{index > 0 ? index : index * -1}</sub>
-    </p>
+    </div>
   );
 };

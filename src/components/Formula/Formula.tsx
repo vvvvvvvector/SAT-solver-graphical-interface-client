@@ -14,7 +14,7 @@ export const Formula: React.FC<FormulaType> = ({ clauses }) => {
       {clauses.map((i, index) => (
         <li key={index}>
           <Clause variables={i} />
-          {clauses.length - 1 > index && <div>&</div>}
+          {clauses.length - 1 > index && <span>&#8743;</span>}
         </li>
       ))}
     </ul>

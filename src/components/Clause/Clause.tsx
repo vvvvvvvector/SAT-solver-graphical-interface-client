@@ -11,14 +11,14 @@ type ClauseType = {
 export const Clause: React.FC<ClauseType> = ({ variables }) => {
   return (
     <ul className={styles.clause}>
-      (
+      <p>(</p>
       {variables.map((i, index) => (
         <li key={index}>
           <Variable index={i} />
-          {variables.length - 1 > index && <div>|</div>}
+          {variables.length - 1 > index && <span>&#8744;</span>}
         </li>
       ))}
-      )
+      <p>)</p>
     </ul>
   );
 };
