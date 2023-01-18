@@ -12,6 +12,7 @@ import {
   MenuItem,
 } from "@mui/material/";
 import { Stack } from "@mui/system";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 import "./styles.scss";
 
@@ -20,7 +21,7 @@ import solvers from "./assets/solvers.json";
 import { Variable, Clause, Formula } from "./components";
 
 export default function App() {
-  const [formula, setFormula] = React.useState("p cnf 3 2\n1 -3 0\n2 3 -1 0");
+  const [formula, setFormula] = React.useState("");
   const [response, setResponse] = React.useState({});
 
   const [solveLoading, setSolveLoading] = React.useState(false);
@@ -90,7 +91,7 @@ export default function App() {
             minWidth: "175px",
           }}
           disabled={solveOneMoreLoading}
-          variant="outlined"
+          variant="contained"
           onClick={async () => {
             try {
               if (formula.length > 0) {
@@ -138,6 +139,33 @@ export default function App() {
             ))}
           </Select>
         </FormControl>
+        <Button
+          variant="contained"
+          component="label"
+          endIcon={<UploadFileIcon />}
+        >
+          Upload Formula
+          <input
+            onChange={(e) => {
+              if (e.target.files instanceof FileList) {
+                const file = e.target.files[0];
+                console.log(file);
+                const reader = new FileReader();
+                reader.readAsText(file);
+                reader.onload = () => {
+                  toast.success("Formula was successfully uploaded!");
+                  console.log(reader.result);
+                  setFormula(reader.result as string);
+                };
+              } else {
+                console.log("error handler");
+              }
+            }}
+            hidden
+            accept=".txt, .cnf"
+            type="file"
+          />
+        </Button>
       </Stack>
       <Variable index={1} />
       <Variable index={-2} />
