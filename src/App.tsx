@@ -13,6 +13,7 @@ import {
 } from "@mui/material/";
 import { Stack } from "@mui/system";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
+import CalculateIcon from "@mui/icons-material/Calculate";
 
 import "./styles.scss";
 
@@ -57,6 +58,7 @@ export default function App() {
             minWidth: "175px",
           }}
           disabled={solveLoading}
+          endIcon={<CalculateIcon />}
           onClick={async () => {
             try {
               if (formula.length > 0) {
