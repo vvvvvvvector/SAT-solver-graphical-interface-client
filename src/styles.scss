@@ -16,4 +16,21 @@ body {
   pre {
     margin-top: 25px;
   }
+
+  .answer {
+    display: flex;
+
+    .equals {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+
+    .green {
+      color: #22c55e;
+    }
+
+    .red {
+      color: #f43f5e;
+    }
+  }
 }
