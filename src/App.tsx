@@ -1,8 +1,8 @@
 import React from "react";
 
-import Textarea from "@mui/joy/Textarea";
+import { Clause, Formula, Header, Controls, FormulaArea } from "./components";
 
-import { Clause, Formula, Header, Controls } from "./components";
+import FormulaContext from "./context/FormulaContext";
 
 import "./styles.scss";
 
@@ -13,20 +13,10 @@ export default function App() {
   return (
     <>
       <Header />
-      <Textarea
-        className="formulaInput"
-        value={formula}
-        onChange={(event) => setFormula(event.target.value)}
-        minRows={15}
-        maxRows={15}
-        size="lg"
-        placeholder="*.cnf file text here..."
-      />
-      <Controls
-        formula={formula}
-        setFormula={setFormula}
-        setResponse={setResponse}
-      />
+      <FormulaContext.Provider value={{ formula, setFormula }}>
+        <FormulaArea />
+        <Controls setResponse={setResponse} />
+      </FormulaContext.Provider>
       <Clause
         clause={{
           id: 0,

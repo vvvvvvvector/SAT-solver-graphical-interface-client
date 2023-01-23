@@ -17,20 +17,17 @@ import CalculateIcon from "@mui/icons-material/Calculate";
 import solvers from "../../assets/solvers.json";
 
 import styles from "./Controls.module.scss";
+import FormulaContext from "../../context/FormulaContext";
 
 type ControlsType = {
-  formula: string;
-  setFormula: (value: string) => void;
   setResponse: (value: any) => void;
 };
 
-export const Controls: React.FC<ControlsType> = ({
-  formula,
-  setFormula,
-  setResponse,
-}) => {
+export const Controls: React.FC<ControlsType> = ({ setResponse }) => {
   const [solver, setSolver] = React.useState("cd"); // controls(buttons)
   const [loading, setLoading] = React.useState(false); // controls(buttons) async action
+
+  const { formula, setFormula } = React.useContext(FormulaContext);
 
   const onClickSolve = async () => {
     try {
@@ -89,13 +86,17 @@ export const Controls: React.FC<ControlsType> = ({
     if (e.target.files instanceof FileList) {
       const file = e.target.files[0];
       const reader = new FileReader();
+
       reader.readAsText(file);
+
       reader.onload = () => {
         toast.success("Formula was successfully uploaded!");
         setFormula(reader.result as string);
       };
-    } else {
-      console.log("error handler");
+
+      reader.onerror = () => {
+        toast.error("Error while reading file!");
+      };
     }
   };
 
@@ -103,31 +104,31 @@ export const Controls: React.FC<ControlsType> = ({
     <Stack className={styles.controlsPanel} direction="row" spacing={3}>
       <Button
         className={styles.controlButton}
+        onClick={onClickSolve}
         disabled={loading}
         endIcon={<CalculateIcon />}
-        onClick={onClickSolve}
         variant="contained"
       >
         {loading ? "Solving..." : "Solve Problem"}
       </Button>
       <Button
         className={styles.controlButton}
+        onClick={onClickNext}
         disabled={loading}
         variant="contained"
-        onClick={onClickNext}
       >
         {loading ? "Finding..." : "Find next solution"}
       </Button>
-      <FormControl className={styles.controlButton}>
+      <FormControl sx={{ minWidth: "175px" }}>
         <InputLabel id="select-solver-label">SAT-solver</InputLabel>
         <Select
+          id="select-solver"
           labelId="select-solver-label"
           label="SAT-solver"
-          id="select-solver"
-          value={solver}
           onChange={(event) => {
             setSolver(event.target.value);
           }}
+          value={solver}
         >
           {solvers.map((i, index) => (
             <MenuItem key={index} value={i.short}>
@@ -144,10 +145,10 @@ export const Controls: React.FC<ControlsType> = ({
       >
         Upload Formula
         <input
-          onChange={onClickUpload}
           hidden
-          accept=".txt, .cnf"
           type="file"
+          onChange={onClickUpload}
+          accept=".txt, .cnf"
         />
       </Button>
     </Stack>

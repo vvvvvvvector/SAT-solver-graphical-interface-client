@@ -11,7 +11,9 @@ type VariableType = {
 };
 
 export const Variable: React.FC<VariableType> = ({ variable }) => {
-  const onClickVariable = () => {
+  const onClickVariable = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+
     console.log(
       "clause id: " +
         variable.clauseId +
