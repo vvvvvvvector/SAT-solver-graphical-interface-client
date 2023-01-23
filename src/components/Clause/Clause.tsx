@@ -12,15 +12,16 @@ type ClauseType = {
 };
 
 export const Clause: React.FC<ClauseType> = ({ clause }) => {
+  const onClickClause = () => {
+    console.log("clause id: " + clause.id);
+  };
+
   return (
-    <ul
-      className={styles.clause}
-      onClick={() => console.log("clause id: " + clause.id)}
-    >
+    <ul className={styles.clause} onClick={onClickClause}>
       <p>(</p>
-      {clause.variables.map((value, index) => (
+      {clause.variables.map((i, index) => (
         <li key={index}>
-          <Variable variable={{ id: index, value, clauseId: clause.id }} />
+          <Variable variable={{ id: index, index: i, clauseId: clause.id }} />
           {clause.variables.length - 1 > index && <span>&#8744;</span>}
         </li>
       ))}
