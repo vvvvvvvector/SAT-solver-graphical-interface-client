@@ -15,26 +15,24 @@ import { Stack } from "@mui/system";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import CalculateIcon from "@mui/icons-material/Calculate";
 
-import "./styles.scss";
-
 import solvers from "./assets/solvers.json";
 
-import { Variable, Clause, Formula } from "./components";
+import { Variable, Clause, Formula, Header } from "./components";
+
+import "./styles.scss";
 
 export default function App() {
   const [formula, setFormula] = React.useState("");
   const [response, setResponse] = React.useState({});
 
-  const [solveLoading, setSolveLoading] = React.useState(false);
-  const [solveOneMoreLoading, setSolveOneMoreLoading] = React.useState(false);
+  const [solveLoading, setSolveLoading] = React.useState(false); // controls(buttons) async action 1
+  const [solveOneMoreLoading, setSolveOneMoreLoading] = React.useState(false); // controls(buttons) async action 2
 
-  const [solver, setSolver] = React.useState("cd");
+  const [solver, setSolver] = React.useState("cd"); // controls(buttons)
 
   return (
     <>
-      <h1>
-        SAT-solver graphical interface <span>🤖</span>
-      </h1>
+      <Header />
       <Textarea
         sx={{
           marginBottom: "20px",
@@ -169,19 +167,48 @@ export default function App() {
           />
         </Button>
       </Stack>
-      <Variable index={1} />
-      <Variable index={-2} />
-      <Clause variables={[1, 2, 3]} />
-      <Clause variables={[1, -2, -3]} />
+      <Clause
+        clause={{
+          id: 0,
+          variables: [1, 2, 3],
+        }}
+      />
+      <Clause
+        clause={{
+          id: 0,
+          variables: [-1, 2, -3, 4],
+        }}
+      />
       <Formula
         clauses={[
-          [1, -3],
-          [2, 3, -1],
-          [1, 2, 3],
-          [1, -2, 3],
-          [-1, -2, 3],
-          [-1, -2, -3],
-          [-1, 2, -3],
+          {
+            id: 0,
+            variables: [1, -3],
+          },
+          {
+            id: 1,
+            variables: [2, 3, -1],
+          },
+          {
+            id: 2,
+            variables: [1, 2, 3],
+          },
+          {
+            id: 3,
+            variables: [1, -2, 3],
+          },
+          {
+            id: 4,
+            variables: [-1, -2, 3],
+          },
+          {
+            id: 5,
+            variables: [-1, -2, -3],
+          },
+          {
+            id: 6,
+            variables: [-1, 2, -3],
+          },
         ]}
       />
       <pre>{JSON.stringify(response, null, 2)}</pre>

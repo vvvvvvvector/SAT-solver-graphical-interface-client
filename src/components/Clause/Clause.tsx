@@ -5,17 +5,23 @@ import { Variable } from "../index";
 import styles from "./Clause.module.scss";
 
 type ClauseType = {
-  variables: number[];
+  clause: {
+    id: number;
+    variables: number[];
+  };
 };
 
-export const Clause: React.FC<ClauseType> = ({ variables }) => {
+export const Clause: React.FC<ClauseType> = ({ clause }) => {
   return (
-    <ul className={styles.clause}>
+    <ul
+      className={styles.clause}
+      onClick={() => console.log("clause id: " + clause.id)}
+    >
       <p>(</p>
-      {variables.map((i, index) => (
+      {clause.variables.map((value, index) => (
         <li key={index}>
-          <Variable index={i} />
-          {variables.length - 1 > index && <span>&#8744;</span>}
+          <Variable variable={{ id: index, value, clauseId: clause.id }} />
+          {clause.variables.length - 1 > index && <span>&#8744;</span>}
         </li>
       ))}
       <p>)</p>
