@@ -20,10 +20,16 @@ import styles from "./Controls.module.scss";
 import FormulaContext from "../../context/FormulaContext";
 
 type ControlsType = {
-  setResponse: (value: any) => void;
+  setClauses: (value: any) => void;
+  setSolveResponse: (value: any) => void;
+  setNextResponse: (value: any) => void;
 };
 
-export const Controls: React.FC<ControlsType> = ({ setResponse }) => {
+export const Controls: React.FC<ControlsType> = ({
+  setClauses,
+  setSolveResponse,
+  setNextResponse,
+}) => {
   const [solver, setSolver] = React.useState("cd"); // controls(buttons)
   const [loading, setLoading] = React.useState(false); // controls(buttons) async action
 
@@ -41,7 +47,8 @@ export const Controls: React.FC<ControlsType> = ({ setResponse }) => {
 
         setLoading(false);
 
-        setResponse(response.data);
+        setSolveResponse(response.data);
+        setClauses(response.data.clauses);
         console.log(response.data);
 
         toast.success("Successfully solved!");
@@ -70,7 +77,9 @@ export const Controls: React.FC<ControlsType> = ({ setResponse }) => {
           toast.success("One more solution was successfully found!");
         }
 
-        setResponse(response.data);
+        setNextResponse(response.data);
+        setClauses((prev: number[]) => [...prev, response.data.clause]);
+
         console.log(response.data);
       } else {
         toast.error("Input can't be empty!");

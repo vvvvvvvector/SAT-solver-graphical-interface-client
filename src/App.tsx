@@ -1,67 +1,64 @@
 import React from "react";
 
-import { Clause, Formula, Header, Controls, FormulaArea } from "./components";
+import { Variable, Formula, Header, Controls, FormulaArea } from "./components";
 
 import FormulaContext from "./context/FormulaContext";
 
 import "./styles.scss";
 
+type SolveType = {
+  formula: string;
+  clauses: {
+    id: number;
+    variables: number[];
+  }[];
+  satisfiable: boolean;
+} | null;
+
+type NextType = {
+  clause: {
+    id: number;
+    variables: number[];
+  };
+  satisfiable: boolean;
+} | null;
+
 export default function App() {
   const [formula, setFormula] = React.useState(""); // textArea
-  const [response, setResponse] = React.useState({}); // formula
+
+  const [solveResponse, setSolverResponse] = React.useState<SolveType>(null); // formula
+  const [nextResponse, setNextResponse] = React.useState<NextType>(null); // formula
+
+  const [clauses, setClauses] = React.useState([]);
 
   return (
     <>
       <Header />
       <FormulaContext.Provider value={{ formula, setFormula }}>
         <FormulaArea />
-        <Controls setResponse={setResponse} />
+        <Controls
+          setClauses={setClauses}
+          setSolveResponse={setSolverResponse}
+          setNextResponse={setNextResponse}
+        />
       </FormulaContext.Provider>
-      <Clause
-        clause={{
-          id: 0,
-          variables: [1, 2, 3],
-        }}
-      />
-      <Clause
-        clause={{
-          id: 0,
-          variables: [-1, 2, -3, 4],
-        }}
-      />
-      <Formula
-        clauses={[
-          {
-            id: 0,
-            variables: [1, -3],
-          },
-          {
-            id: 1,
-            variables: [2, 3, -1],
-          },
-          {
-            id: 2,
-            variables: [1, 2, 3],
-          },
-          {
-            id: 3,
-            variables: [1, -2, 3],
-          },
-          {
-            id: 4,
-            variables: [-1, -2, 3],
-          },
-          {
-            id: 5,
-            variables: [-1, -2, -3],
-          },
-          {
-            id: 6,
-            variables: [-1, 2, -3],
-          },
-        ]}
-      />
-      <pre>{JSON.stringify(response, null, 2)}</pre>
+      {solveResponse && <Formula clauses={clauses} />}
+      {nextResponse &&
+        nextResponse.clause.variables.map((i, index) => (
+          <div className="answer" key={index}>
+            <Variable
+              variable={{
+                id: index,
+                index: Math.abs(i),
+                clauseId: nextResponse.clause.id,
+              }}
+            />
+            <span className="equals">=</span>
+            <span className={i > 0 ? "green" : "red"}>
+              {i > 0 ? "TRUE" : "FALSE"}
+            </span>
+          </div>
+        ))}
     </>
   );
 }
