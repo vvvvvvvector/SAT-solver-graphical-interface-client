@@ -5,15 +5,18 @@ import { Clause } from "../index";
 import styles from "./Formula.module.scss";
 
 type FormulaType = {
-  clauses: number[][];
+  clauses: {
+    id: number;
+    variables: number[];
+  }[];
 };
 
 export const Formula: React.FC<FormulaType> = ({ clauses }) => {
   return (
     <ul className={styles.formula}>
-      {clauses.map((i, index) => (
-        <li key={index}>
-          <Clause variables={i} />
+      {clauses.map((clause, index) => (
+        <li key={clause.id}>
+          <Clause clause={clause} />
           {clauses.length - 1 > index && <span>&#8743;</span>}
         </li>
       ))}
