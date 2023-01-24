@@ -4,8 +4,12 @@ import styles from "./Header.module.scss";
 
 export const Header: React.FC = () => {
   return (
-    <h1 style={styles}>
-      SAT-solver graphical interface <span>🤖</span>
-    </h1>
+    <header className={styles.header}>
+      <div>
+        <h2>
+          SAT-solver graphical interface<span>🤖</span>
+        </h2>
+      </div>
+    </header>
   );
 };

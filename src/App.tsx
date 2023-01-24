@@ -34,17 +34,17 @@ export default function App() {
   return (
     <>
       <Header />
-      <FormulaContext.Provider value={{ formula, setFormula }}>
-        <FormulaArea />
-        <Controls
-          setClauses={setClauses}
-          setSolveResponse={setSolverResponse}
-          setNextResponse={setNextResponse}
-        />
-      </FormulaContext.Provider>
-      {solveResponse && <Formula clauses={clauses} />}
-      {nextResponse &&
-        nextResponse.clause.variables.map((i, index) => (
+      <div className="after-header">
+        <FormulaContext.Provider value={{ formula, setFormula }}>
+          <FormulaArea />
+          <Controls
+            setClauses={setClauses}
+            setSolveResponse={setSolverResponse}
+            setNextResponse={setNextResponse}
+          />
+        </FormulaContext.Provider>
+        {solveResponse && <Formula clauses={clauses} />}
+        {nextResponse?.clause.variables.map((i, index) => (
           <div className="answer" key={index}>
             <Variable
               variable={{
@@ -54,11 +54,12 @@ export default function App() {
               }}
             />
             <span className="equals">=</span>
-            <span className={i > 0 ? "green" : "red"}>
-              {i > 0 ? "TRUE" : "FALSE"}
+            <span className={i > 0 ? "red" : "green"}>
+              {i > 0 ? "FALSE" : "TRUE"}
             </span>
           </div>
         ))}
+      </div>
     </>
   );
 }
