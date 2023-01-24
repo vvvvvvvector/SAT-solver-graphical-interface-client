@@ -9,9 +9,13 @@
 }
 
 body {
-  padding: 35px;
   background-color: #fafafa;
-  margin-top: 0px;
+}
+
+.after-header {
+  padding: 20px;
+  max-width: 900px;
+  margin: 50px auto;
 
   pre {
     margin-top: 25px;

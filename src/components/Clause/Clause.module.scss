@@ -1,5 +1,6 @@
 .clause {
   display: flex;
+  flex-wrap: wrap;
 
   &:hover {
     background-color: aquamarine;

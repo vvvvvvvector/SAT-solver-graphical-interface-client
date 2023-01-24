@@ -10,7 +10,6 @@ import {
   Select,
   MenuItem,
 } from "@mui/material/";
-import { Stack } from "@mui/system";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import CalculateIcon from "@mui/icons-material/Calculate";
 
@@ -48,8 +47,11 @@ export const Controls: React.FC<ControlsType> = ({
         setLoading(false);
 
         setSolveResponse(response.data);
+        setNextResponse({
+          clause: response.data.clauses[response.data.clauses.length - 1],
+          satisfiable: response.data.satisfiable,
+        });
         setClauses(response.data.clauses);
-        console.log(response.data);
 
         toast.success("Successfully solved!");
       } else {
@@ -57,7 +59,6 @@ export const Controls: React.FC<ControlsType> = ({
       }
     } catch (error) {
       toast.error("Something went wrong!");
-
       console.error("Something went wrong!", error);
     }
   };
@@ -71,22 +72,20 @@ export const Controls: React.FC<ControlsType> = ({
 
         setLoading(false);
 
-        if (!response.data.satisfiable) {
-          toast.error("There are no more solutions!");
-        } else {
+        if (response.data.satisfiable) {
+          setNextResponse(response.data);
+
+          setClauses((prev: number[]) => [...prev, response.data.clause]);
+
           toast.success("One more solution was successfully found!");
+        } else {
+          toast.error("There are no more solutions!");
         }
-
-        setNextResponse(response.data);
-        setClauses((prev: number[]) => [...prev, response.data.clause]);
-
-        console.log(response.data);
       } else {
         toast.error("Input can't be empty!");
       }
     } catch (error) {
       toast.error("Something went wrong!");
-
       console.error("Something went wrong!", error);
     }
   };
@@ -110,9 +109,9 @@ export const Controls: React.FC<ControlsType> = ({
   };
 
   return (
-    <Stack className={styles.controlsPanel} direction="row" spacing={3}>
+    <div className={styles.panel}>
       <Button
-        className={styles.controlButton}
+        sx={{ width: "200px" }}
         onClick={onClickSolve}
         disabled={loading}
         endIcon={<CalculateIcon />}
@@ -121,14 +120,14 @@ export const Controls: React.FC<ControlsType> = ({
         {loading ? "Solving..." : "Solve Problem"}
       </Button>
       <Button
-        className={styles.controlButton}
+        sx={{ width: "200px" }}
         onClick={onClickNext}
         disabled={loading}
         variant="contained"
       >
         {loading ? "Finding..." : "Find next solution"}
       </Button>
-      <FormControl sx={{ minWidth: "175px" }}>
+      <FormControl sx={{ width: "175px" }}>
         <InputLabel id="select-solver-label">SAT-solver</InputLabel>
         <Select
           id="select-solver"
@@ -147,7 +146,6 @@ export const Controls: React.FC<ControlsType> = ({
         </Select>
       </FormControl>
       <Button
-        className={styles.controlButton}
         variant="contained"
         component="label"
         endIcon={<UploadFileIcon />}
@@ -160,6 +158,6 @@ export const Controls: React.FC<ControlsType> = ({
           accept=".txt, .cnf"
         />
       </Button>
-    </Stack>
+    </div>
   );
 };

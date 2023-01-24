@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 import { Variable } from "../index";
 
@@ -13,7 +14,20 @@ type ClauseType = {
 
 export const Clause: React.FC<ClauseType> = ({ clause }) => {
   const onClickClause = () => {
-    console.log("clause id: " + clause.id);
+    toast(
+      (t) => (
+        <span>
+          {`clause id: ${clause.id}`}
+          <button
+            style={{ marginLeft: "10px" }}
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Dismiss
+          </button>
+        </span>
+      ),
+      { icon: "🛠️" }
+    );
   };
 
   return (

@@ -1,7 +1,5 @@
-.controlButton {
-  min-width: 175px;
-}
-
-.controlsPanel {
+.panel {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
