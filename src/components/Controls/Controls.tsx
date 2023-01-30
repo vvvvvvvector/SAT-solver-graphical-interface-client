@@ -19,15 +19,13 @@ import styles from "./Controls.module.scss";
 import FormulaContext from "../../context/FormulaContext";
 
 type ControlsType = {
-  setClauses: (value: any) => void;
+  setAnswers: (value: any) => void;
   setSolveResponse: (value: any) => void;
-  setNextResponse: (value: any) => void;
 };
 
 export const Controls: React.FC<ControlsType> = ({
-  setClauses,
+  setAnswers,
   setSolveResponse,
-  setNextResponse,
 }) => {
   const [solver, setSolver] = React.useState("cd"); // controls(buttons)
   const [loading, setLoading] = React.useState(false); // controls(buttons) async action
@@ -47,11 +45,7 @@ export const Controls: React.FC<ControlsType> = ({
         setLoading(false);
 
         setSolveResponse(response.data);
-        setNextResponse({
-          clause: response.data.clauses[response.data.clauses.length - 1],
-          satisfiable: response.data.satisfiable,
-        });
-        setClauses(response.data.clauses);
+        setAnswers([response.data.model]);
 
         toast.success("Successfully solved!");
       } else {
@@ -73,9 +67,7 @@ export const Controls: React.FC<ControlsType> = ({
         setLoading(false);
 
         if (response.data.satisfiable) {
-          setNextResponse(response.data);
-
-          setClauses((prev: number[]) => [...prev, response.data.clause]);
+          setAnswers((prev: any) => [...prev, response.data.clause]);
 
           toast.success("One more solution was successfully found!");
         } else {
