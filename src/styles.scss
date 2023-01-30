@@ -17,8 +17,10 @@ body {
   max-width: 900px;
   margin: 50px auto;
 
-  pre {
-    margin-top: 25px;
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
   }
 
   .answer {
