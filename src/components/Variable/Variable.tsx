@@ -1,17 +1,13 @@
 import React from "react";
 import toast from "react-hot-toast";
 
+import { VariableType } from "../../shared/types";
+
 import styles from "./Variable.module.scss";
 
-type VariableType = {
-  variable: {
-    id: number;
-    index: number;
-    clauseId: number;
-  };
-};
-
-export const Variable: React.FC<VariableType> = ({ variable }) => {
+export const Variable: React.FC<{ variable: VariableType }> = ({
+  variable,
+}) => {
   const onClickVariable = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
 

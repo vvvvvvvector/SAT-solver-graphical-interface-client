@@ -1,48 +1,39 @@
 import React from "react";
 
-import { Formula, Header, Controls, FormulaArea, Answers } from "./components";
+import {
+  Formula,
+  Header,
+  Controls,
+  Solutions,
+  CnfTextarea,
+} from "./components";
 
-import FormulaContext from "./context/FormulaContext";
+import { ClauseType } from "./shared/types";
+
+import CnfContext from "./context/CnfContext";
 
 import "./styles.scss";
 
-type SolveType = {
-  formula: string;
-  clauses: {
-    id: number;
-    variables: number[];
-  }[];
-  satisfiable: boolean;
-} | null;
-
-type AnswerType = {
-  id: number;
-  variables: number[];
-};
-
 export default function App() {
-  const [formula, setFormula] = React.useState(""); // textArea
+  const [cnf, setCnf] = React.useState(""); // textArea
 
-  const [solveResponse, setSolveResponse] = React.useState<SolveType>(null); // formula
+  const [parsedCnf, setParsedCnf] = React.useState<ClauseType[]>([]); // formula
 
-  const [answers, setAnswers] = React.useState<AnswerType[]>([]);
+  const [solutions, setSolutions] = React.useState<ClauseType[]>([]);
 
   return (
     <>
       <Header />
 
-      <div className="after-header">
-        <FormulaContext.Provider value={{ formula, setFormula }}>
-          <FormulaArea />
-          <Controls
-            setAnswers={setAnswers}
-            setSolveResponse={setSolveResponse}
-          />
-        </FormulaContext.Provider>
+      <div className="content">
+        <CnfContext.Provider value={{ cnf, setCnf }}>
+          <CnfTextarea />
+          <Controls setSolutions={setSolutions} setParsedCnf={setParsedCnf} />
+        </CnfContext.Provider>
 
-        {solveResponse && <Formula clauses={solveResponse.clauses} />}
+        {parsedCnf.length > 0 && <Formula clauses={parsedCnf} />}
 
-        <Answers answers={answers} />
+        {solutions.length > 0 && <Solutions solutions={solutions} />}
       </div>
     </>
   );

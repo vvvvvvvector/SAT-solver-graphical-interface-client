@@ -3,16 +3,11 @@ import toast from "react-hot-toast";
 
 import { Variable } from "../index";
 
+import { ClauseType } from "../../shared/types";
+
 import styles from "./Clause.module.scss";
 
-type ClauseType = {
-  clause: {
-    id: number;
-    variables: number[];
-  };
-};
-
-export const Clause: React.FC<ClauseType> = ({ clause }) => {
+export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
   const onClickClause = () => {
     toast(
       (t) => (
