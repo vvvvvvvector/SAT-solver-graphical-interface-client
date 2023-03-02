@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.answer {
+  display: flex;
+
+  .equals {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .green {
+    color: #22c55e;
+  }
+
+  .red {
+    color: #f43f5e;
+  }
+}
