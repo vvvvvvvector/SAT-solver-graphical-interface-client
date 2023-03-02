@@ -4,3 +4,4 @@ export * from "./Formula/Formula";
 export * from "./Header/Header";
 export * from "./Controls/Controls";
 export * from "./FormulaArea/FormulaArea";
+export * from "./Answers/Answers";
