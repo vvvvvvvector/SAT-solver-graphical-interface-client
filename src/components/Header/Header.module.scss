@@ -4,15 +4,17 @@
   top: 0;
   left: 0;
   right: 0;
+  border-bottom: 1px solid #e9e9e9;
 
   div {
     padding: 10px 35px;
-    background-color: #71717a;
+    background-color: transparent;
+    backdrop-filter: saturate(180%) blur(5px);
 
     h2 {
       display: flex;
       align-items: center;
-      color: white;
+      color: #28282b;
 
       span {
         font-size: xx-large;

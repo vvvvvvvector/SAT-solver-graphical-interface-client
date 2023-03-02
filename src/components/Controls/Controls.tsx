@@ -1,7 +1,7 @@
 import React from "react";
 import toast from "react-hot-toast";
 
-import axiosInstance from "../../axiosInstance";
+import axiosInstance from "../../axios";
 
 import {
   Button,
@@ -13,41 +13,50 @@ import {
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import CalculateIcon from "@mui/icons-material/Calculate";
 
-import solvers from "../../assets/solvers.json";
+import { ControlsType } from "../../shared/types";
+
+import solvers from "./solvers.json";
 
 import styles from "./Controls.module.scss";
-import FormulaContext from "../../context/FormulaContext";
 
-type ControlsType = {
-  setAnswers: (value: any) => void;
-  setSolveResponse: (value: any) => void;
+import CnfContext from "../../context/CnfContext";
+
+const buttonsStyle = {
+  color: "#28282b",
+  backgroundColor: "#e9e9e9",
+  "&:hover": {
+    backgroundColor: "#c0c0c0",
+  },
 };
 
 export const Controls: React.FC<ControlsType> = ({
-  setAnswers,
-  setSolveResponse,
+  setParsedCnf,
+  setSolutions,
 }) => {
-  const [solver, setSolver] = React.useState("cd"); // controls(buttons)
-  const [loading, setLoading] = React.useState(false); // controls(buttons) async action
+  const [solver, setSolver] = React.useState("cd");
+  const [loading, setLoading] = React.useState(false);
 
-  const { formula, setFormula } = React.useContext(FormulaContext);
+  const { cnf, setCnf } = React.useContext(CnfContext);
 
   const onClickSolve = async () => {
     try {
-      if (formula.length > 0) {
+      if (cnf.length > 0) {
         setLoading(true);
 
-        const response = await axiosInstance.post("solve-my-problem", {
+        const response = await axiosInstance.post("solve", {
           solver,
-          formula,
+          cnf,
         });
 
         setLoading(false);
 
-        setSolveResponse(response.data);
-        setAnswers([response.data.model]);
-
-        toast.success("Successfully solved!");
+        if (response.data.satisfiable) {
+          setParsedCnf(response.data.clauses);
+          setSolutions([response.data.model]);
+          toast.success("Satisfiable!");
+        } else {
+          toast.error("Unsatisfiable!");
+        }
       } else {
         toast.error("Input can't be empty!");
       }
@@ -59,17 +68,17 @@ export const Controls: React.FC<ControlsType> = ({
 
   const onClickNext = async () => {
     try {
-      if (formula.length > 0) {
+      if (cnf.length > 0) {
         setLoading(true);
 
-        const response = await axiosInstance.get("find-next-solution");
+        const response = await axiosInstance.get("next-solution");
 
         setLoading(false);
 
         if (response.data.satisfiable) {
-          setAnswers((prev: any) => [...prev, response.data.clause]);
+          setSolutions((prev: any) => [...prev, response.data.clause]);
 
-          toast.success("One more solution was successfully found!");
+          toast.success("Next solution was successfully found!");
         } else {
           toast.error("There are no more solutions!");
         }
@@ -91,7 +100,7 @@ export const Controls: React.FC<ControlsType> = ({
 
       reader.onload = () => {
         toast.success("Formula was successfully uploaded!");
-        setFormula(reader.result as string);
+        setCnf(reader.result as string);
       };
 
       reader.onerror = () => {
@@ -103,23 +112,33 @@ export const Controls: React.FC<ControlsType> = ({
   return (
     <div className={styles.panel}>
       <Button
-        sx={{ width: "200px" }}
+        sx={{ ...buttonsStyle, maxWidth: "120px", width: "100%" }}
         onClick={onClickSolve}
         disabled={loading}
         endIcon={<CalculateIcon />}
         variant="contained"
       >
-        {loading ? "Solving..." : "Solve Problem"}
+        {loading ? "Solving..." : "Solve"}
       </Button>
       <Button
-        sx={{ width: "200px" }}
+        sx={{
+          ...buttonsStyle,
+          maxWidth: "160px",
+          width: "100%",
+          whiteSpace: "nowrap",
+        }}
         onClick={onClickNext}
         disabled={loading}
         variant="contained"
       >
-        {loading ? "Finding..." : "Find next solution"}
+        {loading ? "Finding..." : "Next solution"}
       </Button>
-      <FormControl sx={{ width: "175px" }}>
+      <FormControl
+        sx={{
+          maxWidth: "150px",
+          width: "100%",
+        }}
+      >
         <InputLabel id="select-solver-label">SAT-solver</InputLabel>
         <Select
           id="select-solver"
@@ -138,6 +157,12 @@ export const Controls: React.FC<ControlsType> = ({
         </Select>
       </FormControl>
       <Button
+        sx={{
+          ...buttonsStyle,
+          maxWidth: "240px",
+          width: "100%",
+          whiteSpace: "nowrap",
+        }}
         variant="contained"
         component="label"
         endIcon={<UploadFileIcon />}
