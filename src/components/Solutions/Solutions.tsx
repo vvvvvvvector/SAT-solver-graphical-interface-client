@@ -11,7 +11,7 @@ export const Solutions: React.FC<{ solutions: ClauseType[] }> = ({
 }) => {
   return (
     <>
-      <h2>Solutions: </h2>
+      <h2 className={styles["header"]}>Solutions: </h2>
       <div className={styles["container"]}>
         {solutions.map((clause, clauseIndex) => (
           <div className="answers" key={clauseIndex}>

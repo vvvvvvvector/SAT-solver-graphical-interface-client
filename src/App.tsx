@@ -25,15 +25,20 @@ export default function App() {
     <>
       <Header />
 
-      <div className="content">
-        <CnfContext.Provider value={{ cnf, setCnf }}>
-          <CnfTextarea />
-          <Controls setSolutions={setSolutions} setParsedCnf={setParsedCnf} />
-        </CnfContext.Provider>
-
-        {parsedCnf.length > 0 && <Formula clauses={parsedCnf} />}
-
-        {solutions.length > 0 && <Solutions solutions={solutions} />}
+      <div className="container">
+        <div className="left">
+          <CnfContext.Provider value={{ cnf, setCnf }}>
+            <CnfTextarea />
+            <Controls setSolutions={setSolutions} setParsedCnf={setParsedCnf} />
+          </CnfContext.Provider>
+          {solutions.length > 0 && <Solutions solutions={solutions} />}
+        </div>
+        {solutions.length > 0 && <div className="separator"></div>}
+        {parsedCnf.length > 0 && (
+          <div className="right">
+            <Formula clauses={parsedCnf} />
+          </div>
+        )}
       </div>
     </>
   );

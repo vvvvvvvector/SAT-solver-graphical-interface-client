@@ -68,7 +68,7 @@ export const Controls: React.FC<ControlsType> = ({
         if (response.data.satisfiable) {
           setSolutions((prev: any) => [...prev, response.data.clause]);
 
-          toast.success("One more solution was successfully found!");
+          toast.success("Next solution was successfully found!");
         } else {
           toast.error("There are no more solutions!");
         }
@@ -102,7 +102,10 @@ export const Controls: React.FC<ControlsType> = ({
   return (
     <div className={styles.panel}>
       <Button
-        sx={{ width: "200px" }}
+        sx={{
+          maxWidth: "120px",
+          width: "100%",
+        }}
         onClick={onClickSolve}
         disabled={loading}
         endIcon={<CalculateIcon />}
@@ -111,14 +114,23 @@ export const Controls: React.FC<ControlsType> = ({
         {loading ? "Solving..." : "Solve"}
       </Button>
       <Button
-        sx={{ width: "200px" }}
+        sx={{
+          maxWidth: "160px",
+          width: "100%",
+          whiteSpace: "nowrap",
+        }}
         onClick={onClickNext}
         disabled={loading}
         variant="contained"
       >
         {loading ? "Finding..." : "Next solution"}
       </Button>
-      <FormControl sx={{ width: "175px" }}>
+      <FormControl
+        sx={{
+          maxWidth: "150px",
+          width: "100%",
+        }}
+      >
         <InputLabel id="select-solver-label">SAT-solver</InputLabel>
         <Select
           id="select-solver"
@@ -137,6 +149,11 @@ export const Controls: React.FC<ControlsType> = ({
         </Select>
       </FormControl>
       <Button
+        sx={{
+          maxWidth: "240px",
+          width: "100%",
+          whiteSpace: "nowrap",
+        }}
         variant="contained"
         component="label"
         endIcon={<UploadFileIcon />}

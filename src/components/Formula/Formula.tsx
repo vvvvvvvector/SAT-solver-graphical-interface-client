@@ -9,7 +9,7 @@ import styles from "./Formula.module.scss";
 export const Formula: React.FC<{ clauses: ClauseType[] }> = ({ clauses }) => {
   return (
     <>
-      <h2>Parsed Formula in CNF: </h2>
+      <h2 className={styles.header}>Parsed Formula in CNF:</h2>
       <ul className={styles.formula}>
         {clauses.map((clause, index) => (
           <li key={clause.id}>
