@@ -21,6 +21,14 @@ import styles from "./Controls.module.scss";
 
 import CnfContext from "../../context/CnfContext";
 
+const buttonsStyle = {
+  color: "#28282b",
+  backgroundColor: "#e9e9e9",
+  "&:hover": {
+    backgroundColor: "#c0c0c0",
+  },
+};
+
 export const Controls: React.FC<ControlsType> = ({
   setParsedCnf,
   setSolutions,
@@ -45,7 +53,9 @@ export const Controls: React.FC<ControlsType> = ({
         if (response.data.satisfiable) {
           setParsedCnf(response.data.clauses);
           setSolutions([response.data.model]);
-          toast.success("Successfully solved!");
+          toast.success("Satisfiable!");
+        } else {
+          toast.error("Unsatisfiable!");
         }
       } else {
         toast.error("Input can't be empty!");
@@ -102,10 +112,7 @@ export const Controls: React.FC<ControlsType> = ({
   return (
     <div className={styles.panel}>
       <Button
-        sx={{
-          maxWidth: "120px",
-          width: "100%",
-        }}
+        sx={{ ...buttonsStyle, maxWidth: "120px", width: "100%" }}
         onClick={onClickSolve}
         disabled={loading}
         endIcon={<CalculateIcon />}
@@ -115,6 +122,7 @@ export const Controls: React.FC<ControlsType> = ({
       </Button>
       <Button
         sx={{
+          ...buttonsStyle,
           maxWidth: "160px",
           width: "100%",
           whiteSpace: "nowrap",
@@ -150,6 +158,7 @@ export const Controls: React.FC<ControlsType> = ({
       </FormControl>
       <Button
         sx={{
+          ...buttonsStyle,
           maxWidth: "240px",
           width: "100%",
           whiteSpace: "nowrap",

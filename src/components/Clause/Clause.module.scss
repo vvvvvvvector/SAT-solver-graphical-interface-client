@@ -1,17 +1,41 @@
-.clause {
-  display: flex;
-  flex-wrap: wrap;
+.container {
+  position: relative;
 
-  &:hover {
-    background-color: aquamarine;
+  svg {
+    visibility: hidden;
+    position: absolute;
+    right: -6px;
+    top: -7px;
+    cursor: pointer;
+
+    path {
+      fill: #28282b;
+    }
+
+    &:hover {
+      visibility: visible;
+    }
   }
 
-  li {
+  .clause {
     display: flex;
+    flex-wrap: wrap;
 
-    span {
-      margin-left: 3px;
-      margin-right: 3px;
+    &:hover {
+      background-color: rgb(204, 203, 203);
+    }
+
+    &:hover + svg {
+      visibility: visible;
+    }
+
+    li {
+      display: flex;
+
+      span {
+        margin-left: 3px;
+        margin-right: 3px;
+      }
     }
   }
 }

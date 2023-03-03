@@ -31,13 +31,19 @@ export default function App() {
             <CnfTextarea />
             <Controls setSolutions={setSolutions} setParsedCnf={setParsedCnf} />
           </CnfContext.Provider>
-          {solutions.length > 0 && <Solutions solutions={solutions} />}
+          {solutions.length > 0 ? (
+            <Solutions solutions={solutions} />
+          ) : (
+            "Solutions here"
+          )}
         </div>
         {solutions.length > 0 && <div className="separator"></div>}
-        {parsedCnf.length > 0 && (
+        {parsedCnf.length > 0 ? (
           <div className="right">
             <Formula clauses={parsedCnf} />
           </div>
+        ) : (
+          "Parsed formula here"
         )}
       </div>
     </>
