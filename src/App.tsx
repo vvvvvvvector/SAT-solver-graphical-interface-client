@@ -42,7 +42,7 @@ export default function App() {
             <Formula clauses={parsedCnf} />
           </div>
         ) : (
-          <div className="no-formula">No formula loaded 😭</div>
+          <div className="no-formula">No formula loaded 🙄</div>
         )}
       </div>
     </>
