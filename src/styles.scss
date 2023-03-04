@@ -1,5 +1,4 @@
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -22,11 +21,30 @@ body {
     width: 52%;
   }
 
-  .separator {
-    border: 1px dashed #e9e9e9;
+  .no-solutions {
+    display: grid;
+    place-items: center;
+    color: #28282b;
+    font-size: 30px;
+
+    span {
+      font-size: 35px;
+    }
   }
 
   .right {
     flex: 1;
+  }
+
+  .no-formula {
+    display: grid;
+    place-items: center;
+    flex: 1;
+    color: #28282b;
+    font-size: 30px;
+
+    span {
+      font-size: 35px;
+    }
   }
 }

@@ -34,16 +34,15 @@ export default function App() {
           {solutions.length > 0 ? (
             <Solutions solutions={solutions} />
           ) : (
-            "Solutions here"
+            <div className="no-solutions">There are no solutions so far 😭</div>
           )}
         </div>
-        {solutions.length > 0 && <div className="separator"></div>}
         {parsedCnf.length > 0 ? (
           <div className="right">
             <Formula clauses={parsedCnf} />
           </div>
         ) : (
-          "Parsed formula here"
+          <div className="no-formula">No formula loaded 😭</div>
         )}
       </div>
     </>
