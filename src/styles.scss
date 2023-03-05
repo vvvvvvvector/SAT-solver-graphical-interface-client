@@ -13,39 +13,26 @@ body {
 }
 
 .container {
-  display: flex;
-  padding: 30px;
-  gap: 30px;
+  display: grid;
+  place-items: center;
 
-  .left {
-    width: 52%;
-  }
+  .content {
+    max-width: 850px;
+    width: 100%;
+    padding: 30px;
 
-  .no-solutions {
-    margin: 130px auto;
-    display: grid;
-    place-items: center;
-    color: #28282b;
-    font-size: 30px;
+    .no-upload {
+      font-weight: 600;
+      display: flex;
+      padding: 130px 0px;
+      font-size: 25px;
+      align-items: center;
+      justify-content: center;
 
-    span {
-      font-size: 35px;
-    }
-  }
-
-  .right {
-    flex: 1;
-  }
-
-  .no-formula {
-    display: grid;
-    place-items: center;
-    flex: 1;
-    color: #28282b;
-    font-size: 30px;
-
-    span {
-      font-size: 35px;
+      span {
+        margin-left: 12px;
+        font-size: 50px;
+      }
     }
   }
 }

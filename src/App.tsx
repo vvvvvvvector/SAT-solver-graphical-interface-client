@@ -26,24 +26,22 @@ export default function App() {
       <Header />
 
       <div className="container">
-        <div className="left">
+        <div className="content">
           <CnfContext.Provider value={{ cnf, setCnf }}>
             <CnfTextarea />
             <Controls setSolutions={setSolutions} setParsedCnf={setParsedCnf} />
           </CnfContext.Provider>
           {solutions.length > 0 ? (
-            <Solutions solutions={solutions} />
+            <>
+              <Formula clauses={parsedCnf} />
+              <Solutions solutions={solutions} />
+            </>
           ) : (
-            <div className="no-solutions">There are no solutions so far 😭</div>
+            <div className="no-upload">
+              You haven't uploaded any formulas<span>😢</span>
+            </div>
           )}
         </div>
-        {parsedCnf.length > 0 ? (
-          <div className="right">
-            <Formula clauses={parsedCnf} />
-          </div>
-        ) : (
-          <div className="no-formula">No formula loaded 🙄</div>
-        )}
       </div>
     </>
   );
