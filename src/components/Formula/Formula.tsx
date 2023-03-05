@@ -28,14 +28,16 @@ export const Formula: React.FC<{ clauses: ClauseType[] }> = ({ clauses }) => {
         </svg>
       </div>
       {opened && (
-        <ul className={styles.formula}>
-          {clauses.map((clause, index) => (
-            <li key={clause.id}>
-              <Clause clause={clause} />
-              {clauses.length - 1 > index && <span>&#8743;</span>}
-            </li>
-          ))}
-        </ul>
+        <div className={styles["formula-container"]}>
+          <ul className={styles.formula}>
+            {clauses.map((clause, index) => (
+              <li key={clause.id}>
+                <Clause clause={clause} />
+                {clauses.length - 1 > index && <span>&#8743;</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </>
   );
