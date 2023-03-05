@@ -3,13 +3,13 @@
   padding: 0;
   list-style: none;
   outline: none;
-  font-family: "Inter", -apple-system, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background-color: #fafafa;
+  font-family: "Inter", -apple-system, system-ui, sans-serif;
+  background-color: #ffffff;
 }
 
 .container {
@@ -17,7 +17,7 @@ body {
   place-items: center;
 
   .content {
-    max-width: 850px;
+    max-width: 900px;
     width: 100%;
     padding: 30px;
 

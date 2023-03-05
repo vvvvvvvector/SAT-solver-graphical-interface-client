@@ -10,7 +10,7 @@
 
   svg {
     margin-left: 10px;
-    transition: transform 0.25s ease-in-out;
+    transition: transform 0.3s ease-in-out;
 
     &.active {
       transform: rotate(180deg);
@@ -22,23 +22,33 @@
   }
 }
 
-.formula {
-  max-height: calc((31px * 10) + 30px);
-  overflow: auto;
-  border-radius: 5px;
-  padding: 15px 0px;
-  color: #16161b;
-  line-height: 31px;
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 16px;
+.formula-container {
+  margin-bottom: 15px;
+  margin-top: 15px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.12);
+  border: 1px solid #eaeaea;
+  border-radius: 7px;
+  background-color: #fafafa;
 
-  li {
+  .formula {
+    max-height: calc((31px * 12) + 30px);
+    overflow: auto;
+    border-radius: 15px;
+    padding: 15px 8px;
+    color: #16161b;
+    line-height: 31px;
     display: flex;
+    flex-wrap: wrap;
+    font-size: 16px;
+    font-family: "Source Code Pro", monospace;
 
-    span {
-      margin-left: 3px;
-      margin-right: 3px;
+    li {
+      display: flex;
+
+      span {
+        margin-left: 3px;
+        margin-right: 3px;
+      }
     }
   }
 }
