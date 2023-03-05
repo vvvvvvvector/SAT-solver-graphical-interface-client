@@ -15,7 +15,7 @@ import CalculateIcon from "@mui/icons-material/Calculate";
 
 import { ControlsType } from "../../shared/types";
 
-import solvers from "./solvers.json";
+import solvers from "./Solvers.json";
 
 import styles from "./Controls.module.scss";
 

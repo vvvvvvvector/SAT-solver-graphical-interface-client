@@ -14,8 +14,8 @@ export const CnfTextarea: React.FC = () => {
       className={styles.cnfInput}
       value={cnf}
       onChange={(event) => setCnf(event.target.value)}
-      minRows={12}
-      maxRows={12}
+      minRows={10}
+      maxRows={10}
       size="lg"
       placeholder="*.cnf file text here..."
     />

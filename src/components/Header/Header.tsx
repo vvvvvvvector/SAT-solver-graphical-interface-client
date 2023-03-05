@@ -9,6 +9,10 @@ export const Header: React.FC = () => {
         <h2>
           SAT-solver graphical interface<span>🤖</span>
         </h2>
+        <ul>
+          <li>Home</li>
+          <li>Formulas linker</li>
+        </ul>
       </div>
     </header>
   );
