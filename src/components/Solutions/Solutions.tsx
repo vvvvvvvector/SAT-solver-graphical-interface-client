@@ -10,11 +10,11 @@ export const Solutions: React.FC<{ solutions: ClauseType[] }> = ({
   return (
     <>
       <h2 className={styles["header"]}>Solutions: </h2>
-      <div className={styles["answers-container"]}>
+      <div className={styles["solutions-container"]}>
         {solutions.map((clause, clauseIndex) => (
-          <div className={styles["answers"]} key={clauseIndex}>
+          <div className={styles["solutions"]} key={clauseIndex}>
             {clause.variables.map((i, variableIndex) => (
-              <div className={styles["answer"]} key={variableIndex}>
+              <div className={styles["solution"]} key={variableIndex}>
                 <div>
                   x<sub>{Math.abs(i)}</sub>
                 </div>

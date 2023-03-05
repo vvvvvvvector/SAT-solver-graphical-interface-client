@@ -4,17 +4,17 @@
   margin-bottom: 15px;
 }
 
-.answers-container {
+.solutions-container {
+  margin-bottom: 40px;
   color: #28282b;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 25px;
   font-size: 17px;
   font-family: "Source Code Pro", monospace;
-  justify-content: center;
 
-  .answers {
-    max-height: calc((20px * 8) + 26px);
+  .solutions {
+    max-height: calc((20px * 7) + 26px);
     line-height: 20px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.12);
     border: 1px solid #eaeaea;
@@ -23,9 +23,13 @@
     padding: 13px 33px;
     overflow: auto;
   }
+
+  @media (max-width: 960px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
-.answer {
+.solution {
   display: flex;
 
   .equals {

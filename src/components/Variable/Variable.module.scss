@@ -1,5 +1,9 @@
 .variable {
   &:hover {
     background-color: #fca5a5;
+
+    span {
+      text-decoration: line-through;
+    }
   }
 }
