@@ -29,7 +29,7 @@ export const Variable: React.FC<{ variable: VariableType }> = ({
 
   return (
     <div className={styles.variable} onClick={onClickVariable}>
-      {variable.index > 0 ? "x" : <span>&#172;x</span>}
+      {variable.index > 0 ? <span>x</span> : <span>&#172;x</span>}
       <sub>{variable.index > 0 ? variable.index : variable.index * -1}</sub>
     </div>
   );
