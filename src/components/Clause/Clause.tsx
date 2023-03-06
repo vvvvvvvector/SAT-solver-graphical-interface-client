@@ -1,6 +1,9 @@
 import React from "react";
 import toast from "react-hot-toast";
 
+import { useDispatch } from "react-redux";
+import { removeClause } from "../../redux/slices/formula";
+
 import { Variable } from "../index";
 
 import { ClauseType } from "../../shared/types";
@@ -8,7 +11,9 @@ import { ClauseType } from "../../shared/types";
 import styles from "./Clause.module.scss";
 
 export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
-  const onClickClause = () => {
+  const dispatch = useDispatch();
+
+  const onRemoveClause = () => {
     toast(
       (t) => (
         <span>
@@ -23,6 +28,8 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
       ),
       { icon: "🛠️" }
     );
+
+    dispatch(removeClause(clause.id));
   };
 
   return (
@@ -38,7 +45,7 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
         <p>)</p>
       </ul>
       <svg
-        onClick={onClickClause}
+        onClick={onRemoveClause}
         width="13"
         height="13"
         viewBox="0 0 10 10"

@@ -1,6 +1,12 @@
 import React from "react";
 import toast from "react-hot-toast";
+
 import { useDispatch } from "react-redux";
+import { setFormula } from "../../redux/slices/formula";
+import {
+  setFirstSolution,
+  setNextSolution,
+} from "../../redux/slices/solutions";
 
 import axiosInstance from "../../axios";
 
@@ -14,12 +20,6 @@ import {
 import Textarea from "@mui/joy/Textarea";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import CalculateIcon from "@mui/icons-material/Calculate";
-
-import { setFormula } from "../../redux/slices/formula";
-import {
-  setFirstSolution,
-  setNextSolution,
-} from "../../redux/slices/solutions";
 
 import solvers from "./Solvers.json";
 
