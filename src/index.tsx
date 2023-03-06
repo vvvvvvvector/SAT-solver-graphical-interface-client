@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Toaster } from "react-hot-toast";
 
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
 import App from "./App";
 
 const root = ReactDOM.createRoot(
@@ -10,7 +13,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
     <Toaster position="top-center" />
   </React.StrictMode>
 );
