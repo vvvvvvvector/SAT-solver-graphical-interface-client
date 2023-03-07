@@ -1,7 +1,8 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 
 import { useDispatch } from "react-redux";
-import { removeClause } from "../../redux/slices/formula";
+import { editClause, removeClause } from "../../redux/slices/formula";
 
 import { Variable } from "../index";
 
@@ -16,9 +17,19 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
     dispatch(removeClause(clause.id));
   };
 
+  const onEditClause = () => {
+    let input = window.prompt("Edit clause: ", clause.variables.join("|"));
+
+    let newClause = input?.split("|").map((item) => parseInt(item));
+
+    if (newClause) dispatch(editClause({ id: clause.id, newClause }));
+
+    toast.success("Clause was successfully updated!");
+  };
+
   return (
     <div className={styles.container}>
-      <ul className={styles.clause}>
+      <ul onClick={onEditClause} className={styles.clause}>
         <p>(</p>
         {clause.variables.map((i, index) => (
           <li key={index}>
