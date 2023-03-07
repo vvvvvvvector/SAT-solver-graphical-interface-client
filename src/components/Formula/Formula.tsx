@@ -27,7 +27,7 @@ export const Formula: React.FC = () => {
 
     if (clause) dispatch(addClause(clause));
 
-    toast.success("Clause successfully added!");
+    toast.success("Clause was successfully added!");
   };
 
   return (
@@ -53,9 +53,15 @@ export const Formula: React.FC = () => {
             />
           </svg>
         </div>
-        <Button onClick={onClickAddCluase} sx={buttonStyle} variant="contained">
-          Add clause
-        </Button>
+        {opened && (
+          <Button
+            onClick={onClickAddCluase}
+            sx={buttonStyle}
+            variant="contained"
+          >
+            Add clause
+          </Button>
+        )}
       </div>
       {opened && (
         <div className={styles["formula-container"]}>
