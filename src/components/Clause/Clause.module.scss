@@ -20,9 +20,10 @@
   .clause {
     display: flex;
     flex-wrap: wrap;
+    border-radius: 7px;
 
     &:hover {
-      background-color: rgb(204, 203, 203);
+      background-color: rgb(235, 235, 235);
     }
 
     &:hover + svg {
