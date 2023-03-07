@@ -15,7 +15,7 @@ export const Solutions: React.FC = () => {
       <div className={styles["header"]}>
         <h2 onClick={() => setOpened(!opened)}>
           {solutions.length > 0
-            ? "Solutions: "
+            ? "Solutions"
             : "There are no solutions so far"}
         </h2>
         <svg

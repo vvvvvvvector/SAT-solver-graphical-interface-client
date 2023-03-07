@@ -20,6 +20,19 @@ export const formulaSlice = createSlice({
     setFormula(state, action: PayloadAction<ClauseType[]>) {
       state.clauses = action.payload;
     },
+    addClause(state, action: PayloadAction<number[]>) {
+      if (state.clauses.length > 0) {
+        state.clauses = [
+          ...state.clauses,
+          {
+            id: state.clauses[state.clauses.length - 1].id + 1,
+            variables: action.payload,
+          },
+        ];
+      } else {
+        state.clauses = [{ id: 0, variables: action.payload }];
+      }
+    },
     removeClause(state, action: PayloadAction<ClauseId>) {
       state.clauses = state.clauses.filter(
         (clause) => clause.id !== action.payload
@@ -48,7 +61,7 @@ export const formulaSlice = createSlice({
   },
 });
 
-export const { setFormula, removeClause, removeVariable } =
+export const { setFormula, addClause, removeClause, removeVariable } =
   formulaSlice.actions;
 
 export default formulaSlice.reducer;

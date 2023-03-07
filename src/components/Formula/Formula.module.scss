@@ -1,23 +1,28 @@
 .header {
   display: flex;
+  justify-content: space-between;
   margin-top: 15px;
-  align-items: center;
 
-  h2 {
-    cursor: pointer;
-    color: #28282b;
-  }
+  &__left {
+    display: flex;
+    align-items: center;
 
-  svg {
-    margin-left: 10px;
-    transition: transform 0.3s ease-in-out;
-
-    &.active {
-      transform: rotate(180deg);
+    h2 {
+      cursor: pointer;
+      color: #28282b;
     }
 
-    path {
-      fill: #28282b;
+    svg {
+      margin-left: 10px;
+      transition: transform 0.3s ease-in-out;
+
+      &.active {
+        transform: rotate(180deg);
+      }
+
+      path {
+        fill: #28282b;
+      }
     }
   }
 }

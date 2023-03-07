@@ -23,15 +23,9 @@ import CalculateIcon from "@mui/icons-material/Calculate";
 
 import solvers from "./Solvers.json";
 
-import styles from "./Panel.module.scss";
+import { buttonStyle } from "../../shared/mui";
 
-const buttonsStyle = {
-  color: "#28282b",
-  backgroundColor: "#e9e9e9",
-  "&:hover": {
-    backgroundColor: "#c0c0c0",
-  },
-};
+import styles from "./Panel.module.scss";
 
 export const Panel: React.FC = () => {
   const dispatch = useDispatch();
@@ -42,26 +36,22 @@ export const Panel: React.FC = () => {
 
   const onClickSolve = async () => {
     try {
-      if (cnf.length > 0) {
-        setLoading(true);
+      setLoading(true);
 
-        const response = await axiosInstance.post("solve", {
-          solver,
-          cnf,
-        });
+      const response = await axiosInstance.post("solve", {
+        solver,
+        cnf,
+      });
 
-        setLoading(false);
+      setLoading(false);
 
-        if (response.data.satisfiable) {
-          dispatch(setFormula(response.data.clauses));
-          dispatch(setFirstSolution(response.data.model));
+      if (response.data.satisfiable) {
+        dispatch(setFormula(response.data.clauses));
+        dispatch(setFirstSolution(response.data.model));
 
-          toast.success("Satisfiable!");
-        } else {
-          toast.error("Unsatisfiable!");
-        }
+        toast.success("Satisfiable!");
       } else {
-        toast.error("Input can't be empty!");
+        toast.error("Unsatisfiable!");
       }
     } catch (error) {
       toast.error("Something went wrong!");
@@ -71,22 +61,18 @@ export const Panel: React.FC = () => {
 
   const onClickNext = async () => {
     try {
-      if (cnf.length > 0) {
-        setLoading(true);
+      setLoading(true);
 
-        const response = await axiosInstance.get("next-solution");
+      const response = await axiosInstance.get("next-solution");
 
-        setLoading(false);
+      setLoading(false);
 
-        if (response.data.satisfiable) {
-          dispatch(setNextSolution(response.data.clause));
+      if (response.data.satisfiable) {
+        dispatch(setNextSolution(response.data.clause));
 
-          toast.success("Next solution was successfully found!");
-        } else {
-          toast.error("There are no more solutions!");
-        }
+        toast.success("Next solution was successfully found!");
       } else {
-        toast.error("Input can't be empty!");
+        toast.error("There are no more solutions!");
       }
     } catch (error) {
       toast.error("Something went wrong!");
@@ -127,9 +113,9 @@ export const Panel: React.FC = () => {
       />
       <div className={styles.controls}>
         <Button
-          sx={{ ...buttonsStyle, maxWidth: "120px", width: "100%" }}
+          sx={{ ...buttonStyle, maxWidth: "120px", width: "100%" }}
           onClick={onClickSolve}
-          disabled={loading}
+          disabled={loading || cnf === ""}
           endIcon={<CalculateIcon />}
           variant="contained"
         >
@@ -137,13 +123,13 @@ export const Panel: React.FC = () => {
         </Button>
         <Button
           sx={{
-            ...buttonsStyle,
+            ...buttonStyle,
             maxWidth: "160px",
             width: "100%",
             whiteSpace: "nowrap",
           }}
           onClick={onClickNext}
-          disabled={loading}
+          disabled={loading || cnf === ""}
           variant="contained"
         >
           {loading ? "Finding..." : "Next solution"}
@@ -173,7 +159,7 @@ export const Panel: React.FC = () => {
         </FormControl>
         <Button
           sx={{
-            ...buttonsStyle,
+            ...buttonStyle,
             maxWidth: "240px",
             width: "100%",
             whiteSpace: "nowrap",
