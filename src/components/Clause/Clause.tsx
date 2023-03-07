@@ -1,5 +1,4 @@
 import React from "react";
-import toast from "react-hot-toast";
 
 import { useDispatch } from "react-redux";
 import { removeClause } from "../../redux/slices/formula";
@@ -14,21 +13,6 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
   const dispatch = useDispatch();
 
   const onRemoveClause = () => {
-    toast(
-      (t) => (
-        <span>
-          {`clause id: ${clause.id}`}
-          <button
-            style={{ marginLeft: "10px" }}
-            onClick={() => toast.dismiss(t.id)}
-          >
-            Dismiss
-          </button>
-        </span>
-      ),
-      { icon: "🛠️" }
-    );
-
     dispatch(removeClause(clause.id));
   };
 

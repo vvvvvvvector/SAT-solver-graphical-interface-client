@@ -1,5 +1,4 @@
 import React from "react";
-import toast from "react-hot-toast";
 
 import { useDispatch } from "react-redux";
 import { removeVariable } from "../../redux/slices/formula";
@@ -15,21 +14,6 @@ export const Variable: React.FC<{ variable: VariableType }> = ({
 
   const onRemoveVariable = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
-
-    toast(
-      (t) => (
-        <span>
-          {`clause id:${variable.clauseId}, variable id:${variable.id}, variable index:${variable.index}`}
-          <button
-            style={{ marginLeft: "10px" }}
-            onClick={() => toast.dismiss(t.id)}
-          >
-            Dismiss
-          </button>
-        </span>
-      ),
-      { icon: "🛠️" }
-    );
 
     dispatch(
       removeVariable({ clauseId: variable.clauseId, variableId: variable.id })
