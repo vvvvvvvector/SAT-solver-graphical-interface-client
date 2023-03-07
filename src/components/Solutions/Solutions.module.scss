@@ -1,7 +1,27 @@
 .header {
+  display: flex;
+  align-items: center;
   margin-top: 15px;
   color: #28282b;
   margin-bottom: 15px;
+
+  h2 {
+    cursor: pointer;
+    color: #28282b;
+  }
+
+  svg {
+    margin-left: 10px;
+    transition: transform 0.3s ease-in-out;
+
+    &.active {
+      transform: rotate(180deg);
+    }
+
+    path {
+      fill: #28282b;
+    }
+  }
 }
 
 .solutions-container {
@@ -26,6 +46,20 @@
 
   @media (max-width: 960px) {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.no-solutions {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.12);
+  border: 1px solid #eaeaea;
+  border-radius: 7px;
+  background-color: #fafafa;
+
+  text-align: center;
+  padding: 40px;
+
+  span {
+    font-size: 45px;
   }
 }
 
