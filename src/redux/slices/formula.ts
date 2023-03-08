@@ -35,11 +35,11 @@ export const formulaSlice = createSlice({
     },
     editClause(
       state,
-      action: PayloadAction<{ id: number; newClause: number[] }>
+      action: PayloadAction<{ id: number; editedClause: number[] }>
     ) {
       state.clauses = state.clauses.map((clause) => {
         if (clause.id === action.payload.id) {
-          clause.variables = action.payload.newClause;
+          clause.variables = action.payload.editedClause;
         }
         return clause;
       });

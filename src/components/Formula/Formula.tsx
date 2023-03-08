@@ -25,9 +25,10 @@ export const Formula: React.FC = () => {
 
     let clause = input?.split("|").map((item) => parseInt(item));
 
-    if (clause) dispatch(addClause(clause));
-
-    toast.success("Clause was successfully added!");
+    if (clause) {
+      dispatch(addClause(clause));
+      toast.success("Clause was successfully added!");
+    }
   };
 
   return (
