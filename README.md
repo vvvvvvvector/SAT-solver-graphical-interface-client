@@ -16,4 +16,4 @@ trzeba napisać w konsoli: **_npm run dev_**
 
 ta komenda uruchomi program na jakimś porcie(domyślnie, chyba na 5173)
 
-![v0.1](./public/v0.4.png)
+![v0.5](./public/v0.5.png)

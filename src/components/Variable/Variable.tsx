@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 
 import { useDispatch } from "react-redux";
 import { removeVariable } from "../../redux/slices/formula";
@@ -18,6 +19,8 @@ export const Variable: React.FC<{ variable: VariableType }> = ({
     dispatch(
       removeVariable({ clauseId: variable.clauseId, variableId: variable.id })
     );
+
+    toast.success("Variable was successfully removed!");
 
     sessionStorage.clear();
   };
