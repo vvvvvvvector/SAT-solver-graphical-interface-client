@@ -15,6 +15,8 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
 
   const onRemoveClause = () => {
     dispatch(removeClause(clause.id));
+
+    sessionStorage.clear();
   };
 
   const onEditClause = () => {
@@ -26,6 +28,8 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
       dispatch(editClause({ id: clause.id, editedClause }));
       toast.success("Clause was successfully updated!");
     }
+
+    sessionStorage.clear();
   };
 
   return (

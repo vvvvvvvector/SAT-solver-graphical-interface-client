@@ -29,6 +29,8 @@ export const Formula: React.FC = () => {
       dispatch(addClause(clause));
       toast.success("Clause was successfully added!");
     }
+
+    sessionStorage.clear();
   };
 
   return (
