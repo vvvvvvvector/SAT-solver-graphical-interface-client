@@ -46,11 +46,19 @@ export const Panel: React.FC = () => {
       setLoading(false);
 
       if (response.data.satisfiable) {
-        dispatch(setFormula(response.data.clauses));
-        dispatch(setFirstSolution(response.data.model));
+        dispatch(setFormula(response.data.clauses.slice(0, -1)));
+
+        sessionStorage.setItem(
+          "formula",
+          JSON.stringify(response.data.clauses)
+        );
+
+        dispatch(setFirstSolution(response.data.first_solution));
 
         toast.success("Satisfiable!");
       } else {
+        dispatch(setFormula(response.data.clauses));
+
         toast.error("Unsatisfiable!");
       }
     } catch (error) {
@@ -63,12 +71,20 @@ export const Panel: React.FC = () => {
     try {
       setLoading(true);
 
-      const response = await axiosInstance.get("next-solution");
+      const response = await axiosInstance.post("next-solution", {
+        solver,
+        formula: sessionStorage.getItem("formula"),
+      });
 
       setLoading(false);
 
       if (response.data.satisfiable) {
-        dispatch(setNextSolution(response.data.clause));
+        sessionStorage.setItem(
+          "formula",
+          JSON.stringify(response.data.clauses)
+        );
+
+        dispatch(setNextSolution(response.data.next_solution));
 
         toast.success("Next solution was successfully found!");
       } else {
