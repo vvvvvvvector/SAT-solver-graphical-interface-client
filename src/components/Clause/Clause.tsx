@@ -20,11 +20,12 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
   const onEditClause = () => {
     let input = window.prompt("Edit clause: ", clause.variables.join("|"));
 
-    let newClause = input?.split("|").map((item) => parseInt(item));
+    let editedClause = input?.split("|").map((item) => parseInt(item));
 
-    if (newClause) dispatch(editClause({ id: clause.id, newClause }));
-
-    toast.success("Clause was successfully updated!");
+    if (editedClause) {
+      dispatch(editClause({ id: clause.id, editedClause }));
+      toast.success("Clause was successfully updated!");
+    }
   };
 
   return (
