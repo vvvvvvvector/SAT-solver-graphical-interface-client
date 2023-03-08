@@ -1,19 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ClauseType } from "../../shared/types";
-
 const initialState = {
-  solutions: [] as ClauseType[],
+  solutions: [] as number[][],
 };
 
 export const solutionsSlice = createSlice({
   name: "solutions",
   initialState,
   reducers: {
-    setFirstSolution(state, action: PayloadAction<ClauseType>) {
+    setFirstSolution(state, action: PayloadAction<number[]>) {
       state.solutions = [action.payload];
     },
-    setNextSolution(state, action: PayloadAction<ClauseType>) {
+    setNextSolution(state, action: PayloadAction<number[]>) {
       state.solutions = [...state.solutions, action.payload];
     },
   },
