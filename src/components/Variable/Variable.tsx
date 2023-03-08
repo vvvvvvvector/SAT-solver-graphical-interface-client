@@ -18,6 +18,8 @@ export const Variable: React.FC<{ variable: VariableType }> = ({
     dispatch(
       removeVariable({ clauseId: variable.clauseId, variableId: variable.id })
     );
+
+    sessionStorage.clear();
   };
 
   return (
