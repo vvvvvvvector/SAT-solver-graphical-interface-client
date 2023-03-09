@@ -32,7 +32,7 @@ import styles from "./Panel.module.scss";
 export const Panel: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { cnf } = useSelector((state: RootState) => state.textArea);
+  const { dimacs } = useSelector((state: RootState) => state.textArea);
 
   const [solver, setSolver] = React.useState("cd");
   const [loading, setLoading] = React.useState(false);
@@ -43,7 +43,7 @@ export const Panel: React.FC = () => {
 
       const response = await axiosInstance.post("solve", {
         solver,
-        cnf,
+        dimacs,
       });
 
       setLoading(false);
@@ -125,18 +125,18 @@ export const Panel: React.FC = () => {
         sx={{
           marginBottom: "20px",
         }}
-        value={cnf}
+        value={dimacs}
         onChange={(event) => dispatch(setTextArea(event.target.value))}
         minRows={12}
         maxRows={12}
         size="lg"
-        placeholder="*.cnf file text here..."
+        placeholder="DIMACS CNF format allowed here..."
       />
       <div className={styles.controls}>
         <Button
           sx={{ ...buttonStyle, maxWidth: "120px", width: "100%" }}
           onClick={onClickSolve}
-          disabled={loading || cnf === ""}
+          disabled={loading || dimacs === ""}
           endIcon={<CalculateIcon />}
           variant="contained"
         >
@@ -150,7 +150,7 @@ export const Panel: React.FC = () => {
             whiteSpace: "nowrap",
           }}
           onClick={onClickNext}
-          disabled={loading || cnf === ""}
+          disabled={loading || dimacs === ""}
           variant="contained"
         >
           {loading ? "Finding..." : "Next solution"}
@@ -194,7 +194,7 @@ export const Panel: React.FC = () => {
             hidden
             type="file"
             onChange={onClickUpload}
-            accept=".txt, .cnf"
+            accept=".txt, .dimacs"
           />
         </Button>
       </div>

@@ -3,14 +3,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export const textAreaSlice = createSlice({
   name: "textArea",
   initialState: {
-    cnf: "",
+    dimacs: "",
   },
   reducers: {
     setTextArea(state, action: PayloadAction<string>) {
-      state.cnf = action.payload;
+      state.dimacs = action.payload;
     },
     clearTextArea(state) {
-      state.cnf = "";
+      state.dimacs = "";
     },
   },
 });

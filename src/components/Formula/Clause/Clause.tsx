@@ -2,14 +2,14 @@ import React from "react";
 import { toast } from "react-hot-toast";
 
 import { useDispatch } from "react-redux";
-import { editClause, removeClause } from "../../redux/slices/formula";
-import { clearTextArea } from "../../redux/slices/textArea";
+import { editClause, removeClause } from "../../../redux/slices/formula";
+import { clearTextArea } from "../../../redux/slices/textArea";
 
 import SaveIcon from "@mui/icons-material/Save";
 
-import { Variable } from "../index";
+import { Variable } from "./Variable/Variable";
 
-import { ClauseType } from "../../shared/types";
+import { ClauseType } from "../../../shared/types";
 
 import styles from "./Clause.module.scss";
 

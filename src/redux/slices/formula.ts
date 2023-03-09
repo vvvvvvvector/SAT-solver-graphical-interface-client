@@ -2,13 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { ClauseType } from "../../shared/types";
 
-type ClauseId = number;
-
-type VariableId = {
-  variableId: number;
-  clauseId: number;
-};
-
 const initialState = {
   opened: true,
   clauses: [] as ClauseType[],
@@ -48,12 +41,15 @@ export const formulaSlice = createSlice({
         return clause;
       });
     },
-    removeClause(state, action: PayloadAction<ClauseId>) {
+    removeClause(state, action: PayloadAction<number>) {
       state.clauses = state.clauses.filter(
         (clause) => clause.id !== action.payload
       );
     },
-    removeVariable(state, action: PayloadAction<VariableId>) {
+    removeVariable(
+      state,
+      action: PayloadAction<{ variableId: number; clauseId: number }>
+    ) {
       const clause = state.clauses.find(
         (clause) => clause.id === action.payload.clauseId
       );
