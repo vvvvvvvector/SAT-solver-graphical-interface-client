@@ -52,6 +52,7 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
             autoFocus
             onKeyDown={(event) => {
               if (event.key === "Enter") onEditClause();
+              if (event.key === "Escape") setEditMode(false);
             }}
             value={value}
             onChange={(event) => setValue(event.target.value)}

@@ -7,6 +7,7 @@ import { addClause, setFormulaOpened } from "../../redux/slices/formula";
 import { clearTextArea } from "../../redux/slices/textArea";
 
 import { Button } from "@mui/material";
+import Pagination from "@mui/material/Pagination";
 
 import { Clause } from "../index";
 
@@ -17,7 +18,15 @@ import styles from "./Formula.module.scss";
 export const Formula: React.FC = () => {
   const dispatch = useDispatch();
 
+  const itemsPerPage = 200;
+
+  const [page, setPage] = React.useState(0);
+
   const { clauses, opened } = useSelector((state: RootState) => state.formula);
+
+  React.useEffect(() => {
+    setPage(0);
+  }, [clauses]);
 
   const onClickAddCluase = () => {
     let input = window.prompt("Enter clause: ");
@@ -32,6 +41,26 @@ export const Formula: React.FC = () => {
     sessionStorage.clear();
 
     dispatch(clearTextArea());
+  };
+
+  const renderFormula = () => {
+    const slice = clauses.slice(page, page + itemsPerPage);
+
+    if (slice.length < itemsPerPage) {
+      return slice.map((clause, index) => (
+        <li key={clause.id}>
+          <Clause clause={clause} />
+          {slice.length - 1 > index && <span>&#8743;</span>}
+        </li>
+      ));
+    } else {
+      return slice.map((clause) => (
+        <li key={clause.id}>
+          <Clause clause={clause} />
+          <span>&#8743;</span>
+        </li>
+      ));
+    }
   };
 
   return (
@@ -68,22 +97,29 @@ export const Formula: React.FC = () => {
         )}
       </div>
       {opened && (
-        <div className={styles["formula-container"]}>
-          {clauses.length > 0 ? (
-            <ul className={styles.formula}>
-              {clauses.map((clause, index) => (
-                <li key={clause.id}>
-                  <Clause clause={clause} />
-                  {clauses.length - 1 > index && <span>&#8743;</span>}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div className={styles["no-formula"]}>
-              <span>😭😭😭</span>
-            </div>
+        <>
+          <div className={styles["formula-container"]}>
+            {clauses.length > 0 ? (
+              <ul className={styles.formula}>{renderFormula()}</ul>
+            ) : (
+              <div className={styles["no-formula"]}>
+                <span>😭😭😭</span>
+              </div>
+            )}
+          </div>
+          {clauses.length > itemsPerPage && (
+            <Pagination
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+              onChange={(event, value: number) =>
+                setPage((value - 1) * itemsPerPage)
+              }
+              count={Math.ceil(clauses.length / itemsPerPage)}
+            />
           )}
-        </div>
+        </>
       )}
     </>
   );
