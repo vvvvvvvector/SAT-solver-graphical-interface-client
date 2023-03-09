@@ -2,10 +2,10 @@ import React from "react";
 import { toast } from "react-hot-toast";
 
 import { useDispatch } from "react-redux";
-import { removeVariable } from "../../redux/slices/formula";
-import { clearTextArea } from "../../redux/slices/textArea";
+import { removeVariable } from "../../../../redux/slices/formula";
+import { clearTextArea } from "../../../../redux/slices/textArea";
 
-import { VariableType } from "../../shared/types";
+import { VariableType } from "../../../../shared/types";
 
 import styles from "./Variable.module.scss";
 

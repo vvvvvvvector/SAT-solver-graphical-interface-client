@@ -9,7 +9,7 @@ import { clearTextArea } from "../../redux/slices/textArea";
 import { IconButton, Pagination } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
-import { Clause } from "../index";
+import { Clause } from "./Clause/Clause";
 
 import styles from "./Formula.module.scss";
 
