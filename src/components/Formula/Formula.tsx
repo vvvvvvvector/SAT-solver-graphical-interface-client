@@ -6,19 +6,17 @@ import { RootState } from "../../redux/store";
 import { addClause, setFormulaOpened } from "../../redux/slices/formula";
 import { clearTextArea } from "../../redux/slices/textArea";
 
-import { Button } from "@mui/material";
-import Pagination from "@mui/material/Pagination";
+import { IconButton, Pagination } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 import { Clause } from "../index";
-
-import { buttonStyle } from "../../shared/mui";
 
 import styles from "./Formula.module.scss";
 
 export const Formula: React.FC = () => {
   const dispatch = useDispatch();
 
-  const itemsPerPage = 200;
+  const itemsPerPage = 250;
 
   const [page, setPage] = React.useState(0);
 
@@ -28,7 +26,7 @@ export const Formula: React.FC = () => {
     setPage(0);
   }, [clauses]);
 
-  const onClickAddCluase = () => {
+  const onClickAddClause = () => {
     let input = window.prompt("Enter clause: ");
 
     let clause = input?.split("|").map((item) => parseInt(item));
@@ -87,13 +85,9 @@ export const Formula: React.FC = () => {
           </svg>
         </div>
         {opened && (
-          <Button
-            onClick={onClickAddCluase}
-            sx={buttonStyle}
-            variant="contained"
-          >
-            Add clause
-          </Button>
+          <IconButton color="primary" onClick={onClickAddClause}>
+            <AddIcon color="primary" />
+          </IconButton>
         )}
       </div>
       {opened && (
@@ -103,7 +97,7 @@ export const Formula: React.FC = () => {
               <ul className={styles.formula}>{renderFormula()}</ul>
             ) : (
               <div className={styles["no-formula"]}>
-                <span>😭😭😭</span>
+                <span>👻👻👻</span>
               </div>
             )}
           </div>
@@ -113,6 +107,7 @@ export const Formula: React.FC = () => {
                 display: "flex",
                 justifyContent: "center",
               }}
+              color="primary"
               onChange={(event, value: number) =>
                 setPage((value - 1) * itemsPerPage)
               }
