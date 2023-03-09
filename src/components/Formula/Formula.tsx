@@ -2,8 +2,9 @@ import React from "react";
 import { toast } from "react-hot-toast";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addClause } from "../../redux/slices/formula";
 import { RootState } from "../../redux/store";
+import { addClause, setFormulaOpened } from "../../redux/slices/formula";
+import { clearTextArea } from "../../redux/slices/textArea";
 
 import { Button } from "@mui/material";
 
@@ -16,9 +17,7 @@ import styles from "./Formula.module.scss";
 export const Formula: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [opened, setOpened] = React.useState(false);
-
-  const { clauses } = useSelector((state: RootState) => state.formula);
+  const { clauses, opened } = useSelector((state: RootState) => state.formula);
 
   const onClickAddCluase = () => {
     let input = window.prompt("Enter clause: ");
@@ -31,13 +30,15 @@ export const Formula: React.FC = () => {
     }
 
     sessionStorage.clear();
+
+    dispatch(clearTextArea());
   };
 
   return (
     <>
       <div className={styles.header}>
         <div className={styles["header__left"]}>
-          <h2 onClick={() => setOpened(!opened)}>
+          <h2 onClick={() => dispatch(setFormulaOpened(!opened))}>
             {clauses.length > 0
               ? "Formula in CNF"
               : "There are no formula so far"}

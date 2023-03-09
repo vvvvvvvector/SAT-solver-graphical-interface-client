@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
+  opened: true,
   solutions: [] as number[][],
 };
 
@@ -8,6 +9,9 @@ export const solutionsSlice = createSlice({
   name: "solutions",
   initialState,
   reducers: {
+    setSolutionsOpened(state, action: PayloadAction<boolean>) {
+      state.opened = action.payload;
+    },
     setFirstSolution(state, action: PayloadAction<number[]>) {
       state.solutions = [action.payload];
     },
@@ -17,6 +21,7 @@ export const solutionsSlice = createSlice({
   },
 });
 
-export const { setFirstSolution, setNextSolution } = solutionsSlice.actions;
+export const { setFirstSolution, setNextSolution, setSolutionsOpened } =
+  solutionsSlice.actions;
 
 export default solutionsSlice.reducer;

@@ -4,11 +4,17 @@
   .edit {
     position: relative;
 
+    input {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #686868;
+    }
+
     .save {
       cursor: pointer;
       position: absolute;
       right: -7px;
-      top: -4px;
+      top: -7px;
 
       color: #686868;
 
@@ -21,8 +27,8 @@
   .controls {
     visibility: hidden;
     position: absolute;
-    right: -8px;
-    top: -12px;
+    right: -10px;
+    top: -13px;
 
     svg {
       cursor: pointer;

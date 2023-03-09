@@ -10,6 +10,7 @@ type VariableId = {
 };
 
 const initialState = {
+  opened: true,
   clauses: [] as ClauseType[],
 };
 
@@ -17,7 +18,11 @@ export const formulaSlice = createSlice({
   name: "formula",
   initialState,
   reducers: {
+    setFormulaOpened(state, action: PayloadAction<boolean>) {
+      state.opened = action.payload;
+    },
     setFormula(state, action: PayloadAction<ClauseType[]>) {
+      state.opened = false;
       state.clauses = action.payload;
     },
     addClause(state, action: PayloadAction<number[]>) {
@@ -78,6 +83,7 @@ export const {
   editClause,
   removeClause,
   removeVariable,
+  setFormulaOpened,
 } = formulaSlice.actions;
 
 export default formulaSlice.reducer;

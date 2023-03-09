@@ -1,6 +1,6 @@
 import { Formula, Header, Solutions, Panel } from "./components";
 
-import "./styles.scss";
+import "./styles/global.scss";
 
 export default function App() {
   return (
