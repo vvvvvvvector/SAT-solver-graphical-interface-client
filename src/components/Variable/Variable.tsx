@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 
 import { useDispatch } from "react-redux";
 import { removeVariable } from "../../redux/slices/formula";
+import { clearTextArea } from "../../redux/slices/textArea";
 
 import { VariableType } from "../../shared/types";
 
@@ -23,6 +24,8 @@ export const Variable: React.FC<{ variable: VariableType }> = ({
     toast.success("Variable was successfully removed!");
 
     sessionStorage.clear();
+
+    dispatch(clearTextArea());
   };
 
   return (

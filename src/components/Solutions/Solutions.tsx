@@ -1,19 +1,22 @@
 import React from "react";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { setSolutionsOpened } from "../../redux/slices/solutions";
 
 import styles from "./Solutions.module.scss";
 
 export const Solutions: React.FC = () => {
-  const [opened, setOpened] = React.useState(true);
+  const dispatch = useDispatch();
 
-  const { solutions } = useSelector((state: RootState) => state.solutions);
+  const { solutions, opened } = useSelector(
+    (state: RootState) => state.solutions
+  );
 
   return (
     <>
       <div className={styles["header"]}>
-        <h2 onClick={() => setOpened(!opened)}>
+        <h2 onClick={() => dispatch(setSolutionsOpened(!opened))}>
           {solutions.length > 0 ? "Solutions" : "There are no solutions so far"}
         </h2>
         <svg

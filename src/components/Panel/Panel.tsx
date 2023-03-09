@@ -1,14 +1,16 @@
 import React from "react";
 import toast from "react-hot-toast";
 
-import { useDispatch } from "react-redux";
+import axiosInstance from "../../axios";
+
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import { setFormula } from "../../redux/slices/formula";
 import {
   setFirstSolution,
   setNextSolution,
 } from "../../redux/slices/solutions";
-
-import axiosInstance from "../../axios";
+import { setTextArea } from "../../redux/slices/textArea";
 
 import {
   Button,
@@ -30,7 +32,8 @@ import styles from "./Panel.module.scss";
 export const Panel: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [cnf, setCnf] = React.useState("");
+  const { cnf } = useSelector((state: RootState) => state.textArea);
+
   const [solver, setSolver] = React.useState("cd");
   const [loading, setLoading] = React.useState(false);
 
@@ -105,13 +108,15 @@ export const Panel: React.FC = () => {
 
       reader.onload = () => {
         toast.success("Formula was successfully uploaded!");
-        setCnf(reader.result as string);
+        dispatch(setTextArea(reader.result as string));
       };
 
       reader.onerror = () => {
         toast.error("Error while reading file!");
       };
     }
+
+    e.target.value = ""; // allows re-add the same file again
   };
 
   return (
@@ -121,7 +126,7 @@ export const Panel: React.FC = () => {
           marginBottom: "20px",
         }}
         value={cnf}
-        onChange={(event) => setCnf(event.target.value)}
+        onChange={(event) => dispatch(setTextArea(event.target.value))}
         minRows={12}
         maxRows={12}
         size="lg"

@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 
 import { useDispatch } from "react-redux";
 import { editClause, removeClause } from "../../redux/slices/formula";
+import { clearTextArea } from "../../redux/slices/textArea";
 
 import SaveIcon from "@mui/icons-material/Save";
 
@@ -24,6 +25,7 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
     toast.success("Clause was successfully removed!");
 
     sessionStorage.clear();
+    dispatch(clearTextArea());
   };
 
   const onEditClause = () => {
@@ -39,6 +41,7 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
     toast.success("Clause was successfully updated!");
 
     sessionStorage.clear();
+    dispatch(clearTextArea());
   };
 
   return (
@@ -46,6 +49,10 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
       {editMode ? (
         <div className={styles.edit}>
           <input
+            autoFocus
+            onKeyDown={(event) => {
+              if (event.key === "Enter") onEditClause();
+            }}
             value={value}
             onChange={(event) => setValue(event.target.value)}
           />
