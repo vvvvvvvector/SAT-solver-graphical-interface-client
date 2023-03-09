@@ -22,7 +22,6 @@ export const formulaSlice = createSlice({
       state.opened = action.payload;
     },
     setFormula(state, action: PayloadAction<ClauseType[]>) {
-      state.opened = false;
       state.clauses = action.payload;
     },
     addClause(state, action: PayloadAction<number[]>) {
