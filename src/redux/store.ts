@@ -2,13 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import formula from "./slices/formula";
 import solutions from "./slices/solutions";
-import textArea from "./slices/textArea";
+import panel from "./slices/panel";
 
 export const store = configureStore({
   reducer: {
     formula,
     solutions,
-    textArea,
+    panel,
   },
 });
 

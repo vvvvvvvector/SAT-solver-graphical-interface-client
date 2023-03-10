@@ -18,10 +18,17 @@ export const solutionsSlice = createSlice({
     setNextSolution(state, action: PayloadAction<number[]>) {
       state.solutions = [...state.solutions, action.payload];
     },
+    clearSolutions(state) {
+      state.solutions = [];
+    },
   },
 });
 
-export const { setFirstSolution, setNextSolution, setSolutionsOpened } =
-  solutionsSlice.actions;
+export const {
+  setFirstSolution,
+  setNextSolution,
+  setSolutionsOpened,
+  clearSolutions,
+} = solutionsSlice.actions;
 
 export default solutionsSlice.reducer;
