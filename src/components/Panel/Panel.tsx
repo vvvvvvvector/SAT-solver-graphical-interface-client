@@ -9,8 +9,9 @@ import { setFormula } from "../../redux/slices/formula";
 import {
   setFirstSolution,
   setNextSolution,
+  clearSolutions,
 } from "../../redux/slices/solutions";
-import { setTextArea } from "../../redux/slices/textArea";
+import { setDimacs, setSolver } from "../../redux/slices/panel";
 
 import {
   Button,
@@ -32,10 +33,9 @@ import styles from "./Panel.module.scss";
 export const Panel: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { dimacs } = useSelector((state: RootState) => state.textArea);
-
-  const [solver, setSolver] = React.useState("cd");
   const [loading, setLoading] = React.useState(false);
+
+  const { solver, dimacs } = useSelector((state: RootState) => state.panel);
 
   const onClickSolve = async () => {
     try {
@@ -61,6 +61,7 @@ export const Panel: React.FC = () => {
         toast.success("Satisfiable!");
       } else {
         dispatch(setFormula(response.data.clauses));
+        dispatch(clearSolutions());
 
         toast.error("Unsatisfiable!");
       }
@@ -108,7 +109,7 @@ export const Panel: React.FC = () => {
 
       reader.onload = () => {
         toast.success("Formula was successfully uploaded!");
-        dispatch(setTextArea(reader.result as string));
+        dispatch(setDimacs(reader.result as string));
       };
 
       reader.onerror = () => {
@@ -126,15 +127,22 @@ export const Panel: React.FC = () => {
           marginBottom: "20px",
         }}
         value={dimacs}
-        onChange={(event) => dispatch(setTextArea(event.target.value))}
+        onChange={(event) => dispatch(setDimacs(event.target.value))}
         minRows={12}
         maxRows={12}
         size="lg"
-        placeholder="DIMACS CNF format allowed here..."
+        placeholder="dimacs cnf format allowed here..."
       />
       <div className={styles.controls}>
         <Button
-          sx={{ ...buttonStyle, maxWidth: "120px", width: "100%" }}
+          sx={{
+            ...buttonStyle,
+            maxWidth: "155px",
+            width: "100%",
+            "@media (max-width: 1200px)": {
+              maxWidth: "none",
+            },
+          }}
           onClick={onClickSolve}
           disabled={loading || dimacs === ""}
           endIcon={<CalculateIcon />}
@@ -148,6 +156,9 @@ export const Panel: React.FC = () => {
             maxWidth: "160px",
             width: "100%",
             whiteSpace: "nowrap",
+            "@media (max-width: 1200px)": {
+              maxWidth: "none",
+            },
           }}
           onClick={onClickNext}
           disabled={loading || dimacs === ""}
@@ -159,6 +170,9 @@ export const Panel: React.FC = () => {
           sx={{
             maxWidth: "150px",
             width: "100%",
+            "@media (max-width: 1200px)": {
+              maxWidth: "none",
+            },
           }}
         >
           <InputLabel id="select-solver-label">SAT-solver</InputLabel>
@@ -167,7 +181,7 @@ export const Panel: React.FC = () => {
             labelId="select-solver-label"
             label="SAT-solver"
             onChange={(event) => {
-              setSolver(event.target.value);
+              dispatch(setSolver(event.target.value));
             }}
             value={solver}
           >
@@ -184,6 +198,9 @@ export const Panel: React.FC = () => {
             maxWidth: "240px",
             width: "100%",
             whiteSpace: "nowrap",
+            "@media (max-width: 1200px)": {
+              maxWidth: "none",
+            },
           }}
           variant="contained"
           component="label"

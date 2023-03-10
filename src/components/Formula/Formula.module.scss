@@ -24,6 +24,42 @@
         fill: #28282b;
       }
     }
+
+    @media (max-width: 630px) {
+      h2 {
+        font-size: 23px;
+      }
+    }
+
+    @media (max-width: 590px) {
+      h2 {
+        font-size: 21px;
+      }
+    }
+
+    @media (max-width: 590px) {
+      h2 {
+        font-size: 19px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      h2 {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      h2 {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      h2 {
+        font-size: 12px;
+      }
+    }
   }
 }
 

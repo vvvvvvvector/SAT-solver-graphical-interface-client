@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { addClause, setFormulaOpened } from "../../redux/slices/formula";
-import { clearTextArea } from "../../redux/slices/textArea";
+import { clearDimacs } from "../../redux/slices/panel";
 
 import { IconButton, Pagination } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -17,14 +17,9 @@ export const Formula: React.FC = () => {
   const dispatch = useDispatch();
 
   const itemsPerPage = 250;
-
   const [page, setPage] = React.useState(0);
 
   const { clauses, opened } = useSelector((state: RootState) => state.formula);
-
-  React.useEffect(() => {
-    setPage(0);
-  }, [clauses]);
 
   const onClickAddClause = () => {
     let input = window.prompt("Enter clause: ");
@@ -38,7 +33,7 @@ export const Formula: React.FC = () => {
 
     sessionStorage.clear();
 
-    dispatch(clearTextArea());
+    dispatch(clearDimacs());
   };
 
   const renderFormula = () => {
