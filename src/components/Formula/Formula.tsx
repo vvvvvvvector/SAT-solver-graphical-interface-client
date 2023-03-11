@@ -93,7 +93,7 @@ export const Formula: React.FC = () => {
               <ul className={styles.formula}>{renderFormula()}</ul>
             ) : (
               <div className={styles["no-formula"]}>
-                <span>🤨🤨🤨</span>
+                <span>😪😪😪</span>
               </div>
             )}
           </div>
