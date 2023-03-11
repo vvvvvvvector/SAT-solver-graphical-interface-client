@@ -24,6 +24,8 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
 
   React.useEffect(() => {
     const clickOutsideClause = (event: MouseEvent) => {
+      console.log(event.composedPath());
+
       if (
         clauseRef.current &&
         !event.composedPath().includes(clauseRef.current)

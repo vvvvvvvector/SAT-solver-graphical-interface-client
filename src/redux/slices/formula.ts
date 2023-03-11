@@ -46,29 +46,6 @@ export const formulaSlice = createSlice({
         clauses: state.clauses.filter((clause) => clause.id !== action.payload),
       };
     },
-    removeVariable(
-      state,
-      action: PayloadAction<{ variableId: number; clauseId: number }>
-    ) {
-      const clauseWithVariableToBeRemoved = state.clauses.find(
-        (clause) => clause.id === action.payload.clauseId
-      );
-
-      if (clauseWithVariableToBeRemoved?.variables.length === 1) {
-        state.clauses = state.clauses.filter(
-          (clause) => clause.id !== action.payload.clauseId
-        );
-      } else {
-        state.clauses = state.clauses.map((clause) => {
-          if (clause.id === action.payload.clauseId) {
-            clause.variables = clause.variables.filter(
-              (_, index) => index !== action.payload.variableId
-            );
-          }
-          return clause;
-        });
-      }
-    },
   },
 });
 
@@ -77,7 +54,6 @@ export const {
   addClause,
   editClause,
   removeClause,
-  removeVariable,
   setFormulaOpened,
 } = formulaSlice.actions;
 
