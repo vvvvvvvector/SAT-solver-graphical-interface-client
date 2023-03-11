@@ -16,7 +16,7 @@
       margin-left: 10px;
       transition: transform 0.3s ease-in-out;
 
-      &.active {
+      &.opened {
         transform: rotate(180deg);
       }
 

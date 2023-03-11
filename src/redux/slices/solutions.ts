@@ -10,16 +10,19 @@ export const solutionsSlice = createSlice({
   initialState,
   reducers: {
     setSolutionsOpened(state, action: PayloadAction<boolean>) {
-      state.opened = action.payload;
+      return { ...state, opened: action.payload };
     },
     setFirstSolution(state, action: PayloadAction<number[]>) {
-      state.solutions = [action.payload];
+      return { ...state, solutions: [action.payload] };
     },
     setNextSolution(state, action: PayloadAction<number[]>) {
-      state.solutions = [...state.solutions, action.payload];
+      // return { ...state, solutions: [...state.solutions, action.payload] };
+      state.solutions.push(action.payload);
     },
     clearSolutions(state) {
-      state.solutions = [];
+      if (state.solutions.length > 0) {
+        return { ...state, solutions: [] };
+      }
     },
   },
 });

@@ -20,7 +20,7 @@ export const Solutions: React.FC = () => {
           {solutions.length > 0 ? "Solutions" : "There are no solutions so far"}
         </h2>
         <svg
-          className={opened ? styles["active"] : ""}
+          className={opened ? styles["opened"] : ""}
           width="10"
           height="6"
           viewBox="0 0 10 6"
