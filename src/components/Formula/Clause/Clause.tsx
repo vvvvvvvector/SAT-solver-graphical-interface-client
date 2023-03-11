@@ -17,8 +17,25 @@ import styles from "./Clause.module.scss";
 export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
   const dispatch = useDispatch();
 
+  const clauseRef = React.useRef<HTMLDivElement>(null);
+
   const [editMode, setEditMode] = React.useState(false);
   const [value, setValue] = React.useState("");
+
+  React.useEffect(() => {
+    const clickOutsideClause = (event: MouseEvent) => {
+      if (
+        clauseRef.current &&
+        !event.composedPath().includes(clauseRef.current)
+      ) {
+        setEditMode(false);
+      }
+    };
+
+    document.body.addEventListener("click", clickOutsideClause);
+
+    return () => document.body.removeEventListener("click", clickOutsideClause);
+  }, []);
 
   const onRemoveClause = () => {
     dispatch(removeClause(clause.id));
@@ -48,7 +65,7 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div ref={clauseRef} className={styles.container}>
       {editMode ? (
         <div className={styles.edit}>
           <input

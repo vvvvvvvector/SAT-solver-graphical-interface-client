@@ -73,7 +73,7 @@
 
   .formula {
     max-height: calc((31px * 12) + 30px);
-    overflow: auto;
+    overflow-y: auto;
     border-radius: 15px;
     padding: 15px 8px;
     color: #16161b;
