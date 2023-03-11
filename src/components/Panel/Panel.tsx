@@ -128,7 +128,7 @@ export const Panel: React.FC = () => {
         }}
         value={dimacs}
         onChange={(event) => dispatch(setDimacs(event.target.value))}
-        minRows={12}
+        minRows={7}
         maxRows={12}
         size="lg"
         placeholder="dimacs cnf format allowed here..."

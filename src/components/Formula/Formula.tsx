@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { addClause, setFormulaOpened } from "../../redux/slices/formula";
+import { clearSolutions } from "../../redux/slices/solutions";
 import { clearDimacs } from "../../redux/slices/panel";
 
 import { IconButton, Pagination } from "@mui/material";
@@ -16,7 +17,7 @@ import styles from "./Formula.module.scss";
 export const Formula: React.FC = () => {
   const dispatch = useDispatch();
 
-  const itemsPerPage = 250;
+  const clausesPerPage = 200;
   const [page, setPage] = React.useState(0);
 
   const { clauses, opened } = useSelector((state: RootState) => state.formula);
@@ -32,14 +33,14 @@ export const Formula: React.FC = () => {
     }
 
     sessionStorage.clear();
-
     dispatch(clearDimacs());
+    dispatch(clearSolutions());
   };
 
   const renderFormula = () => {
-    const slice = clauses.slice(page, page + itemsPerPage);
+    const slice = clauses.slice(page, page + clausesPerPage);
 
-    if (slice.length < itemsPerPage) {
+    if (slice.length < clausesPerPage) {
       return slice.map((clause, index) => (
         <li key={clause.id}>
           <Clause clause={clause} />
@@ -66,7 +67,7 @@ export const Formula: React.FC = () => {
               : "There are no formula so far"}
           </h2>
           <svg
-            className={opened ? styles["active"] : ""}
+            className={opened ? styles["opened"] : ""}
             width="10"
             height="6"
             viewBox="0 0 10 6"
@@ -92,11 +93,11 @@ export const Formula: React.FC = () => {
               <ul className={styles.formula}>{renderFormula()}</ul>
             ) : (
               <div className={styles["no-formula"]}>
-                <span>👻👻👻</span>
+                <span>🤨🤨🤨</span>
               </div>
             )}
           </div>
-          {clauses.length > itemsPerPage && (
+          {clauses.length > clausesPerPage && (
             <Pagination
               sx={{
                 display: "flex",
@@ -104,9 +105,9 @@ export const Formula: React.FC = () => {
               }}
               color="primary"
               onChange={(event, value: number) =>
-                setPage((value - 1) * itemsPerPage)
+                setPage((value - 1) * clausesPerPage)
               }
-              count={Math.ceil(clauses.length / itemsPerPage)}
+              count={Math.ceil(clauses.length / clausesPerPage)}
             />
           )}
         </>

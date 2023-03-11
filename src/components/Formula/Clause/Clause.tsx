@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { editClause, removeClause } from "../../../redux/slices/formula";
 import { clearDimacs } from "../../../redux/slices/panel";
+import { clearSolutions } from "../../../redux/slices/solutions";
 
 import SaveIcon from "@mui/icons-material/Save";
 
@@ -26,6 +27,7 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
 
     sessionStorage.clear();
     dispatch(clearDimacs());
+    dispatch(clearSolutions());
   };
 
   const onEditClause = () => {
@@ -42,6 +44,7 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
 
     sessionStorage.clear();
     dispatch(clearDimacs());
+    dispatch(clearSolutions());
   };
 
   return (
