@@ -34,22 +34,33 @@ export const formulaSlice = createSlice({
       state,
       action: PayloadAction<{ id: number; editedClause: number[] }>
     ) {
-      const edited = state.clauses.map((clause) => {
-        if (clause.id === action.payload.id) {
-          clause.variables = action.payload.editedClause;
-        }
-        return clause;
-      });
+      if (action.payload.editedClause.length > 0) {
+        const edited = state.clauses.map((clause) => {
+          if (clause.id === action.payload.id) {
+            clause.variables = action.payload.editedClause;
+          }
+          return clause;
+        });
 
-      state.clauses = edited;
-      state.changed = true;
+        state.clauses = edited;
+      } else {
+        state.clauses = state.clauses.filter(
+          (clause) => clause.id !== action.payload.id
+        );
+      }
+
+      state.clauses.length === 0
+        ? (state.changed = false)
+        : (state.changed = true);
     },
     removeClause(state, action: PayloadAction<number>) {
-      return {
-        ...state,
-        clauses: state.clauses.filter((clause) => clause.id !== action.payload),
-        changed: true,
-      };
+      state.clauses = state.clauses.filter(
+        (clause) => clause.id !== action.payload
+      );
+
+      state.clauses.length === 0
+        ? (state.changed = false)
+        : (state.changed = true);
     },
   },
 });
