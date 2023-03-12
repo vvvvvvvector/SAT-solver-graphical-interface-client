@@ -23,32 +23,33 @@ export const Formula: React.FC = () => {
   const { clauses, opened } = useSelector((state: RootState) => state.formula);
 
   const onClickAddClause = () => {
-    let input = window.prompt("Enter clause: ");
+    const input = window.prompt("Enter clause: ");
 
-    let clause = input?.split("|").map((item) => parseInt(item));
+    const clause = input?.split("|").map((item) => parseInt(item));
 
     if (clause) {
       dispatch(addClause(clause));
-      toast.success("Clause was successfully added!");
-    }
 
-    sessionStorage.clear();
-    dispatch(clearDimacs());
-    dispatch(clearSolutions());
+      toast.success("Clause was successfully added!");
+
+      sessionStorage.setItem("formula", "");
+      dispatch(clearDimacs());
+      dispatch(clearSolutions());
+    }
   };
 
   const renderFormula = () => {
-    const slice = clauses.slice(page, page + clausesPerPage);
+    const clausesOnPage = clauses.slice(page, page + clausesPerPage);
 
-    if (slice.length < clausesPerPage) {
-      return slice.map((clause, index) => (
+    if (clausesOnPage.length < clausesPerPage) {
+      return clausesOnPage.map((clause, index) => (
         <li key={clause.id}>
           <Clause clause={clause} />
-          {slice.length - 1 > index && <span>&#8743;</span>}
+          {clausesOnPage.length - 1 > index && <span>&#8743;</span>}
         </li>
       ));
     } else {
-      return slice.map((clause) => (
+      return clausesOnPage.map((clause) => (
         <li key={clause.id}>
           <Clause clause={clause} />
           <span>&#8743;</span>
@@ -104,7 +105,7 @@ export const Formula: React.FC = () => {
                 justifyContent: "center",
               }}
               color="primary"
-              onChange={(event, value: number) =>
+              onChange={(_, value: number) =>
                 setPage((value - 1) * clausesPerPage)
               }
               count={Math.ceil(clauses.length / clausesPerPage)}

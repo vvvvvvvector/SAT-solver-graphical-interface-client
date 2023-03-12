@@ -24,7 +24,7 @@ import Textarea from "@mui/joy/Textarea";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import CalculateIcon from "@mui/icons-material/Calculate";
 
-import solvers from "./Solvers.json";
+import solvers from "./Solvers";
 
 import { buttonStyle } from "../../shared/mui";
 

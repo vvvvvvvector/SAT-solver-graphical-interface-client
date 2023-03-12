@@ -9,9 +9,17 @@ import styles from "./Solutions.module.scss";
 export const Solutions: React.FC = () => {
   const dispatch = useDispatch();
 
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
   const { solutions, opened } = useSelector(
     (state: RootState) => state.solutions
   );
+
+  React.useEffect(() => {
+    containerRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [solutions]);
 
   return (
     <>
@@ -36,7 +44,7 @@ export const Solutions: React.FC = () => {
       {opened && (
         <>
           {solutions.length > 0 ? (
-            <div className={styles["solutions-container"]}>
+            <div ref={containerRef} className={styles["solutions-container"]}>
               {solutions.map((clause, clauseIndex) => (
                 <div className={styles["solutions"]} key={clauseIndex}>
                   {clause.map((i, variableIndex) => (
