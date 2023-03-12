@@ -8,13 +8,13 @@ import { clearSolutions } from "../../../redux/slices/solutions";
 
 import SaveIcon from "@mui/icons-material/Save";
 
-import { Variable } from "./Variable/Variable";
+import Variable from "./Variable/Variable";
 
 import { ClauseType } from "../../../shared/types";
 
 import styles from "./Clause.module.scss";
 
-export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
+const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
   const dispatch = useDispatch();
 
   const clauseRef = React.useRef<HTMLDivElement>(null);
@@ -125,3 +125,5 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
     </div>
   );
 };
+
+export default Clause;

@@ -4,9 +4,7 @@ import { VariableType } from "../../../../shared/types";
 
 import styles from "./Variable.module.scss";
 
-export const Variable: React.FC<{ variable: VariableType }> = ({
-  variable,
-}) => {
+const Variable: React.FC<{ variable: VariableType }> = ({ variable }) => {
   return (
     <div className={styles.variable}>
       {variable.index > 0 ? <span>x</span> : <span>&#172;x</span>}
@@ -14,3 +12,5 @@ export const Variable: React.FC<{ variable: VariableType }> = ({
     </div>
   );
 };
+
+export default Variable;

@@ -1,71 +1,6 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-
-  &__left {
-    display: flex;
-    align-items: center;
-
-    h2 {
-      cursor: pointer;
-      color: #28282b;
-    }
-
-    svg {
-      margin-left: 10px;
-      transition: transform 0.3s ease-in-out;
-
-      &.opened {
-        transform: rotate(180deg);
-      }
-
-      path {
-        fill: #28282b;
-      }
-    }
-
-    @media (max-width: 630px) {
-      h2 {
-        font-size: 23px;
-      }
-    }
-
-    @media (max-width: 590px) {
-      h2 {
-        font-size: 21px;
-      }
-    }
-
-    @media (max-width: 590px) {
-      h2 {
-        font-size: 19px;
-      }
-    }
-
-    @media (max-width: 500px) {
-      h2 {
-        font-size: 16px;
-      }
-    }
-
-    @media (max-width: 450px) {
-      h2 {
-        font-size: 14px;
-      }
-    }
-
-    @media (max-width: 450px) {
-      h2 {
-        font-size: 12px;
-      }
-    }
-  }
-}
-
 .formula-container {
   margin-bottom: 15px;
-  margin-top: 15px;
+  margin-top: 20px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.12);
   border: 1px solid #eaeaea;
   border-radius: 7px;
@@ -90,15 +25,6 @@
         margin-left: 3px;
         margin-right: 3px;
       }
-    }
-  }
-
-  .no-formula {
-    text-align: center;
-    padding: 40px;
-
-    span {
-      font-size: 45px;
     }
   }
 }
