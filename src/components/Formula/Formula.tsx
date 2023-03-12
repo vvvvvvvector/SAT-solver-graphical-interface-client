@@ -1,14 +1,21 @@
 import React from "react";
 import { toast } from "react-hot-toast";
 
+import axiosInstance from "../../axios";
+
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { addClause, setFormulaOpened } from "../../redux/slices/formula";
-import { clearSolutions } from "../../redux/slices/solutions";
+import {
+  clearSolutions,
+  setFirstSolution,
+  setNextSolution,
+} from "../../redux/slices/solutions";
 import { clearDimacs } from "../../redux/slices/panel";
 
-import { IconButton, Pagination } from "@mui/material";
+import { Button, IconButton, Pagination } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { Stack } from "@mui/system";
 
 import { Clause } from "./Clause/Clause";
 
@@ -20,7 +27,11 @@ export const Formula: React.FC = () => {
   const clausesPerPage = 200;
   const [page, setPage] = React.useState(0);
 
-  const { clauses, opened } = useSelector((state: RootState) => state.formula);
+  const [loading, setLoading] = React.useState(false);
+
+  const { clauses, opened, changed } = useSelector(
+    (state: RootState) => state.formula
+  );
 
   const onClickAddClause = () => {
     const input = window.prompt("Enter clause: ");
@@ -35,6 +46,72 @@ export const Formula: React.FC = () => {
       sessionStorage.setItem("formula", "");
       dispatch(clearDimacs());
       dispatch(clearSolutions());
+    }
+  };
+
+  const onClickReSolve = async () => {
+    try {
+      setLoading(true);
+
+      const response = await axiosInstance.post("re-solve", {
+        solver:
+          sessionStorage.getItem("solver") === null
+            ? "cd"
+            : sessionStorage.getItem("solver"),
+        formula: JSON.stringify(clauses),
+      });
+
+      setLoading(false);
+
+      if (response.data.satisfiable) {
+        dispatch(setFirstSolution(response.data.first_solution));
+
+        sessionStorage.setItem(
+          "formula",
+          JSON.stringify(response.data.clauses)
+        );
+
+        toast.success("Satisfiable!");
+      } else {
+        toast.error("Unsatisfiable!");
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      toast.error("Something went wrong!");
+    }
+  };
+
+  const onClickNext = async () => {
+    try {
+      setLoading(true);
+
+      const response = await axiosInstance.post("next-solution", {
+        solver:
+          sessionStorage.getItem("solver") === null
+            ? "cd"
+            : sessionStorage.getItem("solver"),
+        formula: sessionStorage.getItem("formula"),
+      });
+
+      setLoading(false);
+
+      if (response.data.satisfiable) {
+        sessionStorage.setItem(
+          "formula",
+          JSON.stringify(response.data.clauses)
+        );
+
+        dispatch(setNextSolution(response.data.next_solution));
+
+        toast.success("Next solution was successfully found!");
+      } else {
+        toast.error("There are no more solutions!");
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      toast.error("Something went wrong!");
     }
   };
 
@@ -82,9 +159,37 @@ export const Formula: React.FC = () => {
           </svg>
         </div>
         {opened && (
-          <IconButton color="primary" onClick={onClickAddClause}>
-            <AddIcon color="primary" />
-          </IconButton>
+          <>
+            <Stack direction={"row"} gap={"20px"}>
+              {changed && (
+                <>
+                  <Button
+                    disabled={loading}
+                    onClick={onClickReSolve}
+                    size="small"
+                    variant="outlined"
+                  >
+                    re-solve
+                  </Button>
+                  <Button
+                    onClick={onClickNext}
+                    disabled={loading}
+                    size="small"
+                    variant="outlined"
+                  >
+                    next
+                  </Button>
+                </>
+              )}
+              <IconButton
+                size="small"
+                color="primary"
+                onClick={onClickAddClause}
+              >
+                <AddIcon color="primary" />
+              </IconButton>
+            </Stack>
+          </>
         )}
       </div>
       {opened && (

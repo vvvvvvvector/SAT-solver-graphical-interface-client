@@ -4,6 +4,7 @@ import { ClauseType } from "../../shared/types";
 
 const initialState = {
   opened: true,
+  changed: false,
   clauses: [] as ClauseType[],
 };
 
@@ -15,7 +16,7 @@ export const formulaSlice = createSlice({
       return { ...state, opened: action.payload };
     },
     setFormula(state, action: PayloadAction<ClauseType[]>) {
-      return { ...state, clauses: action.payload };
+      return { ...state, clauses: action.payload, changed: false };
     },
     addClause(state, action: PayloadAction<number[]>) {
       if (state.clauses.length > 0) {
@@ -26,6 +27,8 @@ export const formulaSlice = createSlice({
       } else {
         state.clauses.push({ id: 0, variables: action.payload });
       }
+
+      state.changed = true;
     },
     editClause(
       state,
@@ -39,11 +42,13 @@ export const formulaSlice = createSlice({
       });
 
       state.clauses = edited;
+      state.changed = true;
     },
     removeClause(state, action: PayloadAction<number>) {
       return {
         ...state,
         clauses: state.clauses.filter((clause) => clause.id !== action.payload),
+        changed: true,
       };
     },
   },
