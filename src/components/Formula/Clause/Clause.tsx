@@ -20,12 +20,10 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
   const clauseRef = React.useRef<HTMLDivElement>(null);
 
   const [editMode, setEditMode] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [editInputValue, setEditInputValue] = React.useState("");
 
   React.useEffect(() => {
     const clickOutsideClause = (event: MouseEvent) => {
-      console.log(event.composedPath());
-
       if (
         clauseRef.current &&
         !event.composedPath().includes(clauseRef.current)
@@ -44,7 +42,7 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
 
     toast.success("Clause was successfully removed!");
 
-    sessionStorage.clear();
+    sessionStorage.setItem("formula", "");
     dispatch(clearDimacs());
     dispatch(clearSolutions());
   };
@@ -53,7 +51,7 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
     dispatch(
       editClause({
         id: clause.id,
-        editedClause: value.split("|").map((i) => parseInt(i)),
+        editedClause: editInputValue.split("|").map((i) => parseInt(i)),
       })
     );
 
@@ -61,7 +59,7 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
 
     toast.success("Clause was successfully updated!");
 
-    sessionStorage.clear();
+    sessionStorage.setItem("formula", "");
     dispatch(clearDimacs());
     dispatch(clearSolutions());
   };
@@ -76,8 +74,8 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
               if (event.key === "Enter") onEditClause();
               if (event.key === "Escape") setEditMode(false);
             }}
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
+            value={editInputValue}
+            onChange={(event) => setEditInputValue(event.target.value)}
           />
           <SaveIcon
             onClick={onEditClause}
@@ -103,7 +101,7 @@ export const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
             <svg
               onClick={() => {
                 setEditMode(true);
-                setValue(clause.variables.join("|"));
+                setEditInputValue(clause.variables.join(" | "));
               }}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 30 30"
