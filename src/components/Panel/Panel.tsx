@@ -37,6 +37,8 @@ export const Panel: React.FC = () => {
 
   const { solver, dimacs } = useSelector((state: RootState) => state.panel);
 
+  const { solutions } = useSelector((state: RootState) => state.solutions);
+
   const onClickSolve = async () => {
     try {
       setLoading(true);
@@ -66,6 +68,7 @@ export const Panel: React.FC = () => {
         toast.error("Unsatisfiable!");
       }
     } catch (error) {
+      setLoading(false);
       toast.error("Something went wrong!");
       console.error("Something went wrong!", error);
     }
@@ -95,6 +98,7 @@ export const Panel: React.FC = () => {
         toast.error("There are no more solutions!");
       }
     } catch (error) {
+      setLoading(false);
       toast.error("Something went wrong!");
       console.error("Something went wrong!", error);
     }
@@ -161,7 +165,7 @@ export const Panel: React.FC = () => {
             },
           }}
           onClick={onClickNext}
-          disabled={loading || dimacs === ""}
+          disabled={loading || dimacs === "" || solutions.length === 0}
           variant="contained"
         >
           {loading ? "Finding..." : "Next solution"}
@@ -182,6 +186,7 @@ export const Panel: React.FC = () => {
             label="SAT-solver"
             onChange={(event) => {
               dispatch(setSolver(event.target.value));
+              sessionStorage.setItem("solver", event.target.value as string);
             }}
             value={solver}
           >
