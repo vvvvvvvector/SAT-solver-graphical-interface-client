@@ -13,10 +13,26 @@ import styles from "./Formula.module.scss";
 
 export const Formula: React.FC = () => {
   const clausesPerPage = 200;
-  
+
   const [page, setPage] = React.useState(0);
 
-  const { clauses, opened } = useSelector((state: RootState) => state.formula);
+  const { clauses, opened, changed } = useSelector(
+    (state: RootState) => state.formula
+  );
+
+  // Reset page to first while setting new clauses via dimacs (formula)
+  React.useEffect(() => {
+    /*
+      if (!changed) -> formula was just loaded and solved for the first time
+      else -> formula in CNF was just edited(remove/edit/add clause)
+    */
+    if (!changed) {
+      setPage(0);
+    } else {
+      // const result = here are function that accepts clauses: ClauseType[] and parce them to dimacs
+      // dispatch(setDimacs(result))
+    }
+  }, [clauses]);
 
   const renderFormula = () => {
     const clausesOnPage = clauses.slice(page, page + clausesPerPage);
@@ -57,6 +73,7 @@ export const Formula: React.FC = () => {
                 justifyContent: "center",
               }}
               color="primary"
+              page={page / clausesPerPage + 1}
               onChange={(_, value: number) =>
                 setPage((value - 1) * clausesPerPage)
               }

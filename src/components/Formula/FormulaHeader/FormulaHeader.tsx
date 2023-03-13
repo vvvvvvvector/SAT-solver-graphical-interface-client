@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { toast } from "react-hot-toast";
 
 import axiosInstance from "../../../axios";
@@ -46,7 +46,6 @@ const FormulaHeader: React.FC = () => {
       toast.success("Clause was successfully added!");
 
       sessionStorage.setItem("formula", "");
-      dispatch(clearDimacs());
       dispatch(clearSolutions());
     }
   };

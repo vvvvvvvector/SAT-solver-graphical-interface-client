@@ -3,7 +3,6 @@ import { toast } from "react-hot-toast";
 
 import { useDispatch } from "react-redux";
 import { editClause, removeClause } from "../../../redux/slices/formula";
-import { clearDimacs } from "../../../redux/slices/panel";
 import { clearSolutions } from "../../../redux/slices/solutions";
 
 import SaveIcon from "@mui/icons-material/Save";
@@ -43,24 +42,29 @@ const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
     toast.success("Clause was successfully removed!");
 
     sessionStorage.setItem("formula", "");
-    dispatch(clearDimacs());
     dispatch(clearSolutions());
   };
 
   const onEditClause = () => {
+    let editedClause: number[] = [];
+
+    if (editInputValue !== "")
+      editedClause = editInputValue.split("|").map((i) => parseInt(i));
+
     dispatch(
       editClause({
         id: clause.id,
-        editedClause: editInputValue.split("|").map((i) => parseInt(i)),
+        editedClause,
       })
     );
 
     setEditMode(false);
 
-    toast.success("Clause was successfully updated!");
+    if (editClause.length > 0)
+      toast.success("Clause was successfully updated!");
+    else toast.success("Clause was successfully removed!");
 
     sessionStorage.setItem("formula", "");
-    dispatch(clearDimacs());
     dispatch(clearSolutions());
   };
 

@@ -21,6 +21,19 @@ export const Solutions: React.FC = () => {
     });
   }, [solutions]);
 
+  // here will be functionality for writing solutions in the file
+  const onClickSolution = (solutionIndex: number) => {
+    let result = "";
+
+    solutions[solutionIndex].forEach((variable, index) => {
+      result += `x[${Math.abs(variable)}] = ${
+        variable > 0 ? "True" : "False"
+      } ${solutions[solutionIndex].length - 1 > index ? "\n" : ""}`;
+    });
+
+    alert(result);
+  };
+
   return (
     <>
       <SolutionsHeader />
@@ -28,16 +41,24 @@ export const Solutions: React.FC = () => {
         <>
           {solutions.length > 0 ? (
             <div ref={containerRef} className={styles["solutions-container"]}>
-              {solutions.map((clause, clauseIndex) => (
-                <div className={styles["solutions"]} key={clauseIndex}>
-                  {clause.map((i, variableIndex) => (
+              {solutions.map((solution, solutionIndex) => (
+                <div
+                  onClick={() => onClickSolution(solutionIndex)}
+                  className={styles["solutions"]}
+                  key={solutionIndex}
+                >
+                  {solution.map((variable, variableIndex) => (
                     <div className={styles["solution"]} key={variableIndex}>
                       <div>
-                        x<sub>{Math.abs(i)}</sub>
+                        x<sub>{Math.abs(variable)}</sub>
                       </div>
                       <span className={styles["equals"]}>=</span>
-                      <span className={i > 0 ? styles["green"] : styles["red"]}>
-                        {i > 0 ? "True" : "False"}
+                      <span
+                        className={
+                          variable > 0 ? styles["green"] : styles["red"]
+                        }
+                      >
+                        {variable > 0 ? "True" : "False"}
                       </span>
                     </div>
                   ))}
