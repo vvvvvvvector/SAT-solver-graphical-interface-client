@@ -1,39 +1,22 @@
 import React from "react";
 import { toast } from "react-hot-toast";
 
-import axiosInstance from "../../../axios";
-
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
-import {
-  setFirstSolution,
-  setNextSolution,
-  clearSolutions,
-} from "../../../redux/slices/solutions";
+import { clearSolutions } from "../../../redux/slices/solutions";
 import { addClause, setFormulaOpened } from "../../../redux/slices/formula";
-import { clearDimacs } from "../../../redux/slices/panel";
 
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { Stack } from "@mui/system";
 
 import styles from "./FormulaHeader.module.scss";
 
 const FormulaHeader: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [isNotSolvedForTheFirstTime, setIsNotSolvedForTheFirstTime] =
-    React.useState(true);
-
-  const [loading, setLoading] = React.useState(false);
-
   const { clauses, opened, changed } = useSelector(
     (state: RootState) => state.formula
   );
-
-  React.useEffect(() => {
-    setIsNotSolvedForTheFirstTime(true);
-  }, [clauses]);
 
   const onClickAddClause = () => {
     const input = window.prompt("Enter clause: ");
@@ -47,73 +30,6 @@ const FormulaHeader: React.FC = () => {
 
       sessionStorage.setItem("formula", "");
       dispatch(clearSolutions());
-    }
-  };
-
-  const onClickReSolve = async () => {
-    try {
-      setLoading(true);
-
-      const response = await axiosInstance.post("re-solve", {
-        solver:
-          sessionStorage.getItem("solver") === null
-            ? "cd"
-            : sessionStorage.getItem("solver"),
-        formula: JSON.stringify(clauses),
-      });
-
-      setLoading(false);
-
-      if (response.data.satisfiable) {
-        dispatch(setFirstSolution(response.data.first_solution));
-
-        sessionStorage.setItem(
-          "formula",
-          JSON.stringify(response.data.clauses)
-        );
-
-        setIsNotSolvedForTheFirstTime(false);
-        toast.success("Satisfiable!");
-      } else {
-        toast.error("Unsatisfiable!");
-      }
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-      toast.error("Something went wrong!");
-    }
-  };
-
-  const onClickNext = async () => {
-    try {
-      setLoading(true);
-
-      const response = await axiosInstance.post("next-solution", {
-        solver:
-          sessionStorage.getItem("solver") === null
-            ? "cd"
-            : sessionStorage.getItem("solver"),
-        formula: sessionStorage.getItem("formula"),
-      });
-
-      setLoading(false);
-
-      if (response.data.satisfiable) {
-        sessionStorage.setItem(
-          "formula",
-          JSON.stringify(response.data.clauses)
-        );
-
-        dispatch(setNextSolution(response.data.next_solution));
-
-        toast.success("Next solution was successfully found!");
-      } else {
-        toast.error("There are no more solutions!");
-      }
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-      toast.error("Something went wrong!");
     }
   };
 
@@ -141,33 +57,9 @@ const FormulaHeader: React.FC = () => {
       </div>
       {opened && (
         <>
-          <Stack direction={"row"} gap={"15px"}>
-            {changed && (
-              <>
-                <Button
-                  disabled={loading}
-                  onClick={onClickReSolve}
-                  variant="outlined"
-                >
-                  re-solve
-                </Button>
-                <Button
-                  onClick={onClickNext}
-                  disabled={loading || isNotSolvedForTheFirstTime}
-                  variant="outlined"
-                >
-                  next
-                </Button>
-              </>
-            )}
-            <IconButton
-              disabled={loading}
-              color="primary"
-              onClick={onClickAddClause}
-            >
-              <AddIcon color="primary" />
-            </IconButton>
-          </Stack>
+          <IconButton color="primary" onClick={onClickAddClause}>
+            <AddIcon color="primary" />
+          </IconButton>
         </>
       )}
     </div>

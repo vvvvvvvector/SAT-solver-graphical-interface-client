@@ -1,7 +1,8 @@
 import React from "react";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
+import { setDimacs } from "../../redux/slices/panel";
 
 import { Pagination } from "@mui/material";
 
@@ -9,9 +10,13 @@ import FormulaHeader from "./FormulaHeader/FormulaHeader";
 import NoFormula from "./NoFormula/NoFormula";
 import Clause from "./Clause/Clause";
 
+import { parceToDimacs } from "./../../utils/utils";
+
 import styles from "./Formula.module.scss";
 
 export const Formula: React.FC = () => {
+  const dispatch = useDispatch();
+
   const clausesPerPage = 200;
 
   const [page, setPage] = React.useState(0);
@@ -29,8 +34,7 @@ export const Formula: React.FC = () => {
     if (!changed) {
       setPage(0);
     } else {
-      // const result = here are function that accepts clauses: ClauseType[] and parce them to dimacs
-      // dispatch(setDimacs(result))
+      dispatch(setDimacs(parceToDimacs(clauses)));
     }
   }, [clauses]);
 
