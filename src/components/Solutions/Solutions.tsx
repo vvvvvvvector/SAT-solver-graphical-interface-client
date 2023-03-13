@@ -22,16 +22,28 @@ export const Solutions: React.FC = () => {
   }, [solutions]);
 
   // here will be functionality for writing solutions in the file
-  const onClickSolution = (solutionIndex: number) => {
-    let result = "";
+  const handleSaveSolution = (solutionIndex: number) => {
+    if (
+      window.confirm(
+        `Do you want to write solution ${solutionIndex + 1} in the file?`
+      )
+    ) {
+      let result = "";
 
-    solutions[solutionIndex].forEach((variable, index) => {
-      result += `x[${Math.abs(variable)}] = ${
-        variable > 0 ? "True" : "False"
-      } ${solutions[solutionIndex].length - 1 > index ? "\n" : ""}`;
-    });
+      solutions[solutionIndex].forEach((variable, index) => {
+        result += `x_${Math.abs(variable)} = ${
+          variable > 0 ? "True" : "False"
+        } ${solutions[solutionIndex].length - 1 > index ? "\n" : ""}`;
+      });
 
-    alert(result);
+      const blob = new Blob([result], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.download = `solution_${solutionIndex + 1}.txt`;
+      link.href = url;
+      link.click();
+    }
   };
 
   return (
@@ -43,7 +55,7 @@ export const Solutions: React.FC = () => {
             <div ref={containerRef} className={styles["solutions-container"]}>
               {solutions.map((solution, solutionIndex) => (
                 <div
-                  onClick={() => onClickSolution(solutionIndex)}
+                  onClick={() => handleSaveSolution(solutionIndex)}
                   className={styles["solutions"]}
                   key={solutionIndex}
                 >
