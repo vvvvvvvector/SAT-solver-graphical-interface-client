@@ -49,18 +49,14 @@ export const formulaSlice = createSlice({
         );
       }
 
-      state.clauses.length === 0
-        ? (state.changed = false)
-        : (state.changed = true);
+      state.changed = true;
     },
     removeClause(state, action: PayloadAction<number>) {
       state.clauses = state.clauses.filter(
         (clause) => clause.id !== action.payload
       );
 
-      state.clauses.length === 0
-        ? (state.changed = false)
-        : (state.changed = true);
+      state.changed = true;
     },
   },
 });

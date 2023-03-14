@@ -18,11 +18,11 @@ export const parceToDimacs = (clauses: ClauseType[]) => {
 
   let dimacs = `p cnf ${variables_n} ${clauses_n}\n`;
 
-  clauses.forEach((clause) => {
+  clauses.forEach((clause, index) => {
     clause.variables.forEach((variable) => {
       dimacs += `${variable} `;
     });
-    dimacs += "0\n";
+    dimacs += index < clauses.length - 1 ? "0\n" : "0";
   });
 
   return dimacs;
