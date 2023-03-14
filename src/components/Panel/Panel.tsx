@@ -20,9 +20,10 @@ import {
   Select,
   MenuItem,
 } from "@mui/material/";
-import Textarea from "@mui/joy/Textarea";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import CalculateIcon from "@mui/icons-material/Calculate";
+
+import { Editor } from "../Editor/Editor";
 
 import solvers from "./Solvers";
 
@@ -113,7 +114,12 @@ export const Panel: React.FC = () => {
 
       reader.onload = () => {
         toast.success("Formula was successfully uploaded!");
-        dispatch(setDimacs(reader.result as string));
+
+        const dimacs = reader.result as string;
+
+        console.log(dimacs.split("\n"));
+
+        dispatch(setDimacs(dimacs));
       };
 
       reader.onerror = () => {
@@ -126,17 +132,7 @@ export const Panel: React.FC = () => {
 
   return (
     <>
-      <Textarea
-        sx={{
-          marginBottom: "20px",
-        }}
-        value={dimacs}
-        onChange={(event) => dispatch(setDimacs(event.target.value))}
-        minRows={7}
-        maxRows={12}
-        size="lg"
-        placeholder="dimacs cnf format allowed here..."
-      />
+      <Editor />
       <div className={styles.controls}>
         <Button
           sx={{

@@ -2,7 +2,7 @@ import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
-import { setDimacs } from "../../redux/slices/panel";
+import { clearDimacs, setDimacs } from "../../redux/slices/panel";
 
 import { Pagination } from "@mui/material";
 
@@ -34,7 +34,11 @@ export const Formula: React.FC = () => {
     if (!changed) {
       setPage(0);
     } else {
-      dispatch(setDimacs(parceToDimacs(clauses)));
+      if (clauses.length > 0) {
+        dispatch(setDimacs(parceToDimacs(clauses)));
+      } else {
+        dispatch(clearDimacs());
+      }
     }
   }, [clauses]);
 

@@ -8,13 +8,13 @@ export const panelSlice = createSlice({
   },
   reducers: {
     setDimacs(state, action: PayloadAction<string>) {
-      return { ...state, dimacs: action.payload };
+      state.dimacs = action.payload;
     },
     clearDimacs(state) {
-      return { ...state, dimacs: "" };
+      state.dimacs = "";
     },
     setSolver(state, action: PayloadAction<string>) {
-      return { ...state, solver: action.payload };
+      state.solver = action.payload;
     },
   },
 });
