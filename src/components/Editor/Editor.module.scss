@@ -8,9 +8,9 @@
     position: relative;
     flex: 1;
     height: 285px;
+    overflow-y: hidden;
 
     textarea {
-      z-index: 10;
       width: 100%;
       height: 100%;
       box-sizing: border-box;
@@ -22,17 +22,22 @@
     }
 
     .lines {
+      padding-top: 10px;
       box-sizing: border-box;
-      width: 100%;
-      height: 100%;
       position: absolute;
       top: 0;
-      left: 0;
-      padding: 10px 0;
+      pointer-events: none;
+      height: 285px;
+      width: 100%;
+      overflow-y: hidden;
 
       .line {
-        line-height: 1.25;
-        background-color: rgba(#ff5f5f, 0.6);
+        color: rgb(39, 39, 39);
+        background-color: rgba(#ff7d7d, 0.6);
+        padding: 0px 15px;
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
       }
     }
   }
