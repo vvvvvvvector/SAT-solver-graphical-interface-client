@@ -21,7 +21,8 @@ import {
   MenuItem,
 } from "@mui/material/";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import CalculateIcon from "@mui/icons-material/Calculate";
+import CalculateOutlinedIcon from "@mui/icons-material/CalculateOutlined";
+import ForwardOutlinedIcon from "@mui/icons-material/ForwardOutlined";
 
 import { Editor } from "../Editor/Editor";
 
@@ -44,11 +45,18 @@ export const Panel: React.FC = () => {
   const onClickSolve = async () => {
     if (errors.length === 0) {
       try {
+        const dimacs_without_comments = dimacs.replaceAll(
+          /c .*\n|c\n|\nc$|\nc .*|c$/g,
+          ""
+        );
+
+        console.log(dimacs_without_comments);
+
         setLoading(true);
 
         const response = await axiosInstance.post("solve", {
           solver,
-          dimacs,
+          dimacs: dimacs_without_comments,
         });
 
         setLoading(false);
@@ -146,7 +154,7 @@ export const Panel: React.FC = () => {
         <Button
           sx={{
             ...buttonStyle,
-            maxWidth: "155px",
+            maxWidth: "185px",
             width: "100%",
             "@media (max-width: 1200px)": {
               maxWidth: "none",
@@ -154,7 +162,7 @@ export const Panel: React.FC = () => {
           }}
           onClick={onClickSolve}
           disabled={loading || dimacs === ""}
-          endIcon={<CalculateIcon />}
+          endIcon={<CalculateOutlinedIcon />}
           variant="contained"
         >
           {loading ? "Solving..." : "Solve"}
@@ -162,7 +170,7 @@ export const Panel: React.FC = () => {
         <Button
           sx={{
             ...buttonStyle,
-            maxWidth: "160px",
+            maxWidth: "185px",
             width: "100%",
             whiteSpace: "nowrap",
             "@media (max-width: 1200px)": {
@@ -171,6 +179,7 @@ export const Panel: React.FC = () => {
           }}
           onClick={onClickNext}
           disabled={loading || dimacs === "" || solutions.length === 0}
+          endIcon={<ForwardOutlinedIcon />}
           variant="contained"
         >
           {loading ? "Finding..." : "Next solution"}
