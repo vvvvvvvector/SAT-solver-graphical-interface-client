@@ -19,17 +19,19 @@ const FormulaHeader: React.FC = () => {
   );
 
   const onClickAddClause = () => {
-    const input = window.prompt("Enter clause: ");
+    const input = window.prompt("Enter a clause:");
 
-    const clause = input?.split("|").map((item) => parseInt(item));
+    if (input) {
+      const clause = input?.split("|").map((item) => parseInt(item));
 
-    if (clause) {
-      dispatch(addClause(clause));
+      if (clause) {
+        dispatch(addClause(clause));
 
-      toast.success("Clause was successfully added!");
+        toast.success("Clause was successfully added!");
 
-      sessionStorage.setItem("formula", "");
-      dispatch(clearSolutions());
+        sessionStorage.setItem("formula", "");
+        dispatch(clearSolutions());
+      }
     }
   };
 

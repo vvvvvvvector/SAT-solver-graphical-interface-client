@@ -20,8 +20,8 @@ export const Editor: React.FC = () => {
   React.useEffect(() => {
     const lineByLineDimacs = dimacs.split("\n");
 
-    const formulaDefinition = /^p\scnf\s[1-9]+\s[1-9]+$/;
-    const endsWithZero = /0$/;
+    const formulaDefinition = /^p\scnf\s[1-9][0-9]*\s[1-9][0-9]*$/;
+    const endsWithZero = / 0$/;
     // const correctClause = /^(?:-?[1-9])+ 0$/;
 
     lineByLineDimacs.forEach((line, index) => {
