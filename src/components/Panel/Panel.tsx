@@ -134,9 +134,8 @@ export const Panel: React.FC = () => {
 
         const dimacs = reader.result as string;
 
-        // console.log(dimacs.split("\n"));
-
         dispatch(setDimacs(dimacs));
+        dispatch(setFormula([]));
       };
 
       reader.onerror = () => {
