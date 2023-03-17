@@ -60,7 +60,7 @@ const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
 
     setEditMode(false);
 
-    if (editClause.length > 0)
+    if (editedClause.length > 0)
       toast.success("Clause was successfully updated!");
     else toast.success("Clause was successfully removed!");
 
