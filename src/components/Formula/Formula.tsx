@@ -2,7 +2,7 @@ import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
-import { clearDimacs, setDimacs } from "../../redux/slices/panel";
+import { clearDimacs, setDimacs } from "../../redux/slices/editor";
 
 import { Pagination } from "@mui/material";
 
@@ -17,7 +17,7 @@ import styles from "./Formula.module.scss";
 export const Formula: React.FC = () => {
   const dispatch = useDispatch();
 
-  const clausesPerPage = 200;
+  const clausesPerPage = 125;
 
   const [page, setPage] = React.useState(0);
 

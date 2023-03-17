@@ -11,7 +11,7 @@ import {
   setNextSolution,
   clearSolutions,
 } from "../../redux/slices/solutions";
-import { setDimacs, setSolver } from "../../redux/slices/panel";
+import { setDimacs } from "../../redux/slices/editor";
 
 import {
   Button,
@@ -34,74 +34,83 @@ import styles from "./Panel.module.scss";
 export const Panel: React.FC = () => {
   const dispatch = useDispatch();
 
+  const [solver, setSolver] = React.useState("cd");
   const [loading, setLoading] = React.useState(false);
 
-  const { solver, dimacs } = useSelector((state: RootState) => state.panel);
+  const { dimacs, errors } = useSelector((state: RootState) => state.editor);
 
   const { solutions } = useSelector((state: RootState) => state.solutions);
 
   const onClickSolve = async () => {
-    try {
-      setLoading(true);
+    if (errors.length === 0) {
+      try {
+        setLoading(true);
 
-      const response = await axiosInstance.post("solve", {
-        solver,
-        dimacs,
-      });
+        const response = await axiosInstance.post("solve", {
+          solver,
+          dimacs,
+        });
 
-      setLoading(false);
+        setLoading(false);
 
-      if (response.data.satisfiable) {
-        dispatch(setFormula(response.data.clauses.slice(0, -1)));
+        if (response.data.satisfiable) {
+          dispatch(setFormula(response.data.clauses.slice(0, -1)));
 
-        sessionStorage.setItem(
-          "formula",
-          JSON.stringify(response.data.clauses)
-        );
+          sessionStorage.setItem(
+            "formula",
+            JSON.stringify(response.data.clauses)
+          );
 
-        dispatch(setFirstSolution(response.data.first_solution));
+          dispatch(setFirstSolution(response.data.first_solution));
 
-        toast.success("Satisfiable!");
-      } else {
-        dispatch(setFormula(response.data.clauses));
-        dispatch(clearSolutions());
+          toast.success("Satisfiable!");
+        } else {
+          dispatch(setFormula(response.data.clauses));
+          dispatch(clearSolutions());
 
-        toast.error("Unsatisfiable!");
+          toast.error("Unsatisfiable!");
+        }
+      } catch (error) {
+        setLoading(false);
+        toast.error("Something went wrong!");
+        console.error("Something went wrong!", error);
       }
-    } catch (error) {
-      setLoading(false);
-      toast.error("Something went wrong!");
-      console.error("Something went wrong!", error);
+    } else {
+      toast.error("There are errors in dimacs!");
     }
   };
 
   const onClickNext = async () => {
-    try {
-      setLoading(true);
+    if (errors.length === 0) {
+      try {
+        setLoading(true);
 
-      const response = await axiosInstance.post("next-solution", {
-        solver,
-        formula: sessionStorage.getItem("formula"),
-      });
+        const response = await axiosInstance.post("next-solution", {
+          solver,
+          formula: sessionStorage.getItem("formula"),
+        });
 
-      setLoading(false);
+        setLoading(false);
 
-      if (response.data.satisfiable) {
-        sessionStorage.setItem(
-          "formula",
-          JSON.stringify(response.data.clauses)
-        );
+        if (response.data.satisfiable) {
+          sessionStorage.setItem(
+            "formula",
+            JSON.stringify(response.data.clauses)
+          );
 
-        dispatch(setNextSolution(response.data.next_solution));
+          dispatch(setNextSolution(response.data.next_solution));
 
-        toast.success("Next solution was successfully found!");
-      } else {
-        toast.error("There are no more solutions!");
+          toast.success("Next solution was successfully found!");
+        } else {
+          toast.error("There are no more solutions!");
+        }
+      } catch (error) {
+        setLoading(false);
+        toast.error("Something went wrong!");
+        console.error("Something went wrong!", error);
       }
-    } catch (error) {
-      setLoading(false);
-      toast.error("Something went wrong!");
-      console.error("Something went wrong!", error);
+    } else {
+      toast.error("There are errors in dimacs!");
     }
   };
 
@@ -181,8 +190,7 @@ export const Panel: React.FC = () => {
             labelId="select-solver-label"
             label="SAT-solver"
             onChange={(event) => {
-              dispatch(setSolver(event.target.value));
-              sessionStorage.setItem("solver", event.target.value as string);
+              setSolver(event.target.value as string);
             }}
             value={solver}
           >
