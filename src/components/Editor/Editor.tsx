@@ -1,61 +1,46 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setDimacs } from "../../redux/slices/panel";
+import { removeError, setDimacs, addError } from "../../redux/slices/editor";
 import { RootState } from "../../redux/store";
 
 import styles from "./Editor.module.scss";
 
-type ErrorType = {
-  line: number;
-  text: string;
-};
-
 export const Editor: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [errors, setErrors] = React.useState<ErrorType[]>([]);
-
-  const { dimacs } = useSelector((state: RootState) => state.panel);
+  const { dimacs, errors } = useSelector((state: RootState) => state.editor);
 
   const gutterRef = React.useRef<HTMLDivElement>(null);
   const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
   const errorsRef = React.useRef<HTMLDivElement>(null);
 
-  const lineByLineDimacs = React.useMemo(() => dimacs.split("\n"), [dimacs]);
+  const length = React.useMemo(() => dimacs.match(/\n/g)?.length, [dimacs]);
 
   React.useEffect(() => {
-    const lineEndsWithZero = new RegExp("0$");
+    const lineByLineDimacs = dimacs.split("\n");
 
-    for (let i = 1; i < lineByLineDimacs.length; i++) {
-      if (!lineEndsWithZero.test(lineByLineDimacs[i])) {
+    lineByLineDimacs.forEach((line, index) => {
+      const error = errors.find((error) => error.line === index + 1);
+
+      if (!line.endsWith(" 0") && line !== "" && index !== 0) {
         const newError = {
-          line: i + 1,
+          line: index + 1,
           text: "error: line must end with 0",
-          checked: true,
         };
 
-        if (!errors.some((error) => error.line === newError.line)) {
-          setErrors((prev) => [
-            ...prev,
-            {
-              line: i + 1,
-              text: "error: line must end with 0",
-              checked: true,
-            },
-          ]);
-        }
+        if (!error) dispatch(addError(newError));
       } else {
-        setErrors((prev) => prev.filter((error) => error.line !== i + 1));
+        if (error) dispatch(removeError(index));
       }
-    }
-  }, [lineByLineDimacs]);
+    });
+  }, [dimacs]);
 
   return (
     <div className={styles.editor}>
       <div ref={gutterRef} className={styles.gutter}>
         <div>
-          {[...Array(lineByLineDimacs.length)].map((_, index) => (
+          {[...Array(length ? length + 1 : 1)].map((_, index) => (
             <div className={`${styles["gutter-cell"]}`} key={index}>
               {`${index + 1}`}
             </div>
@@ -66,8 +51,10 @@ export const Editor: React.FC = () => {
         <textarea
           onScroll={() => {
             if (gutterRef.current && textAreaRef.current && errorsRef.current) {
-              gutterRef.current.scrollTop = textAreaRef.current.scrollTop;
-              errorsRef.current.scrollTop = gutterRef.current.scrollTop;
+              const { scrollTop } = textAreaRef.current;
+
+              gutterRef.current.scrollTop = scrollTop;
+              errorsRef.current.scrollTop = scrollTop;
             }
           }}
           placeholder="dimacs cnf format allowed here..."

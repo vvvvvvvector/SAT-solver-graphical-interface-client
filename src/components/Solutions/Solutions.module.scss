@@ -19,10 +19,10 @@
     border-radius: 7px;
     padding: 13px 40px;
     overflow-y: auto;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
 
     &:hover {
-      background-color: #eaeaea;
+      background-color: #f1f1f1;
       transform: scale(1.04);
     }
   }
