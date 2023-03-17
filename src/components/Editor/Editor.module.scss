@@ -8,7 +8,7 @@
   .content {
     position: relative;
     flex: 1;
-    height: 295px;
+    height: 350px;
     overflow-y: hidden;
 
     textarea {
@@ -29,7 +29,7 @@
       position: absolute;
       top: 0;
       pointer-events: none;
-      height: 295px;
+      height: 350px;
       width: 100%;
       overflow-y: hidden;
 
@@ -47,7 +47,7 @@
   .gutter {
     box-sizing: border-box;
     background-color: #1876d2;
-    height: 295px;
+    height: 350px;
     overflow-y: hidden;
     display: flex;
     flex-direction: column;
