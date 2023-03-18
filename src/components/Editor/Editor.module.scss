@@ -1,5 +1,6 @@
 .editor {
-  border-radius: 7px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
   display: flex;
   margin-bottom: 30px;
   border: 1px solid #ccc;
@@ -8,57 +9,7 @@
   .content {
     position: relative;
     flex: 1;
-    height: 350px;
+    height: 370px;
     overflow-y: hidden;
-
-    textarea {
-      border-radius: 7px;
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      padding: 10px 15px;
-      line-height: 1.25;
-      border: 0;
-      resize: none;
-      font-size: 16px;
-    }
-
-    .lines {
-      padding-top: 10px;
-      box-sizing: border-box;
-      position: absolute;
-      top: 0;
-      pointer-events: none;
-      height: 350px;
-      width: 100%;
-      overflow-y: hidden;
-
-      .line {
-        color: rgb(39, 39, 39);
-        background-color: rgba(#ff7d7d, 0.6);
-        padding: 0px 15px;
-        line-height: 1.25;
-        position: relative;
-        display: flex;
-        justify-content: flex-end;
-      }
-    }
-  }
-
-  .gutter {
-    box-sizing: border-box;
-    background-color: #1876d2;
-    height: 350px;
-    overflow-y: hidden;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-
-    &-cell {
-      color: white;
-      font-size: 16px;
-      line-height: 1.25;
-      text-align: end;
-    }
   }
 }

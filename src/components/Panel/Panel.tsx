@@ -24,8 +24,6 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import CalculateOutlinedIcon from "@mui/icons-material/CalculateOutlined";
 import ForwardOutlinedIcon from "@mui/icons-material/ForwardOutlined";
 
-import { Editor } from "../Editor/Editor";
-
 import solvers from "./Solvers";
 
 import { buttonStyle } from "../../shared/mui";
@@ -146,7 +144,6 @@ export const Panel: React.FC = () => {
 
   return (
     <>
-      <Editor />
       <div className={styles.controls}>
         <Button
           sx={{
