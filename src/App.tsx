@@ -1,4 +1,4 @@
-import { Formula, Header, Solutions, Panel } from "./components";
+import { Formula, Header, Solutions, Panel, Editor } from "./components";
 
 import "./styles/global.scss";
 
@@ -8,6 +8,7 @@ export default function App() {
       <Header />
       <div className="container">
         <div className="content">
+          <Editor />
           <Panel />
           <Formula />
           <Solutions />

@@ -1,0 +1,16 @@
+.gutter {
+  box-sizing: border-box;
+  background-color: #1876d2;
+  height: 370px;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  &-cell {
+    color: white;
+    font-size: 16px;
+    line-height: 1.25;
+    text-align: end;
+  }
+}
