@@ -50,8 +50,6 @@ export const Panel: React.FC = () => {
           ""
         );
 
-        console.log(dimacs_without_comments);
-
         setLoading(true);
 
         const response = await axiosInstance.post("solve", {
@@ -153,7 +151,7 @@ export const Panel: React.FC = () => {
         <Button
           sx={{
             ...buttonStyle,
-            maxWidth: "185px",
+            maxWidth: "200px",
             width: "100%",
             "@media (max-width: 1200px)": {
               maxWidth: "none",
@@ -169,7 +167,7 @@ export const Panel: React.FC = () => {
         <Button
           sx={{
             ...buttonStyle,
-            maxWidth: "185px",
+            maxWidth: "200px",
             width: "100%",
             whiteSpace: "nowrap",
             "@media (max-width: 1200px)": {
@@ -185,7 +183,7 @@ export const Panel: React.FC = () => {
         </Button>
         <FormControl
           sx={{
-            maxWidth: "150px",
+            maxWidth: "200px",
             width: "100%",
             "@media (max-width: 1200px)": {
               maxWidth: "none",
