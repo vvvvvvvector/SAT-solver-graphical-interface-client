@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// error: clause must contain at least one variable
-// error: line must end with 0
-
 type ErrorType = {
   line: number;
   text: string;
