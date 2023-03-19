@@ -1,0 +1,10 @@
+.container {
+  display: grid;
+  place-items: center;
+
+  .content {
+    max-width: 67vw;
+    width: 100%;
+    padding: 33px 0px;
+  }
+}

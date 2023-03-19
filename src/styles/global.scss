@@ -11,28 +11,3 @@ body {
   font-family: "Inter", -apple-system, system-ui, sans-serif;
   background-color: #ffffff;
 }
-
-.container {
-  display: grid;
-  place-items: center;
-
-  .content {
-    max-width: 67vw;
-    width: 100%;
-    padding: 33px 0px;
-
-    .no-upload {
-      font-weight: 600;
-      display: flex;
-      padding: 110px 0px;
-      font-size: 25px;
-      align-items: center;
-      justify-content: center;
-
-      span {
-        margin-left: 12px;
-        font-size: 50px;
-      }
-    }
-  }
-}
