@@ -30,7 +30,6 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
         const error = errors.find((error) => error.line === index + 1);
 
         if (line.match(/^p\scnf\s.*$/) && !isFormulaDefined.current) {
-          console.log(`formula was defined in line ${index + 1}`);
           isFormulaDefined.current = true;
           formulaDefinitionRow.current = index + 1;
         }
@@ -91,7 +90,7 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
           if (error) dispatch(removeError(index));
         }
       });
-    }, 650),
+    }, 450),
     []
   );
 

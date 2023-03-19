@@ -12,18 +12,18 @@ const calculateVariables = (clauses: ClauseType[]) => {
   return variablesSet.size;
 };
 
-export const parceToDimacs = (clauses: ClauseType[]) => {
+export const parseToDimacs = (clauses: ClauseType[]) => {
   const variables_n = calculateVariables(clauses);
   const clauses_n = clauses.length;
 
-  let dimacs = `p cnf ${variables_n} ${clauses_n}\n`;
+  let newDimacs = `p cnf ${variables_n} ${clauses_n}\n`;
 
   clauses.forEach((clause, index) => {
     clause.variables.forEach((variable) => {
-      dimacs += `${variable} `;
+      newDimacs += `${variable} `;
     });
-    dimacs += index < clauses.length - 1 ? "0\n" : "0";
+    newDimacs += index < clauses.length - 1 ? "0\n" : "0";
   });
 
-  return dimacs;
+  return newDimacs;
 };

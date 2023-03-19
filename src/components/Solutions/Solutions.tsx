@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
@@ -28,21 +29,28 @@ export const Solutions: React.FC = () => {
         `Do you want to write solution ${solutionIndex + 1} in the file?`
       )
     ) {
-      let result = "";
+      const filename = window.prompt("Enter a filename: ");
 
-      solutions[solutionIndex].forEach((variable, index) => {
-        result += `x_${Math.abs(variable)} = ${
-          variable > 0 ? "True" : "False"
-        } ${solutions[solutionIndex].length - 1 > index ? "\n" : ""}`;
-      });
+      if (filename) {
+        let result =
+          "Solution was found: " + new Date().toLocaleString() + "\n\n";
 
-      const blob = new Blob([result], { type: "text/plain" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
+        solutions[solutionIndex].forEach((variable, index) => {
+          result += `x_${Math.abs(variable)} = ${
+            variable > 0 ? "True" : "False"
+          } ${solutions[solutionIndex].length - 1 > index ? "\n" : ""}`;
+        });
 
-      link.download = `solution_${solutionIndex + 1}.txt`;
-      link.href = url;
-      link.click();
+        const blob = new Blob([result], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.download = `${filename}.txt`;
+        link.href = url;
+        link.click();
+
+        toast.success("Solution was successfully saved!");
+      }
     }
   };
 
