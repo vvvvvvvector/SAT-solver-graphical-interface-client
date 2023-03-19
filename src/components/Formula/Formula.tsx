@@ -10,14 +10,14 @@ import FormulaHeader from "./FormulaHeader/FormulaHeader";
 import NoFormula from "./NoFormula/NoFormula";
 import Clause from "./Clause/Clause";
 
-import { parceToDimacs } from "./../../utils/utils";
+import { parseToDimacs } from "./../../utils/utils";
 
 import styles from "./Formula.module.scss";
 
 export const Formula: React.FC = () => {
   const dispatch = useDispatch();
 
-  const clausesPerPage = 125;
+  const clausesPerPage = 115;
 
   const [page, setPage] = React.useState(0);
 
@@ -35,7 +35,7 @@ export const Formula: React.FC = () => {
       setPage(0);
     } else {
       if (clauses.length > 0) {
-        dispatch(setDimacs(parceToDimacs(clauses)));
+        dispatch(setDimacs(parseToDimacs(clauses)));
       } else {
         dispatch(clearDimacs());
       }

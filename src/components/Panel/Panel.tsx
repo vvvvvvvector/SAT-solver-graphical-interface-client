@@ -35,86 +35,90 @@ export const Panel: React.FC = () => {
 
   const [solver, setSolver] = React.useState("cd");
   const [loading, setLoading] = React.useState(false);
+  const [isNextActive, setIsNextActive] = React.useState(false);
 
   const { dimacs, errors } = useSelector((state: RootState) => state.editor);
 
   const { solutions } = useSelector((state: RootState) => state.solutions);
 
   const onClickSolve = async () => {
-    if (errors.length === 0) {
-      try {
-        const dimacs_without_comments = dimacs.replaceAll(
-          /c .*\n|c\n|\nc$|\nc .*|c$/g,
-          ""
+    try {
+      const dimacs_without_comments = dimacs.replaceAll(
+        /c .*\n|c\n|\nc$|\nc .*|c$/g,
+        ""
+      );
+
+      setLoading(true);
+
+      const response = await axiosInstance.post("solve", {
+        solver,
+        dimacs: dimacs_without_comments,
+      });
+
+      setLoading(false);
+
+      if (response.data.satisfiable) {
+        dispatch(setFormula(response.data.clauses.slice(0, -1)));
+
+        setIsNextActive(true);
+
+        sessionStorage.setItem(
+          "formula",
+          JSON.stringify(response.data.clauses)
         );
 
-        setLoading(true);
+        dispatch(setFirstSolution(response.data.first_solution));
 
-        const response = await axiosInstance.post("solve", {
-          solver,
-          dimacs: dimacs_without_comments,
-        });
+        toast.success("Satisfiable!");
+      } else {
+        dispatch(setFormula(response.data.clauses));
+        dispatch(clearSolutions());
 
-        setLoading(false);
-
-        if (response.data.satisfiable) {
-          dispatch(setFormula(response.data.clauses.slice(0, -1)));
-
-          sessionStorage.setItem(
-            "formula",
-            JSON.stringify(response.data.clauses)
-          );
-
-          dispatch(setFirstSolution(response.data.first_solution));
-
-          toast.success("Satisfiable!");
-        } else {
-          dispatch(setFormula(response.data.clauses));
-          dispatch(clearSolutions());
-
-          toast.error("Unsatisfiable!");
-        }
-      } catch (error) {
-        setLoading(false);
-        toast.error("Something went wrong!");
-        console.error("Something went wrong!", error);
+        toast.error("Unsatisfiable!");
       }
-    } else {
-      toast.error("There are errors in dimacs!");
+    } catch (error: any) {
+      setLoading(false);
+      setIsNextActive(false);
+
+      if (error.response.status === 418) {
+        toast.error(error.response.data.detail);
+      } else if (error.response.status === 419) {
+        toast.error(error.response.data.detail);
+      } else {
+        toast.error("Something went wrong!");
+      }
+
+      console.error(error);
     }
   };
 
   const onClickNext = async () => {
-    if (errors.length === 0) {
-      try {
-        setLoading(true);
+    try {
+      setLoading(true);
 
-        const response = await axiosInstance.post("next-solution", {
-          solver,
-          formula: sessionStorage.getItem("formula"),
-        });
+      const response = await axiosInstance.post("next-solution", {
+        solver,
+        formula: sessionStorage.getItem("formula"),
+      });
 
-        setLoading(false);
+      setLoading(false);
 
-        if (response.data.satisfiable) {
-          sessionStorage.setItem(
-            "formula",
-            JSON.stringify(response.data.clauses)
-          );
+      if (response.data.satisfiable) {
+        sessionStorage.setItem(
+          "formula",
+          JSON.stringify(response.data.clauses)
+        );
 
-          dispatch(setNextSolution(response.data.next_solution));
+        dispatch(setNextSolution(response.data.next_solution));
 
-          toast.success("Next solution was successfully found!");
-        } else {
-          toast.error("There are no more solutions!");
-        }
-      } catch (error) {
-        setLoading(false);
-        toast.error("Something went wrong!");
-        console.error("Something went wrong!", error);
+        toast.success("Next solution was successfully found!");
+      } else {
+        toast.error("There are no more solutions!");
       }
-    } else {
-      toast.error("There are errors in dimacs!");
+    } catch (error) {
+      setLoading(false);
+      toast.error("Something went wrong!");
+      console.error("Something went wrong!", error);
     }
   };
 
@@ -132,6 +136,7 @@ export const Panel: React.FC = () => {
 
         dispatch(setDimacs(dimacs));
         dispatch(setFormula([]));
+        dispatch(clearSolutions());
       };
 
       reader.onerror = () => {
@@ -155,11 +160,11 @@ export const Panel: React.FC = () => {
             },
           }}
           onClick={onClickSolve}
-          disabled={loading || dimacs === ""}
+          disabled={loading || dimacs === "" || errors.length > 0}
           endIcon={<CalculateOutlinedIcon />}
           variant="contained"
         >
-          {loading ? "Solving..." : "Solve"}
+          {loading ? "Solving..." : errors.length > 0 ? "Fix errors" : "Solve"}
         </Button>
         <Button
           sx={{
@@ -172,7 +177,13 @@ export const Panel: React.FC = () => {
             },
           }}
           onClick={onClickNext}
-          disabled={loading || dimacs === "" || solutions.length === 0}
+          disabled={
+            loading ||
+            dimacs === "" ||
+            solutions.length === 0 ||
+            errors.length > 0 ||
+            !isNextActive
+          }
           endIcon={<ForwardOutlinedIcon />}
           variant="contained"
         >
