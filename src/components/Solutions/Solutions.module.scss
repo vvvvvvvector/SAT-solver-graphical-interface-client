@@ -7,26 +7,6 @@
   font-size: 18px;
   font-family: "Source Code Pro", monospace;
 
-  .solutions {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-height: calc((20px * 7) + 26px);
-    line-height: 20px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.12);
-    border: 1px solid #eaeaea;
-    border-radius: 7px;
-    padding: 13px 40px;
-    overflow-y: auto;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background-color: #f1f1f1;
-      transform: scale(1.04);
-    }
-  }
-
   @media (max-width: 1390px) {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -41,22 +21,5 @@
 
   @media (max-width: 520px) {
     grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-.solution {
-  display: flex;
-
-  .equals {
-    margin-right: 2px;
-    margin-left: 2px;
-  }
-
-  .green {
-    color: #22c55e;
-  }
-
-  .red {
-    color: #f43f5e;
   }
 }

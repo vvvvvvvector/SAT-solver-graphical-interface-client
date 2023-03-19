@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
+import Solution from "./Solution/Solution";
 import NoSolutions from "./NoSolutions/NoSolutions";
 import SolutionsHeader from "./SolutionsHeader/SolutionsHeader";
 
@@ -21,7 +22,6 @@ export const Solutions: React.FC = () => {
     });
   }, [solutions]);
 
-  // here will be functionality for writing solutions in the file
   const handleSaveSolution = (solutionIndex: number) => {
     if (
       window.confirm(
@@ -54,27 +54,11 @@ export const Solutions: React.FC = () => {
           {solutions.length > 0 ? (
             <div ref={containerRef} className={styles["solutions-container"]}>
               {solutions.map((solution, solutionIndex) => (
-                <div
-                  onClick={() => handleSaveSolution(solutionIndex)}
-                  className={styles["solutions"]}
+                <Solution
                   key={solutionIndex}
-                >
-                  {solution.map((variable, variableIndex) => (
-                    <div className={styles["solution"]} key={variableIndex}>
-                      <div>
-                        x<sub>{Math.abs(variable)}</sub>
-                      </div>
-                      <span className={styles["equals"]}>=</span>
-                      <span
-                        className={
-                          variable > 0 ? styles["green"] : styles["red"]
-                        }
-                      >
-                        {variable > 0 ? "True" : "False"}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+                  solution={solution}
+                  onClickSolution={() => handleSaveSolution(solutionIndex)}
+                />
               ))}
             </div>
           ) : (
