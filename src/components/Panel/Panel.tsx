@@ -153,7 +153,29 @@ export const Panel: React.FC = () => {
         <Button
           sx={{
             ...buttonStyle,
-            maxWidth: "200px",
+            maxWidth: "220px",
+            width: "100%",
+            whiteSpace: "nowrap",
+            "@media (max-width: 1200px)": {
+              maxWidth: "none",
+            },
+          }}
+          variant="contained"
+          component="label"
+          endIcon={<UploadFileIcon />}
+        >
+          Upload Formula
+          <input
+            hidden
+            type="file"
+            onChange={onClickUpload}
+            accept=".txt, .dimacs"
+          />
+        </Button>
+        <Button
+          sx={{
+            ...buttonStyle,
+            maxWidth: "220px",
             width: "100%",
             "@media (max-width: 1200px)": {
               maxWidth: "none",
@@ -169,7 +191,7 @@ export const Panel: React.FC = () => {
         <Button
           sx={{
             ...buttonStyle,
-            maxWidth: "200px",
+            maxWidth: "220px",
             width: "100%",
             whiteSpace: "nowrap",
             "@media (max-width: 1200px)": {
@@ -191,7 +213,7 @@ export const Panel: React.FC = () => {
         </Button>
         <FormControl
           sx={{
-            maxWidth: "200px",
+            maxWidth: "220px",
             width: "100%",
             "@media (max-width: 1200px)": {
               maxWidth: "none",
@@ -215,28 +237,6 @@ export const Panel: React.FC = () => {
             ))}
           </Select>
         </FormControl>
-        <Button
-          sx={{
-            ...buttonStyle,
-            maxWidth: "240px",
-            width: "100%",
-            whiteSpace: "nowrap",
-            "@media (max-width: 1200px)": {
-              maxWidth: "none",
-            },
-          }}
-          variant="contained"
-          component="label"
-          endIcon={<UploadFileIcon />}
-        >
-          Upload Formula
-          <input
-            hidden
-            type="file"
-            onChange={onClickUpload}
-            accept=".txt, .dimacs"
-          />
-        </Button>
       </div>
     </>
   );

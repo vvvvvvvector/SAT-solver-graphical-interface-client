@@ -1,3 +1,7 @@
+![v1.0.1](./public/v1.0_1.png)
+![v1.0.2](./public/v1.0_2.png)
+![v1.0.3](./public/v1.0_3.png)
+
 # How to uruchomić frontend
 
 ## 1. Zainstalować Node.js
@@ -15,5 +19,3 @@ po instalacji ma pojawić się katalog **_node_modules_**
 trzeba napisać w konsoli: **_npm run dev_**
 
 ta komenda uruchomi program na jakimś porcie(domyślnie, chyba na 5173)
-
-![v0.8](./public/v0.8.png)
