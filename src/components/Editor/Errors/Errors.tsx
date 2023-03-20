@@ -8,9 +8,9 @@ import debounce from "lodash.debounce";
 
 import styles from "./Errors.module.scss";
 
-const formulaDefinition = /^p\scnf\s[1-9][0-9]*\s[1-9][0-9]*$/;
+const formulaDefinition = /^p\s+cnf\s+[1-9][0-9]*\s+[1-9][0-9]*$/;
 const lineEndsWithZero = / 0$/;
-const validClause = /^(?:-?[1-9][0-9]*\s)+0$/;
+const validClause = /^(?:-?[1-9][0-9]*\s+)+0$/;
 
 const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
   const dispatch = useDispatch();
