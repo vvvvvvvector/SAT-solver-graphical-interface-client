@@ -1,25 +1,40 @@
 .container {
   position: relative;
+  display: flex;
+  align-items: center;
 
   .edit {
     position: relative;
+    top: -1px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #828282;
+    border-radius: 5px;
+    padding: 6px 10px;
 
     input {
-      padding: 5px;
-      border-radius: 5px;
-      border: 1px solid #686868;
+      width: 305px;
+      color: #28282b;
+      border: 0px;
+      font-size: 16px;
+      background-color: transparent;
+    }
+
+    &:hover > .save {
+      visibility: visible;
     }
 
     .save {
+      visibility: hidden;
       cursor: pointer;
       position: absolute;
       right: -7px;
-      top: -7px;
+      top: -10px;
 
       color: #686868;
 
       &:hover {
-        color: #000;
+        color: #28282b;
       }
     }
   }
