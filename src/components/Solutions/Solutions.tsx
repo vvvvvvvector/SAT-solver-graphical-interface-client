@@ -60,7 +60,7 @@ export const Solutions: React.FC = () => {
       {opened && (
         <>
           {solutions.length > 0 ? (
-            <div ref={containerRef} className={styles["solutions-container"]}>
+            <div ref={containerRef} className={styles.solutionsContainer}>
               {solutions.map((solution, solutionIndex) => (
                 <Solution
                   key={solutionIndex}

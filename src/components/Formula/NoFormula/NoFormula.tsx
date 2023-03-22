@@ -4,7 +4,7 @@ import styles from "./NoFormula.module.scss";
 
 const NoFormula: React.FC = () => {
   return (
-    <div className={styles["no-formula"]}>
+    <div className={styles.noFormula}>
       <span>🧐🧐🧐</span>
     </div>
   );

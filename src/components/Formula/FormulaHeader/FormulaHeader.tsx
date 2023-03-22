@@ -37,7 +37,7 @@ const FormulaHeader: React.FC = () => {
 
   return (
     <div className={styles.header}>
-      <div className={styles["header__left"]}>
+      <div className={styles.headerLeft}>
         <h2 onClick={() => dispatch(setFormulaOpened(!opened))}>
           {clauses.length > 0
             ? "Formula in CNF"
