@@ -67,7 +67,7 @@ export const Formula: React.FC = () => {
       <FormulaHeader />
       {opened && (
         <>
-          <div className={styles["formula-container"]}>
+          <div className={styles.formulaContainer}>
             {clauses.length > 0 ? (
               <ul className={styles.formula}>{renderFormula()}</ul>
             ) : (

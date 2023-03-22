@@ -14,7 +14,7 @@ const Gutter = React.forwardRef<HTMLDivElement>((_, ref) => {
     <div ref={ref} className={styles.gutter}>
       <div>
         {[...Array(length)].map((_, index) => (
-          <div className={`${styles["gutter-cell"]}`} key={index}>
+          <div className={styles.gutterCell} key={index}>
             {`${index + 1}`}
           </div>
         ))}

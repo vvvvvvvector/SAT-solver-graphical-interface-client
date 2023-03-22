@@ -9,7 +9,7 @@ const Solution: React.FC<{
   onClickSolution: () => void;
 }> = ({ solution, onClickSolution }) => {
   return (
-    <div onClick={onClickSolution} className={styles["solutions"]}>
+    <div onClick={onClickSolution} className={styles.solutions}>
       {solution.map((value, valueIndex) => (
         <VariableValue key={valueIndex} value={value} />
       ))}

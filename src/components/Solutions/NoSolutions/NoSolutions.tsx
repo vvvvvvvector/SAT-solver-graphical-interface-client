@@ -4,7 +4,7 @@ import styles from "./NoSolutions.module.scss";
 
 const NoSolutions: React.FC = () => {
   return (
-    <div className={styles["no-solutions"]}>
+    <div className={styles.noSolutions}>
       <span>😭😭😭</span>
     </div>
   );

@@ -14,12 +14,12 @@ const SolutionsHeader: React.FC = () => {
   );
 
   return (
-    <div className={styles["header"]}>
+    <div className={styles.header}>
       <h2 onClick={() => dispatch(setSolutionsOpened(!opened))}>
         {solutions.length > 0 ? "Solutions" : "There are no solutions so far"}
       </h2>
       <svg
-        className={opened ? styles["opened"] : ""}
+        className={opened ? styles.opened : ""}
         width="10"
         height="6"
         viewBox="0 0 10 6"
