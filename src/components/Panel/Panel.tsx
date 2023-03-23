@@ -43,16 +43,11 @@ export const Panel: React.FC = () => {
 
   const onClickSolve = async () => {
     try {
-      const dimacs_without_comments = dimacs.replaceAll(
-        /c .*\n|c\n|\nc$|\nc .*|c$/g,
-        ""
-      );
-
       setLoading(true);
 
       const response = await axiosInstance.post("solve", {
         solver,
-        dimacs: dimacs_without_comments,
+        dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, ""),
       });
 
       setLoading(false);
