@@ -1,4 +1,5 @@
 .editor {
+  position: relative;
   border-top-right-radius: 7px;
   border-bottom-right-radius: 7px;
   display: flex;
@@ -11,5 +12,11 @@
     flex: 1;
     height: 385px;
     overflow-y: hidden;
+  }
+
+  .saveDimacs {
+    position: absolute;
+    top: 0;
+    right: -48px;
   }
 }
