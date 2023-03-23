@@ -26,7 +26,7 @@ export const Solutions: React.FC = () => {
   const handleSaveSolution = (solutionIndex: number) => {
     if (
       window.confirm(
-        `Do you want to save solution ${solutionIndex + 1} in a file?`
+        `Do you really want to save solution ${solutionIndex + 1} to a file?`
       )
     ) {
       const filename = window.prompt("Enter a filename: ");

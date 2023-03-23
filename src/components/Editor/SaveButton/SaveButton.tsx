@@ -11,7 +11,7 @@ const SaveButton: React.FC = () => {
   const { dimacs } = useSelector((state: RootState) => state.editor);
 
   const onClickSave = () => {
-    if (window.confirm("Do you want to save a formula to a file?")) {
+    if (window.confirm("Do you really want to save a formula to a file?")) {
       const filename = window.prompt("Enter a filename: ");
 
       if (filename) {
