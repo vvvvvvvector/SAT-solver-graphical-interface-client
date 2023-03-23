@@ -6,7 +6,7 @@ import { RootState } from "../../../redux/store";
 import { clearSolutions } from "../../../redux/slices/solutions";
 import { addClause, setFormulaOpened } from "../../../redux/slices/formula";
 
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
 import styles from "./FormulaHeader.module.scss";
@@ -14,12 +14,12 @@ import styles from "./FormulaHeader.module.scss";
 const FormulaHeader: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { clauses, opened, changed } = useSelector(
-    (state: RootState) => state.formula
-  );
+  const { clauses, opened } = useSelector((state: RootState) => state.formula);
 
   const onClickAddClause = () => {
-    const input = window.prompt("Enter a clause:");
+    const input = window.prompt(
+      "Correct format: 1 | -2 | -3 | ...\nMore spaces are allowed between numbers and '|'."
+    );
 
     if (input) {
       const clause = input?.split("|").map((item) => parseInt(item));
@@ -59,9 +59,11 @@ const FormulaHeader: React.FC = () => {
       </div>
       {opened && (
         <>
-          <IconButton color="primary" onClick={onClickAddClause}>
-            <AddIcon color="primary" />
-          </IconButton>
+          <Tooltip title="Add a new clause" arrow>
+            <IconButton color="primary" onClick={onClickAddClause}>
+              <AddIcon color="primary" />
+            </IconButton>
+          </Tooltip>
         </>
       )}
     </div>

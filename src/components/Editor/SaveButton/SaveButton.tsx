@@ -5,13 +5,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 
 const SaveButton: React.FC = () => {
   const { dimacs } = useSelector((state: RootState) => state.editor);
 
   const onClickSave = () => {
-    if (window.confirm("Do you want to save a formula in a file?")) {
+    if (window.confirm("Do you want to save a formula to a file?")) {
       const filename = window.prompt("Enter a filename: ");
 
       if (filename) {
@@ -29,9 +29,11 @@ const SaveButton: React.FC = () => {
   };
 
   return dimacs.length ? (
-    <IconButton onClick={onClickSave} color="primary">
-      <FileDownloadOutlinedIcon color="primary" />
-    </IconButton>
+    <Tooltip title="Save formula to a file" arrow>
+      <IconButton onClick={onClickSave} color="primary">
+        <FileDownloadOutlinedIcon color="primary" />
+      </IconButton>
+    </Tooltip>
   ) : (
     <></>
   );
