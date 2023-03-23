@@ -14,7 +14,6 @@ const FixButton: React.FC = () => {
   const dispatch = useDispatch();
 
   const { dimacs } = useSelector((state: RootState) => state.editor);
-  const { errors } = useSelector((state: RootState) => state.editor);
 
   const onClickFix = async () => {
     try {
@@ -46,7 +45,7 @@ const FixButton: React.FC = () => {
     }
   };
 
-  return errors.length > 0 ? (
+  return dimacs.length > 0 ? (
     <Tooltip title="Try to fix errors in dimacs" arrow>
       <IconButton onClick={onClickFix} color="primary">
         <AutoFixHighOutlinedIcon color="primary" />
