@@ -71,7 +71,7 @@ const Linker: React.FC = () => {
           variant="outlined"
           onClick={onClickLink}
         >
-          {loading ? "Loading..." : "Link"}
+          {loading ? "Linking..." : "Try to link"}
         </Button>
       </div>
     </div>

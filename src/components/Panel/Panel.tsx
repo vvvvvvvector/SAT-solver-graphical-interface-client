@@ -120,7 +120,7 @@ export const Panel: React.FC = () => {
       <Button
         sx={{
           ...buttonStyle,
-          maxWidth: "300px",
+          maxWidth: "320px",
           width: "100%",
           "@media (max-width: 1400px)": {
             maxWidth: "none",
@@ -136,7 +136,7 @@ export const Panel: React.FC = () => {
       <Button
         sx={{
           ...buttonStyle,
-          maxWidth: "300px",
+          maxWidth: "320px",
           width: "100%",
           whiteSpace: "nowrap",
           "@media (max-width: 1400px)": {
@@ -158,7 +158,7 @@ export const Panel: React.FC = () => {
       </Button>
       <FormControl
         sx={{
-          maxWidth: "300px",
+          maxWidth: "320px",
           width: "100%",
           "@media (max-width: 1400px)": {
             maxWidth: "none",
