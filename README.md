@@ -1,7 +1,6 @@
-![v1.1_1](./public/v1.1_1.png)
-![v1.1_2](./public/v1.0_2.png)
-![v1.0.3](./public/v1.0_3.png)
-![v1.0.3](./public/v1.1_2.png)
+![v1.1_1](./public/v1.2_1.png)
+![v1.2_3](./public/v1.2_3.png)
+![v1.1_2](./public/v1.2_2.png)
 
 # How to uruchomić frontend
 
