@@ -11,7 +11,6 @@ import {
   setNextSolution,
   clearSolutions,
 } from "../../redux/slices/solutions";
-import { setDimacs } from "../../redux/slices/editor";
 
 import {
   Button,
@@ -20,7 +19,6 @@ import {
   Select,
   MenuItem,
 } from "@mui/material/";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
 import CalculateOutlinedIcon from "@mui/icons-material/CalculateOutlined";
 import ForwardOutlinedIcon from "@mui/icons-material/ForwardOutlined";
 
@@ -117,122 +115,73 @@ export const Panel: React.FC = () => {
     }
   };
 
-  const onClickUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files instanceof FileList) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-
-      reader.readAsText(file);
-
-      reader.onload = () => {
-        toast.success("Formula was successfully uploaded!");
-
-        const dimacs = reader.result as string;
-
-        dispatch(setDimacs(dimacs));
-        dispatch(setFormula([]));
-        dispatch(clearSolutions());
-      };
-
-      reader.onerror = () => {
-        toast.error("Error while reading file!");
-      };
-    }
-
-    e.target.value = ""; // allows re-add the same file again
-  };
-
   return (
-    <>
-      <div className={styles.controls}>
-        <Button
-          sx={{
-            ...buttonStyle,
-            maxWidth: "220px",
-            width: "100%",
-            whiteSpace: "nowrap",
-            "@media (max-width: 1200px)": {
-              maxWidth: "none",
-            },
+    <div className={styles.controls}>
+      <Button
+        sx={{
+          ...buttonStyle,
+          maxWidth: "300px",
+          width: "100%",
+          "@media (max-width: 1400px)": {
+            maxWidth: "none",
+          },
+        }}
+        onClick={onClickSolve}
+        disabled={loading || dimacs === "" || errors.length > 0}
+        endIcon={<CalculateOutlinedIcon />}
+        variant="contained"
+      >
+        {loading ? "Solving..." : errors.length > 0 ? "Fix errors" : "Solve"}
+      </Button>
+      <Button
+        sx={{
+          ...buttonStyle,
+          maxWidth: "300px",
+          width: "100%",
+          whiteSpace: "nowrap",
+          "@media (max-width: 1400px)": {
+            maxWidth: "none",
+          },
+        }}
+        onClick={onClickNext}
+        disabled={
+          loading ||
+          dimacs === "" ||
+          solutions.length === 0 ||
+          errors.length > 0 ||
+          !isNextActive
+        }
+        endIcon={<ForwardOutlinedIcon />}
+        variant="contained"
+      >
+        {loading ? "Finding..." : "Next solution"}
+      </Button>
+      <FormControl
+        sx={{
+          maxWidth: "300px",
+          width: "100%",
+          "@media (max-width: 1400px)": {
+            maxWidth: "none",
+          },
+        }}
+      >
+        <InputLabel id="select-solver-label">SAT-solver</InputLabel>
+        <Select
+          id="select-solver"
+          labelId="select-solver-label"
+          label="SAT-solver"
+          onChange={(event) => {
+            setSolver(event.target.value as string);
           }}
-          variant="contained"
-          component="label"
-          endIcon={<UploadFileIcon />}
+          value={solver}
         >
-          Upload Formula
-          <input
-            hidden
-            type="file"
-            onChange={onClickUpload}
-            accept=".txt, .dimacs"
-          />
-        </Button>
-        <Button
-          sx={{
-            ...buttonStyle,
-            maxWidth: "220px",
-            width: "100%",
-            "@media (max-width: 1200px)": {
-              maxWidth: "none",
-            },
-          }}
-          onClick={onClickSolve}
-          disabled={loading || dimacs === "" || errors.length > 0}
-          endIcon={<CalculateOutlinedIcon />}
-          variant="contained"
-        >
-          {loading ? "Solving..." : errors.length > 0 ? "Fix errors" : "Solve"}
-        </Button>
-        <Button
-          sx={{
-            ...buttonStyle,
-            maxWidth: "220px",
-            width: "100%",
-            whiteSpace: "nowrap",
-            "@media (max-width: 1200px)": {
-              maxWidth: "none",
-            },
-          }}
-          onClick={onClickNext}
-          disabled={
-            loading ||
-            dimacs === "" ||
-            solutions.length === 0 ||
-            errors.length > 0 ||
-            !isNextActive
-          }
-          endIcon={<ForwardOutlinedIcon />}
-          variant="contained"
-        >
-          {loading ? "Finding..." : "Next solution"}
-        </Button>
-        <FormControl
-          sx={{
-            maxWidth: "220px",
-            width: "100%",
-            "@media (max-width: 1200px)": {
-              maxWidth: "none",
-            },
-          }}
-        >
-          <InputLabel id="select-solver-label">SAT-solver</InputLabel>
-          <Select
-            id="select-solver"
-            labelId="select-solver-label"
-            label="SAT-solver"
-            onChange={(event) => {
-              setSolver(event.target.value as string);
-            }}
-            value={solver}
-          >
-            {solvers.map((i, index) => (
-              <MenuItem key={index} value={i.short}>
-                {i.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    </>
+          {solvers.map((i, index) => (
+            <MenuItem key={index} value={i.short}>
+              {i.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </div>
   );
 };
