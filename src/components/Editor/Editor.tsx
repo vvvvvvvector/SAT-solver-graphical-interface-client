@@ -8,6 +8,7 @@ import SaveButton from "./SaveButton/SaveButton";
 import styles from "./Editor.module.scss";
 import ClearButton from "./ClearButton/ClearButton";
 import FixButton from "./FixButton/FixButton";
+import UploadButton from "./UploadButton/UploadButton";
 
 export const Editor: React.FC = () => {
   const errorsRef = React.useRef<HTMLDivElement>(null);
@@ -23,6 +24,7 @@ export const Editor: React.FC = () => {
       <div className={styles.controls}>
         <div className={styles.features}>
           <SaveButton />
+          <UploadButton />
           <FixButton />
         </div>
         <ClearButton />
