@@ -3,10 +3,7 @@ import React from "react";
 import Gutter from "./Gutter/Gutter";
 import TextArea from "./TextArea/TextArea";
 import Errors from "./Errors/Errors";
-import SaveButton from "./SaveButton/SaveButton";
-import ClearButton from "./ClearButton/ClearButton";
-import FixButton from "./FixButton/FixButton";
-import UploadButton from "./UploadButton/UploadButton";
+import { SaveButton, UploadButton, FixButton, ClearButton } from "./Buttons/";
 
 import styles from "./Editor.module.scss";
 

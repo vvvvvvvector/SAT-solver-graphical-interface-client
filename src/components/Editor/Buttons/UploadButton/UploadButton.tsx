@@ -2,14 +2,14 @@ import React from "react";
 import { toast } from "react-hot-toast";
 
 import { useDispatch } from "react-redux";
-import { setDimacs } from "../../../redux/slices/editor";
-import { setFormula } from "../../../redux/slices/formula";
-import { clearSolutions } from "../../../redux/slices/solutions";
+import { setDimacs } from "../../../../redux/slices/editor";
+import { setFormula } from "../../../../redux/slices/formula";
+import { clearSolutions } from "../../../../redux/slices/solutions";
 
 import { IconButton, Tooltip } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 
-const UploadButton: React.FC = () => {
+export const UploadButton: React.FC = () => {
   const dispatch = useDispatch();
 
   const onClickUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,5 +51,3 @@ const UploadButton: React.FC = () => {
     </Tooltip>
   );
 };
-
-export default UploadButton;
