@@ -1,16 +1,16 @@
 import React from "react";
 import { toast } from "react-hot-toast";
 
-import axiosInstance from "../../../axios";
+import axiosInstance from "../../../../axios";
 
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { setDimacs } from "../../../redux/slices/editor";
+import { RootState } from "../../../../redux/store";
+import { setDimacs } from "../../../../redux/slices/editor";
 
 import { IconButton, Tooltip } from "@mui/material";
 import AutoFixHighOutlinedIcon from "@mui/icons-material/AutoFixHighOutlined";
 
-const FixButton: React.FC = () => {
+export const FixButton: React.FC = () => {
   const dispatch = useDispatch();
 
   const { dimacs } = useSelector((state: RootState) => state.editor);
@@ -55,5 +55,3 @@ const FixButton: React.FC = () => {
     <></>
   );
 };
-
-export default FixButton;

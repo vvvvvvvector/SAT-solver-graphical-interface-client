@@ -2,15 +2,15 @@ import React from "react";
 import { toast } from "react-hot-toast";
 
 import { useDispatch, useSelector } from "react-redux";
-import { clearDimacs } from "../../../redux/slices/editor";
-import { clearSolutions } from "../../../redux/slices/solutions";
-import { setFormula } from "../../../redux/slices/formula";
-import { RootState } from "../../../redux/store";
+import { clearDimacs } from "../../../../redux/slices/editor";
+import { clearSolutions } from "../../../../redux/slices/solutions";
+import { setFormula } from "../../../../redux/slices/formula";
+import { RootState } from "../../../../redux/store";
 
 import { IconButton, Tooltip } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-const ClearButton: React.FC = () => {
+export const ClearButton: React.FC = () => {
   const dispatch = useDispatch();
 
   const { solutions } = useSelector((state: RootState) => state.solutions);
@@ -39,5 +39,3 @@ const ClearButton: React.FC = () => {
     <></>
   );
 };
-
-export default ClearButton;

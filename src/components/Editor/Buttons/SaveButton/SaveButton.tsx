@@ -2,12 +2,12 @@ import React from "react";
 import { toast } from "react-hot-toast";
 
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { RootState } from "../../../../redux/store";
 
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { IconButton, Tooltip } from "@mui/material";
 
-const SaveButton: React.FC = () => {
+export const SaveButton: React.FC = () => {
   const { dimacs } = useSelector((state: RootState) => state.editor);
 
   const onClickSave = () => {
@@ -38,5 +38,3 @@ const SaveButton: React.FC = () => {
     <></>
   );
 };
-
-export default SaveButton;
