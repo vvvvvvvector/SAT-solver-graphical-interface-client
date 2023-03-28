@@ -20,6 +20,22 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
 
   const { dimacs, errors } = useSelector((state: RootState) => state.editor);
 
+  const addNewError = (
+    line: number,
+    errorCode: number,
+    description: string,
+    damaged: string
+  ) => {
+    dispatch(
+      addError({
+        line,
+        errorCode,
+        description,
+        damaged,
+      })
+    );
+  };
+
   const verify = React.useCallback(
     debounce((dimacs: string) => {
       const lineByLineDimacs = dimacs.split("\n");
@@ -35,57 +51,42 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
         }
 
         if (line === "" && index !== lineByLineDimacs.length - 1) {
-          if (!error)
-            dispatch(
-              addError({
-                line: index + 1,
-                text: "err: empty line",
-              })
-            );
+          if (!error) {
+            addNewError(index + 1, 0, "empty line", line);
+          }
         } else if (!line.match(formulaDefinition) && line.startsWith("p")) {
-          if (!error)
-            dispatch(
-              addError({
-                line: index + 1,
-                text: "err: invalid formula definition",
-              })
-            );
+          if (!error) {
+            addNewError(index + 1, 1, "invalid formula definition", line);
+          }
         } else if (
           !line.match(lineEndsWithZero) &&
           line !== "" &&
           !line.startsWith("p")
         ) {
-          if (!error)
-            dispatch(
-              addError({
-                line: index + 1,
-                text: "err: clause must end with 0",
-              })
-            );
+          if (!error) {
+            addNewError(index + 1, 2, "clause must end with 0", line);
+          }
         } else if (
           !line.match(validClause) &&
           line !== "" &&
           !line.startsWith("p")
         ) {
-          if (!error)
-            dispatch(
-              addError({
-                line: index + 1,
-                text: "err: invalid clause",
-              })
-            );
+          if (!error) {
+            addNewError(index + 1, 3, "invalid clause", line);
+          }
         } else if (
           line.match(/^p\scnf\s.*$/) &&
           isFormulaDefined.current &&
           index + 1 !== formulaDefinitionRow.current
         ) {
-          if (!error)
-            dispatch(
-              addError({
-                line: index + 1,
-                text: `err: formula was already defined in line ${formulaDefinitionRow.current}`,
-              })
+          if (!error) {
+            addNewError(
+              index + 1,
+              4,
+              `formula was already defined in line ${formulaDefinitionRow.current}`,
+              line
             );
+          }
         } else {
           if (error) dispatch(removeError(index));
         }
@@ -111,7 +112,7 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
             top: `${(error.line - 1) * 20 - index * 20}px`,
           }}
         >
-          {error.text}
+          {`err: ${error.description}`}
         </div>
       ))}
       <div

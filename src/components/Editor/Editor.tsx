@@ -3,7 +3,7 @@ import React from "react";
 import Gutter from "./Gutter/Gutter";
 import TextArea from "./TextArea/TextArea";
 import Errors from "./Errors/Errors";
-import { SaveButton, UploadButton, FixButton, ClearButton } from "./Buttons/";
+import { Save, Upload, Fix, Clear } from "./Buttons/";
 
 import styles from "./Editor.module.scss";
 
@@ -19,12 +19,12 @@ export const Editor: React.FC = () => {
         <Errors ref={errorsRef} />
       </div>
       <div className={styles.controls}>
-        <div className={styles.features}>
-          <SaveButton />
-          <UploadButton />
-          <FixButton />
+        <div className={styles.buttons}>
+          <Save />
+          <Upload />
+          <Fix />
         </div>
-        <ClearButton />
+        <Clear />
       </div>
     </div>
   );

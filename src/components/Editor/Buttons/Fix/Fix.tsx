@@ -10,7 +10,7 @@ import { setDimacs } from "../../../../redux/slices/editor";
 import { IconButton, Tooltip } from "@mui/material";
 import AutoFixHighOutlinedIcon from "@mui/icons-material/AutoFixHighOutlined";
 
-export const FixButton: React.FC = () => {
+export const Fix: React.FC = () => {
   const dispatch = useDispatch();
 
   const { dimacs } = useSelector((state: RootState) => state.editor);
