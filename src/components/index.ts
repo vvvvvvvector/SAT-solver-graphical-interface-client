@@ -3,3 +3,4 @@ export * from "./Header/Header";
 export * from "./Panel/Panel";
 export * from "./Solutions/Solutions";
 export * from "./Editor/Editor";
+export * from "./Problems/Problems";

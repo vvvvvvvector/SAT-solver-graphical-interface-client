@@ -2,7 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type ErrorType = {
   line: number;
-  text: string;
+  errorCode: number;
+  description: string;
+  damaged: string;
 };
 
 export const editorSlice = createSlice({

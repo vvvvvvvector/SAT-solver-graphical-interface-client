@@ -10,7 +10,7 @@ import { RootState } from "../../../../redux/store";
 import { IconButton, Tooltip } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-export const ClearButton: React.FC = () => {
+export const Clear: React.FC = () => {
   const dispatch = useDispatch();
 
   const { solutions } = useSelector((state: RootState) => state.solutions);

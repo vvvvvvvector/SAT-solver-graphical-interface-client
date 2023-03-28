@@ -7,7 +7,7 @@ import { RootState } from "../../../../redux/store";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { IconButton, Tooltip } from "@mui/material";
 
-export const SaveButton: React.FC = () => {
+export const Save: React.FC = () => {
   const { dimacs } = useSelector((state: RootState) => state.editor);
 
   const onClickSave = () => {

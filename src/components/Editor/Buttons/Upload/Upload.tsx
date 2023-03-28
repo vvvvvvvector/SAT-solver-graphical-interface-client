@@ -9,7 +9,7 @@ import { clearSolutions } from "../../../../redux/slices/solutions";
 import { IconButton, Tooltip } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 
-export const UploadButton: React.FC = () => {
+export const Upload: React.FC = () => {
   const dispatch = useDispatch();
 
   const onClickUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
