@@ -35,12 +35,26 @@ export const editorSlice = createSlice({
         });
       }
     },
-    removeError(state, action: PayloadAction<number>) {
-      const error = state.errors.find((e) => e.line === action.payload);
+    removeError(
+      state,
+      action: PayloadAction<{ line: number; length: number }>
+    ) {
+      const error = state.errors.find((e) => e.line === action.payload.line);
 
       if (error) {
-        state.errors = state.errors.filter((e) => e.line !== action.payload);
+        state.errors = state.errors.filter(
+          (e) => e.line !== action.payload.line
+        );
       }
+
+      // Remove all errors that are out of range
+      state.errors = state.errors.filter((e) => {
+        if (e.line > action.payload.length) {
+          return false;
+        }
+
+        return true;
+      });
     },
     clearErrors(state) {
       state.errors = [];
@@ -85,7 +99,7 @@ export const editorSlice = createSlice({
 
       let fixedLines = lines.slice(1).filter((line, index) => {
         if (index === action.payload - 2) {
-          if (line) {
+          if (line && !line.match(/^p\s+cnf\s+.*$/)) {
             let temp = definition.split(" ").filter((el) => el !== "");
 
             temp[3] = (parseInt(temp[3]) - 1).toString();
