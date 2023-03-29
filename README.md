@@ -1,4 +1,5 @@
-![v1.1_1](./public/v1.2_1.png)
+![v2.0](./public/v2.0.png)
+![v2.0_1](./public/v2.0_1.png)
 ![v1.2_3](./public/v1.2_3.png)
 ![v1.1_2](./public/v1.2_2.png)
 
