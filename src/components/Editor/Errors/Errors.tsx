@@ -65,7 +65,7 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
         ) {
           addNewError(index + 1, 3, "invalid clause", line);
         } else if (
-          line.match(/^p\scnf\s.*$/) &&
+          line.match(/^p\s+cnf\s+.*$/) &&
           isFormulaDefined.current &&
           index + 1 !== formulaDefinitionRow.current
         ) {
@@ -76,7 +76,7 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
             line
           );
         } else {
-          dispatch(removeError(index + 1));
+          dispatch(removeError({ line: index + 1, length: lines.length }));
         }
       });
     }, 50),

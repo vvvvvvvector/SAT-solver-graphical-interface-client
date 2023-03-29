@@ -58,6 +58,8 @@ export const Solve: React.FC<{ solver: string }> = ({ solver }) => {
         toast.error(error.response.data.detail);
       } else if (error.response.status === 419) {
         toast.error(error.response.data.detail);
+      } else if (error.response.status === 420) {
+        toast.error(error.response.data.detail);
       } else {
         toast.error("Something went wrong!");
       }
