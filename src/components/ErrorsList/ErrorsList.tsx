@@ -1,7 +1,8 @@
 import React from "react";
 
 import { RootState } from "../../redux/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addZero, deleteLine } from "../../redux/slices/editor";
 
 import { TableVirtuoso } from "react-virtuoso";
 
@@ -22,6 +23,51 @@ type ErrorType = {
   errorCode: number;
   description: string;
   damaged: string;
+};
+
+const AddZeroButton: React.FC<{ line: number }> = ({ line }) => {
+  const dispatch = useDispatch();
+
+  return (
+    <Button
+      onClick={() => dispatch(addZero(line))}
+      sx={{ width: "125px" }}
+      size="small"
+      variant="outlined"
+    >
+      Add a zero
+    </Button>
+  );
+};
+
+const DeleteLineButton: React.FC<{ line: number }> = ({ line }) => {
+  const dispatch = useDispatch();
+
+  return (
+    <Button
+      onClick={() => dispatch(deleteLine(line))}
+      sx={{ width: "125px" }}
+      size="small"
+      variant="outlined"
+    >
+      Delete
+    </Button>
+  );
+};
+
+const FixButton = (errorCode: number, line: number) => {
+  switch (errorCode) {
+    case 1:
+      return (
+        <Button sx={{ width: "125px" }} size="small" variant="outlined">
+          Edit
+        </Button>
+      );
+    case 2:
+      return <AddZeroButton line={line} />;
+    default:
+      return <DeleteLineButton line={line} />;
+  }
 };
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -121,9 +167,7 @@ export const ErrorsList = () => {
                 </StyledTableCell>
                 <StyledTableCell align="center">{row.line}</StyledTableCell>
                 <StyledTableCell align="center">
-                  <Button size="small" variant="outlined">
-                    Fix
-                  </Button>
+                  {FixButton(row.errorCode, row.line)}
                 </StyledTableCell>
               </>
             )}

@@ -38,60 +38,48 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
 
   const verify = React.useCallback(
     debounce((dimacs: string) => {
-      const lineByLineDimacs = dimacs.split("\n");
+      const lines = dimacs.split("\n");
 
-      lineByLineDimacs.forEach((line, index) => {
+      lines.forEach((line, index) => {
         if (line.startsWith("c")) return;
-
-        const error = errors.find((error) => error.line === index + 1);
 
         if (line.match(/^p\scnf\s.*$/) && !isFormulaDefined.current) {
           isFormulaDefined.current = true;
           formulaDefinitionRow.current = index + 1;
         }
 
-        if (line === "" && index !== lineByLineDimacs.length - 1) {
-          if (!error) {
-            addNewError(index + 1, 0, "empty line", line);
-          }
+        if (line === "" && index !== lines.length - 1) {
+          addNewError(index + 1, 0, "empty line", line);
         } else if (!line.match(formulaDefinition) && line.startsWith("p")) {
-          if (!error) {
-            addNewError(index + 1, 1, "invalid formula definition", line);
-          }
+          addNewError(index + 1, 1, "invalid formula definition", line);
         } else if (
           !line.match(lineEndsWithZero) &&
           line !== "" &&
           !line.startsWith("p")
         ) {
-          if (!error) {
-            addNewError(index + 1, 2, "clause must end with 0", line);
-          }
+          addNewError(index + 1, 2, "clause must end with 0", line);
         } else if (
           !line.match(validClause) &&
           line !== "" &&
           !line.startsWith("p")
         ) {
-          if (!error) {
-            addNewError(index + 1, 3, "invalid clause", line);
-          }
+          addNewError(index + 1, 3, "invalid clause", line);
         } else if (
           line.match(/^p\scnf\s.*$/) &&
           isFormulaDefined.current &&
           index + 1 !== formulaDefinitionRow.current
         ) {
-          if (!error) {
-            addNewError(
-              index + 1,
-              4,
-              `formula was already defined in line ${formulaDefinitionRow.current}`,
-              line
-            );
-          }
+          addNewError(
+            index + 1,
+            4,
+            `formula was already defined in line ${formulaDefinitionRow.current}`,
+            line
+          );
         } else {
-          if (error) dispatch(removeError(index));
+          dispatch(removeError(index + 1));
         }
       });
-    }, 450),
+    }, 50),
     []
   );
 
