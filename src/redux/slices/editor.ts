@@ -45,6 +45,24 @@ export const editorSlice = createSlice({
     clearErrors(state) {
       state.errors = [];
     },
+    editLine(
+      state,
+      action: PayloadAction<{ line: number; editedLine: string }>
+    ) {
+      const lines = state.dimacs.split("\n");
+
+      const fixedLines = lines.map((line, index) => {
+        if (index === action.payload.line - 1) {
+          return action.payload.editedLine;
+        }
+
+        return line;
+      });
+
+      state.errors = state.errors.filter((e) => e.line !== action.payload.line);
+
+      state.dimacs = fixedLines.join("\n");
+    },
     addZero(state, action: PayloadAction<number>) {
       const lines = state.dimacs.split("\n");
 
@@ -97,6 +115,7 @@ export const {
   clearErrors,
   addZero,
   deleteLine,
+  editLine,
 } = editorSlice.actions;
 
 export default editorSlice.reducer;

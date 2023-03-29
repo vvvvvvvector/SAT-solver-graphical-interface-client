@@ -2,7 +2,7 @@ import React from "react";
 import { toast } from "react-hot-toast";
 
 import { useDispatch } from "react-redux";
-import { setDimacs } from "../../../../redux/slices/editor";
+import { clearErrors, setDimacs } from "../../../../redux/slices/editor";
 import { setFormula } from "../../../../redux/slices/formula";
 import { clearSolutions } from "../../../../redux/slices/solutions";
 
@@ -27,6 +27,7 @@ export const Upload: React.FC = () => {
         dispatch(setDimacs(dimacs));
         dispatch(setFormula([]));
         dispatch(clearSolutions());
+        dispatch(clearErrors());
       };
 
       reader.onerror = () => {

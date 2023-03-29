@@ -1,8 +1,7 @@
 import React from "react";
 
 import { RootState } from "../../redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import { addZero, deleteLine } from "../../redux/slices/editor";
+import { useSelector } from "react-redux";
 
 import { TableVirtuoso } from "react-virtuoso";
 
@@ -13,10 +12,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 
+import { AddZero, DeleteLine, EditLine } from "./Buttons";
+
 import styles from "./ErrorsList.module.scss";
+import { ButtonGroup } from "@mui/material";
 
 type ErrorType = {
   line: number;
@@ -25,48 +26,23 @@ type ErrorType = {
   damaged: string;
 };
 
-const AddZeroButton: React.FC<{ line: number }> = ({ line }) => {
-  const dispatch = useDispatch();
-
-  return (
-    <Button
-      onClick={() => dispatch(addZero(line))}
-      sx={{ width: "125px" }}
-      size="small"
-      variant="outlined"
-    >
-      Add a zero
-    </Button>
-  );
-};
-
-const DeleteLineButton: React.FC<{ line: number }> = ({ line }) => {
-  const dispatch = useDispatch();
-
-  return (
-    <Button
-      onClick={() => dispatch(deleteLine(line))}
-      sx={{ width: "125px" }}
-      size="small"
-      variant="outlined"
-    >
-      Delete
-    </Button>
-  );
-};
-
-const FixButton = (errorCode: number, line: number) => {
-  switch (errorCode) {
+const ButtonByErrorCode = (error: ErrorType) => {
+  switch (error.errorCode) {
+    case 0:
+      return <DeleteLine line={error.line} />;
     case 1:
-      return (
-        <Button sx={{ width: "125px" }} size="small" variant="outlined">
-          Edit
-        </Button>
-      );
+      return <EditLine damaged={error.damaged} line={error.line} />;
     case 2:
-      return <AddZeroButton line={line} />;
-    default:
-      return <DeleteLineButton line={line} />;
+      return <AddZero line={error.line} />;
+    case 3:
+      return (
+        <ButtonGroup>
+          <EditLine damaged={error.damaged} line={error.line} />
+          <DeleteLine line={error.line} />
+        </ButtonGroup>
+      );
+    case 4:
+      return <DeleteLine line={error.line} />;
   }
 };
 
@@ -89,7 +65,7 @@ export const ErrorsList = () => {
       {errors.length > 0 ? (
         <div className={styles.errors}>
           <h2 className={styles.header}>
-            There are {errors.length} errors in Your formula 😢
+            There are {errors.length} errors in Your formula 😭
           </h2>
           <TableVirtuoso
             style={{
@@ -153,9 +129,9 @@ export const ErrorsList = () => {
                 </StyledTableCell>
               </TableRow>
             )}
-            itemContent={(_: number, row: ErrorType) => (
+            itemContent={(_: number, error: ErrorType) => (
               <>
-                <StyledTableCell align="center">{`🚫 ${row.description}`}</StyledTableCell>
+                <StyledTableCell align="center">{`🚫 ${error.description}`}</StyledTableCell>
                 <StyledTableCell
                   sx={{
                     whiteSpace: "nowrap",
@@ -163,11 +139,11 @@ export const ErrorsList = () => {
                   }}
                   align="center"
                 >
-                  {row.damaged ? row.damaged : "Line is empty here 🙊"}
+                  {error.damaged ? error.damaged : "Line is empty here 🙊"}
                 </StyledTableCell>
-                <StyledTableCell align="center">{row.line}</StyledTableCell>
+                <StyledTableCell align="center">{error.line}</StyledTableCell>
                 <StyledTableCell align="center">
-                  {FixButton(row.errorCode, row.line)}
+                  {ButtonByErrorCode(error)}
                 </StyledTableCell>
               </>
             )}
