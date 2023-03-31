@@ -8,9 +8,9 @@ import debounce from "lodash.debounce";
 
 import styles from "./Errors.module.scss";
 
-const formulaDefinition = /^p\s+cnf\s+[1-9][0-9]*\s+[1-9][0-9]*$/;
-const lineEndsWithZero = / 0$/;
-const validClause = /^(?:-?[1-9][0-9]*\s+)+0$/;
+const formulaDefinition = /^p\s+cnf\s+[1-9][0-9]*\s+[1-9][0-9]*\s*$/;
+const lineEndsWithZero = /0\s*$/;
+const validClause = /^\s*(?:-?[1-9][0-9]*\s+)+0\s*$/;
 
 const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
   const dispatch = useDispatch();
@@ -41,7 +41,10 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
       const lines = dimacs.split("\n");
 
       lines.forEach((line, index) => {
-        if (line.startsWith("c")) return;
+        if (line.startsWith("c")) {
+          dispatch(removeError({ line: index + 1, length: lines.length }));
+          return;
+        }
 
         if (line.match(/^p\scnf\s.*$/) && !isFormulaDefined.current) {
           isFormulaDefined.current = true;

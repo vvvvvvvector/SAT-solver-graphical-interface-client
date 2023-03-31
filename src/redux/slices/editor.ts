@@ -95,26 +95,11 @@ export const editorSlice = createSlice({
     deleteLine(state, action: PayloadAction<number>) {
       const lines = state.dimacs.split("\n");
 
-      let definition = lines[0];
-
-      let fixedLines = lines.slice(1).filter((line, index) => {
-        if (index === action.payload - 2) {
-          if (line && !line.match(/^p\s+cnf\s+.*$/)) {
-            let temp = definition.split(" ").filter((el) => el !== "");
-
-            temp[3] = (parseInt(temp[3]) - 1).toString();
-
-            definition = temp.join(" ");
-          }
-
-          return false;
-        }
-        return true;
-      });
+      const fixedLines = lines.filter(
+        (_, index) => index !== action.payload - 1
+      );
 
       state.errors = state.errors.filter((e) => e.line !== action.payload);
-
-      fixedLines.unshift(definition);
 
       state.dimacs = fixedLines.join("\n");
     },

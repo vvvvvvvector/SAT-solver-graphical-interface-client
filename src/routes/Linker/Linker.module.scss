@@ -1,4 +1,5 @@
 .container {
+  height: calc(100vh - 63px);
   display: grid;
   place-items: center;
 
@@ -8,8 +9,7 @@
     background-color: #fafafa;
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    margin: 60px auto;
-    max-width: 1025px;
+    max-width: 850px;
     padding: 60px 0px;
     width: 100%;
     display: flex;

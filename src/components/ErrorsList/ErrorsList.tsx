@@ -125,7 +125,7 @@ export const ErrorsList = () => {
                   }}
                   align="center"
                 >
-                  Fix proposition
+                  Fix proposition 💡
                 </StyledTableCell>
               </TableRow>
             )}
