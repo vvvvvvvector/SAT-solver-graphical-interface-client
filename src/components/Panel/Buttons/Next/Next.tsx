@@ -16,6 +16,7 @@ export const Next: React.FC<{ solver: string }> = ({ solver }) => {
 
   const [loading, setLoading] = React.useState(false);
 
+  const { clauses } = useSelector((state: RootState) => state.formula);
   const { solutions } = useSelector((state: RootState) => state.solutions);
   const { dimacs, errors } = useSelector((state: RootState) => state.editor);
 
@@ -54,7 +55,11 @@ export const Next: React.FC<{ solver: string }> = ({ solver }) => {
       sx={buttonStyle}
       onClick={onClickNext}
       disabled={
-        loading || dimacs === "" || solutions.length === 0 || errors.length > 0
+        loading ||
+        clauses.length === 0 ||
+        dimacs === "" ||
+        solutions.length === 0 ||
+        errors.length > 0
       }
       endIcon={<ForwardOutlinedIcon />}
       variant="contained"

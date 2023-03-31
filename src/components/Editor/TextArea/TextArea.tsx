@@ -2,6 +2,7 @@ import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setDimacs } from "../../../redux/slices/editor";
+import { setFormula } from "../../../redux/slices/formula";
 import { RootState } from "../../../redux/store";
 
 import styles from "./TextArea.module.scss";
@@ -15,6 +16,13 @@ const TextArea: React.FC<{
   const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
 
   const { dimacs } = useSelector((state: RootState) => state.editor);
+
+  const onChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    dispatch(setDimacs(e.target.value));
+    dispatch(setFormula([]));
+
+    sessionStorage.setItem("formula", "");
+  };
 
   return (
     <textarea
@@ -34,7 +42,7 @@ const TextArea: React.FC<{
       autoCapitalize="off"
       spellCheck="false"
       value={dimacs}
-      onChange={(e) => dispatch(setDimacs(e.target.value))}
+      onChange={onChangeTextArea}
     />
   );
 };

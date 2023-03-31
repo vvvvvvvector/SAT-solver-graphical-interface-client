@@ -55,10 +55,13 @@ export const Solve: React.FC<{ solver: string }> = ({ solver }) => {
       setLoading(false);
 
       if (error.response.status === 418) {
+        // Wrong number of clauses
         toast.error(error.response.data.detail);
       } else if (error.response.status === 419) {
+        // Wrong variable value
         toast.error(error.response.data.detail);
       } else if (error.response.status === 420) {
+        // No formula definition
         toast.error(error.response.data.detail);
       } else {
         toast.error("Something went wrong!");
