@@ -45,7 +45,7 @@ export const Upload: React.FC = () => {
           hidden
           type="file"
           onChange={onClickUpload}
-          accept=".txt, .dimacs"
+          accept=".txt, .cnf"
         />
         <UploadFileIcon color="primary" />
       </IconButton>

@@ -26,7 +26,7 @@ const TextArea: React.FC<{
 
   return (
     <textarea
-      className={styles.textArea}
+      className={styles.editorTextArea}
       onScroll={() => {
         if (gutterRef.current && textAreaRef.current && errorsRef.current) {
           const { scrollTop } = textAreaRef.current;
