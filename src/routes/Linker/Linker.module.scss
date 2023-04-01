@@ -4,31 +4,41 @@
   place-items: center;
 
   .linker {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
     border-radius: 15px;
     border: 1px solid #eaeaea;
     background-color: #fafafa;
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    max-width: 850px;
-    padding: 60px 0px;
+    max-width: 1025px;
+    padding: 35px 40px;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 70px;
 
-    .header {
-      color: #28282b;
-      font-weight: 550;
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
+    .formulas {
+      display: flex;
+      justify-content: space-between;
+      gap: 80px;
 
-    .formulaUpload {
-      p {
-        color: #28282b;
-        margin-top: 25px;
-        font-weight: 500;
+      .formula {
+        width: 450px;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+
+        textarea {
+          border-radius: 7px;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          padding: 10px 15px;
+          line-height: 1.25;
+          border: 1px solid #eaeaea;
+          resize: none;
+          font-size: 16px;
+        }
       }
     }
   }

@@ -16,6 +16,11 @@ export const EditLine: React.FC<{ line: number; damaged: string }> = ({
     const editedLine = window.prompt("Edit a clause:", damaged);
 
     if (editedLine) {
+      if (editedLine === damaged) {
+        toast.error("You have to write something instead of the same line!");
+        return;
+      }
+
       dispatch(editLine({ line, editedLine }));
 
       toast.success("Clause was edited successfully!");
