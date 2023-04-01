@@ -3,7 +3,7 @@ import React from "react";
 import Gutter from "./Gutter/Gutter";
 import TextArea from "./TextArea/TextArea";
 import Errors from "./Errors/Errors";
-import { Save, Upload, Fix, Clear } from "./Buttons/";
+import { Save, Upload, Fix, Clear, RemoveDuplicates } from "./Buttons/";
 
 import styles from "./Editor.module.scss";
 
@@ -23,6 +23,7 @@ export const Editor: React.FC = () => {
           <Save />
           <Upload />
           <Fix />
+          <RemoveDuplicates />
         </div>
         <Clear />
       </div>
