@@ -1,13 +1,22 @@
 import React from "react";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 import axiosInstance from "../../axios";
+
+import { useDispatch } from "react-redux";
+import { clearErrors, setDimacs } from "../../redux/slices/editor";
+import { clearSolutions } from "../../redux/slices/solutions";
+import { setFormula } from "../../redux/slices/formula";
 
 import { Button } from "@mui/material";
 
 import styles from "./Linker.module.scss";
 
 const Linker: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [firstDimacs, setFirstDimacs] = React.useState("");
   const [secondDimacs, setSecondDimacs] = React.useState("");
 
@@ -45,7 +54,14 @@ const Linker: React.FC = () => {
 
       setLoading(false);
 
-      toast.success(`success: ${response.data.success}`);
+      dispatch(setDimacs(response.data.result));
+      dispatch(clearErrors());
+      dispatch(clearSolutions());
+      dispatch(setFormula([]));
+
+      navigate("/");
+
+      toast.success("Formulas were successfully linked!");
     } catch (error: any) {
       setLoading(false);
 
