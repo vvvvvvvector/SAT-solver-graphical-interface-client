@@ -46,7 +46,7 @@ export const Fix: React.FC = () => {
   };
 
   return dimacs.length > 0 ? (
-    <Tooltip title="Try to fix errors in dimacs" arrow>
+    <Tooltip title="Try to fix all errors in dimacs" arrow>
       <IconButton onClick={onClickFix} color="primary">
         <AutoFixHighOutlinedIcon color="primary" />
       </IconButton>

@@ -1,24 +1,18 @@
 import React from "react";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 import axiosInstance from "../../axios";
 
-import { useDispatch } from "react-redux";
-import { clearErrors, setDimacs } from "../../redux/slices/editor";
-import { clearSolutions } from "../../redux/slices/solutions";
-import { setFormula } from "../../redux/slices/formula";
-
-import { Button } from "@mui/material";
+import { Paste, Link } from "./Buttons";
+import UploadedFormula from "./UploadedFormula/UploadedFormula";
 
 import styles from "./Linker.module.scss";
 
 const Linker: React.FC = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const [firstDimacs, setFirstDimacs] = React.useState("");
   const [secondDimacs, setSecondDimacs] = React.useState("");
+
+  const [linked, setLinked] = React.useState("");
 
   const [loading, setLoading] = React.useState(false);
 
@@ -54,12 +48,7 @@ const Linker: React.FC = () => {
 
       setLoading(false);
 
-      dispatch(setDimacs(response.data.result));
-      dispatch(clearErrors());
-      dispatch(clearSolutions());
-      dispatch(setFormula([]));
-
-      navigate("/");
+      setLinked(response.data.result);
 
       toast.success("Formulas were successfully linked!");
     } catch (error: any) {
@@ -82,119 +71,29 @@ const Linker: React.FC = () => {
     }
   };
 
-  const onClickUploadFirst = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files instanceof FileList) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-
-      reader.readAsText(file);
-
-      reader.onload = () => {
-        toast.success("First formula was successfully uploaded!");
-
-        const dimacs = reader.result as string;
-
-        setFirstDimacs(dimacs);
-      };
-
-      reader.onerror = () => {
-        toast.error("Error while uploading first formula!");
-      };
-    }
-
-    e.target.value = ""; // allows re-add the same file again
-  };
-
-  const onClickUploadSecond = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files instanceof FileList) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-
-      reader.readAsText(file);
-
-      reader.onload = () => {
-        toast.success("Second formula was successfully uploaded!");
-
-        const dimacs = reader.result as string;
-
-        setSecondDimacs(dimacs);
-      };
-
-      reader.onerror = () => {
-        toast.error("Error while uploading second file!");
-      };
-    }
-
-    e.target.value = ""; // allows re-add the same file again
-  };
-
   return (
     <div className={styles.container}>
       <section className={styles.linker}>
         <div className={styles.formulas}>
-          <div className={styles.formula}>
-            <Button
-              sx={{ marginBottom: "25px" }}
-              size="large"
-              variant="contained"
-              component="label"
-            >
-              Upload 1st formula
-              <input
-                onChange={onClickUploadFirst}
-                hidden
-                type="file"
-                accept=".txt, .cnf"
-              />
-            </Button>
-            <textarea
-              wrap="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck="false"
-              value={firstDimacs}
-              onChange={(e) => setFirstDimacs(e.target.value)}
-              placeholder="First formula..."
-            />
-          </div>
-          <div className={styles.formula}>
-            <Button
-              sx={{ marginBottom: "25px" }}
-              size="large"
-              variant="contained"
-              component="label"
-            >
-              Upload 2nd formula
-              <input
-                onChange={onClickUploadSecond}
-                hidden
-                type="file"
-                accept=".txt, .cnf"
-              />
-            </Button>
-            <textarea
-              wrap="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck="false"
-              value={secondDimacs}
-              onChange={(e) => setSecondDimacs(e.target.value)}
-              placeholder="Second formula..."
-            />
-          </div>
+          <UploadedFormula
+            index={1}
+            dimacs={firstDimacs}
+            setDimacs={setFirstDimacs}
+          />
+          <UploadedFormula
+            index={2}
+            dimacs={secondDimacs}
+            setDimacs={setSecondDimacs}
+          />
         </div>
-        <Button
-          sx={{
-            maxWidth: "300px",
-            width: "100%",
-          }}
-          disabled={loading || firstDimacs === "" || secondDimacs === ""}
-          size="large"
-          variant="outlined"
-          onClick={onClickLink}
-        >
-          {loading ? "Linking..." : "Link"}
-        </Button>
+        <div className={styles.buttons}>
+          <Link
+            loading={loading}
+            onClick={onClickLink}
+            disabled={loading || firstDimacs === "" || secondDimacs === ""}
+          />
+          <Paste dimacs={linked} />
+        </div>
       </section>
     </div>
   );
