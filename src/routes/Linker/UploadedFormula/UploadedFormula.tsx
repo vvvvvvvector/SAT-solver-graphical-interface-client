@@ -1,15 +1,19 @@
 import React from "react";
 import { toast } from "react-hot-toast";
 
+import { useDispatch } from "react-redux";
+import { setFirst, setLinked, setSecond } from "../../../redux/slices/linker";
+
 import { Button } from "@mui/material";
 
 import styles from "./UploadedFormula.module.scss";
 
 const UploadedFormula: React.FC<{
   dimacs: string;
-  setDimacs: (value: string) => void;
   index: 1 | 2;
-}> = ({ dimacs, setDimacs, index }) => {
+}> = ({ dimacs, index }) => {
+  const dispatch = useDispatch();
+
   const onClickUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files instanceof FileList) {
       const file = e.target.files[0];
@@ -20,7 +24,13 @@ const UploadedFormula: React.FC<{
       reader.onload = () => {
         toast.success("First formula was successfully uploaded!");
 
-        setDimacs(reader.result as string);
+        if (index === 1) {
+          dispatch(setFirst(reader.result as string));
+        } else {
+          dispatch(setSecond(reader.result as string));
+        }
+
+        dispatch(setLinked(""));
       };
 
       reader.onerror = () => {
@@ -53,7 +63,15 @@ const UploadedFormula: React.FC<{
         autoCapitalize="off"
         spellCheck="false"
         value={dimacs}
-        onChange={(e) => setDimacs(e.target.value)}
+        onChange={(e) => {
+          if (index === 1) {
+            dispatch(setFirst(e.target.value));
+          } else {
+            dispatch(setSecond(e.target.value));
+          }
+
+          dispatch(setLinked(""));
+        }}
         placeholder={
           index === 1 ? "1st formula here..." : "2nd formula here..."
         }
