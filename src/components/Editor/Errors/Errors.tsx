@@ -22,7 +22,7 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
 
   const addNewError = (
     line: number,
-    errorCode: number,
+    errorCode: 0 | 1 | 2 | 3 | 4,
     description: string,
     damaged: string
   ) => {
