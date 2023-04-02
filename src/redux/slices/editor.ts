@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type ErrorType = {
   line: number;
-  errorCode: number;
+  errorCode: 0 | 1 | 2 | 3 | 4;
   description: string;
   damaged: string;
 };
