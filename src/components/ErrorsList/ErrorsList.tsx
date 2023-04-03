@@ -13,18 +13,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
+import { ButtonGroup } from "@mui/material";
 
 import { AddZero, DeleteLine, EditLine } from "./Buttons";
 
-import styles from "./ErrorsList.module.scss";
-import { ButtonGroup } from "@mui/material";
+import { ErrorType } from "../../shared/types";
 
-type ErrorType = {
-  line: number;
-  errorCode: 0 | 1 | 2 | 3 | 4;
-  description: string;
-  damaged: string;
-};
+import styles from "./ErrorsList.module.scss";
 
 const ButtonByErrorCode = (error: ErrorType) => {
   switch (error.errorCode) {

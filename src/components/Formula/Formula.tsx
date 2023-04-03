@@ -45,7 +45,10 @@ export const Formula: React.FC = () => {
   const renderFormula = () => {
     const clausesOnPage = clauses.slice(page, page + clausesPerPage);
 
-    if (clausesOnPage.length < clausesPerPage) {
+    if (clausesOnPage.length === 0) {
+      // setPage((page / clausesPerPage - 1) * clausesPerPage);
+      setPage(page - clausesPerPage);
+    } else if (clausesOnPage.length < clausesPerPage) {
       return clausesOnPage.map((clause, index) => (
         <li key={clause.id}>
           <Clause clause={clause} />
