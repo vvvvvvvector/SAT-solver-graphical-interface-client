@@ -11,7 +11,7 @@ export const SelectSolver: React.FC<{
   return (
     <FormControl
       sx={{
-        maxWidth: "320px",
+        maxWidth: "243px",
         width: "100%",
         "@media (max-width: 1400px)": {
           maxWidth: "none",

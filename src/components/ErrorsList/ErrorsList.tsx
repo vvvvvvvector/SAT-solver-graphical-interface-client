@@ -43,7 +43,7 @@ const ButtonByErrorCode = (error: ErrorType) => {
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#e0e0e0",
+    backgroundColor: "#fafafa",
     color: "#28282b",
     fontFamily: "Inter, Helvetica, Arial, sans-serif",
   },

@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import axiosInstance from "../../../../axios";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setNextSolution } from "../../../../redux/slices/solutions";
+import { setSolution } from "../../../../redux/slices/solutions";
 import { buttonStyle } from "../../../../shared/mui";
 import { RootState } from "../../../../redux/store";
 
@@ -37,7 +37,7 @@ export const Next: React.FC<{ solver: string }> = ({ solver }) => {
           JSON.stringify(response.data.clauses)
         );
 
-        dispatch(setNextSolution(response.data.next_solution));
+        dispatch(setSolution(response.data.next_solution));
 
         toast.success("Next solution was successfully found!");
       } else {
