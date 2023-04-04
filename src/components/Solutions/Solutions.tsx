@@ -17,11 +17,11 @@ export const Solutions: React.FC = () => {
     (state: RootState) => state.solutions
   );
 
-  React.useEffect(() => {
-    containerRef.current?.scrollIntoView({
-      behavior: "smooth",
-    });
-  }, [solutions]);
+  // React.useEffect(() => {
+  //   containerRef.current?.scrollIntoView({
+  //     behavior: "smooth",
+  //   });
+  // }, [solutions]);
 
   const handleSaveSolution = (solutionIndex: number) => {
     if (

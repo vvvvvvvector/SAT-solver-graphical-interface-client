@@ -7,13 +7,16 @@
   line-height: 20px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.12);
   border: 1px solid #eaeaea;
+  background-color: #fafafa;
   border-radius: 7px;
   padding: 13px 40px;
   overflow-y: auto;
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: #f1f1f1;
-    transform: scale(1.04);
+    // background-color: #f1f1f1;
+    transform: scale(1.05);
+    border-color: #1876d2;
+    box-shadow: none;
   }
 }

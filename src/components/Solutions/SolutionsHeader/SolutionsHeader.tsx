@@ -17,7 +17,11 @@ const SolutionsHeader: React.FC = () => {
     <div className={styles.header}>
       <div className={styles.headerLeft}>
         <h2 onClick={() => dispatch(setSolutionsOpened(!opened))}>
-          {solutions.length > 0 ? "Solutions" : "There are no solutions so far"}
+          {solutions.length > 0
+            ? solutions.length === 1
+              ? `Solution [${solutions.length}]`
+              : `Solutions [${solutions.length}]`
+            : "There are no solutions so far"}
         </h2>
         <svg
           className={opened ? styles.opened : ""}

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../redux/store";
 import {
   clearSolutions,
-  setFirstSolution,
+  setSolution,
 } from "../../../../redux/slices/solutions";
 import { setFormula } from "../../../../redux/slices/formula";
 
@@ -42,7 +42,8 @@ export const Solve: React.FC<{ solver: string }> = ({ solver }) => {
           JSON.stringify(response.data.clauses)
         );
 
-        dispatch(setFirstSolution(response.data.first_solution));
+        dispatch(clearSolutions());
+        dispatch(setSolution(response.data.first_solution));
 
         toast.success("Satisfiable!");
       } else {
