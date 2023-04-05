@@ -1,7 +1,9 @@
 .dialog {
-  box-sizing: border-box;
+  max-width: 235px;
+  width: 100%;
   border-radius: 10px;
   background-color: white;
+  border: 2px solid #eaeaea;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -9,6 +11,6 @@
   padding: 45px 110px;
 
   h3 {
-    color: black;
+    color: #28282b;
   }
 }
