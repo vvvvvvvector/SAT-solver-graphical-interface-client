@@ -1,0 +1,14 @@
+.dialog {
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  padding: 45px 110px;
+
+  h3 {
+    color: black;
+  }
+}
