@@ -142,7 +142,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
       setOpen(false);
 
       if (loop.current === Status.END) {
-        toast.success("Successfully found all other solutions!", {
+        toast.error("There are no more solutions!", {
           duration: 3000,
         });
       } else {
