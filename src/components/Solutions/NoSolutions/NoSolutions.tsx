@@ -5,7 +5,7 @@ import styles from "./NoSolutions.module.scss";
 const NoSolutions: React.FC = () => {
   return (
     <div className={styles.noSolutions}>
-      <span>😢😢😢</span>
+      <p>¯\_(ツ)_/¯</p>
     </div>
   );
 };

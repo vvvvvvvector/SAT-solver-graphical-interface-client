@@ -4,7 +4,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 
-import styles from "./Overlap.module.scss";
+import styles from "./Overlay.module.scss";
 
 import Status from "../status";
 
