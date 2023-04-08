@@ -15,7 +15,7 @@ import {
 } from "../../../../redux/slices/solutions";
 import LoopIcon from "@mui/icons-material/Loop";
 
-import Overlap from "./Overlap/Overlap";
+import Overlay from "./Overlay/Overlay";
 
 import Status from "./status";
 
@@ -192,7 +192,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
         </Button>
       )}
       {loading && (
-        <Overlap loop={loop} counter={counter} setOpen={setOpen} open={open} />
+        <Overlay loop={loop} counter={counter} setOpen={setOpen} open={open} />
       )}
     </>
   );
