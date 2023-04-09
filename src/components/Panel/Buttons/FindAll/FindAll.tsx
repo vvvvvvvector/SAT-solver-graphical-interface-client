@@ -163,6 +163,8 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
       dispatch(setSolutions(solutions));
     } catch (error: any) {
       console.log(error);
+      
+      setLoading(false);
 
       toast.error("Something went wrong while clicking Find Other");
     }
