@@ -10,10 +10,11 @@ import Status from '../status';
 
 const Overlap: React.FC<{
   open: boolean;
-  setOpen: (value: boolean) => void;
   counter: number;
   loop: React.MutableRefObject<Status>;
-}> = ({ open, setOpen, counter, loop }) => {
+}> = ({ open, counter, loop }) => {
+  const [loading, setLoading] = React.useState(false);
+
   return (
     <Backdrop
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -25,19 +26,19 @@ const Overlap: React.FC<{
         }...`}</h3>
         <CircularProgress color='primary' />
         <Button
-          disabled={counter == 0}
+          disabled={counter == 0 || loading}
           sx={{
-            maxWidth: '200px',
+            maxWidth: '250px',
             width: '100%',
           }}
           color='primary'
           variant='outlined'
           onClick={() => {
-            setOpen(false);
+            setLoading(true);
             loop.current = Status.STOPPED;
           }}
         >
-          Stop
+          {loading ? 'Stopping the search...' : 'Stop'}
         </Button>
       </div>
     </Backdrop>

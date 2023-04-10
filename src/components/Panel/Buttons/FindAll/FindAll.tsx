@@ -206,9 +206,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
           Find All
         </Button>
       )}
-      {loading && (
-        <Overlay loop={loop} counter={counter} setOpen={setOpen} open={open} />
-      )}
+      {loading && <Overlay loop={loop} counter={counter} open={open} />}
     </>
   );
 };
