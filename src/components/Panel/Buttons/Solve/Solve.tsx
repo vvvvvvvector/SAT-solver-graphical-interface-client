@@ -80,7 +80,7 @@ export const Solve: React.FC<{ solver: string }> = ({ solver }) => {
       endIcon={<CalculateOutlinedIcon />}
       variant="contained"
     >
-      {loading ? "Solving..." : errors.length > 0 ? "Fix errors" : "Solve"}
+      {loading ? "Solving..." : "Solve"}
     </Button>
   );
 };

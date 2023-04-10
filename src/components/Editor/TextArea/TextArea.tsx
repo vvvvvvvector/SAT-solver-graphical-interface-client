@@ -35,7 +35,7 @@ const TextArea: React.FC<{
           errorsRef.current.scrollTop = scrollTop;
         }
       }}
-      placeholder="dimacs cnf format allowed here..."
+      placeholder="DIMACS CNF format only allowed here..."
       ref={textAreaRef}
       wrap="off"
       autoCorrect="off"

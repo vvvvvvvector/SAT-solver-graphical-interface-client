@@ -5,7 +5,7 @@ export const buttonStyle = {
     backgroundColor: "#e4e4e4",
   },
   "&:disabled": {
-    backgroundColor: "#e3e3e3",
+    backgroundColor: "hsl(0, 0%, 94%)",
   },
   maxWidth: "243px",
   width: "100%",
