@@ -1,15 +1,15 @@
-import React from "react";
-import toast from "react-hot-toast";
+import React from 'react';
+import toast from 'react-hot-toast';
 
-import axiosInstance from "../../../../axios";
+import axiosInstance from '../../../../axios';
 
-import { useSelector, useDispatch } from "react-redux";
-import { setSolution } from "../../../../redux/slices/solutions";
-import { buttonStyle } from "../../../../shared/mui";
-import { RootState } from "../../../../redux/store";
+import { useSelector, useDispatch } from 'react-redux';
+import { setSolution } from '../../../../redux/slices/solutions';
+import { buttonStyle } from '../../../../shared/mui';
+import { RootState } from '../../../../redux/store';
 
-import { Button } from "@mui/material";
-import ForwardOutlinedIcon from "@mui/icons-material/ForwardOutlined";
+import { Button } from '@mui/material';
+import ForwardOutlinedIcon from '@mui/icons-material/ForwardOutlined';
 
 export const Next: React.FC<{ solver: string }> = ({ solver }) => {
   const dispatch = useDispatch();
@@ -24,29 +24,29 @@ export const Next: React.FC<{ solver: string }> = ({ solver }) => {
     try {
       setLoading(true);
 
-      const response = await axiosInstance.post("next-solution", {
+      const response = await axiosInstance.post('next-solution', {
         solver,
-        formula: sessionStorage.getItem("formula"),
+        formula: sessionStorage.getItem('formula'),
       });
 
       setLoading(false);
 
       if (response.data.satisfiable) {
         sessionStorage.setItem(
-          "formula",
+          'formula',
           JSON.stringify(response.data.clauses)
         );
 
         dispatch(setSolution(response.data.next_solution));
 
-        toast.success("Next solution was successfully found!");
+        toast.success('Next solution was successfully found!');
       } else {
-        toast.error("There are no more solutions!");
+        toast.error('There are no more solutions!');
       }
     } catch (error) {
       setLoading(false);
-      toast.error("Something went wrong!");
-      console.error("Something went wrong!", error);
+      toast.error('Something went wrong!');
+      console.error('Something went wrong!', error);
     }
   };
 
@@ -57,14 +57,14 @@ export const Next: React.FC<{ solver: string }> = ({ solver }) => {
       disabled={
         loading ||
         clauses.length === 0 ||
-        dimacs === "" ||
+        dimacs === '' ||
         solutions.length === 0 ||
         errors.length > 0
       }
       endIcon={<ForwardOutlinedIcon />}
       variant="contained"
     >
-      {loading ? "Finding..." : "Next solution"}
+      {loading ? 'Finding...' : 'Next solution'}
     </Button>
   );
 };

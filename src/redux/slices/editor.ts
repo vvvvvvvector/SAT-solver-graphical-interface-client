@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ErrorType } from "../../shared/types";
+import { ErrorType } from '../../shared/types';
 
 export const editorSlice = createSlice({
-  name: "editor",
+  name: 'editor',
   initialState: {
-    dimacs: "",
+    dimacs: '',
     errors: [] as ErrorType[],
   },
   reducers: {
@@ -13,7 +13,7 @@ export const editorSlice = createSlice({
       state.dimacs = action.payload;
     },
     clearDimacs(state) {
-      state.dimacs = "";
+      state.dimacs = '';
       state.errors = [];
     },
     addError(state, action: PayloadAction<ErrorType>) {
@@ -58,7 +58,7 @@ export const editorSlice = createSlice({
       state,
       action: PayloadAction<{ line: number; editedLine: string }>
     ) {
-      const lines = state.dimacs.split("\n");
+      const lines = state.dimacs.split('\n');
 
       const fixedLines = lines.map((line, index) => {
         if (index === action.payload.line - 1) {
@@ -70,14 +70,14 @@ export const editorSlice = createSlice({
 
       state.errors = state.errors.filter((e) => e.line !== action.payload.line);
 
-      state.dimacs = fixedLines.join("\n");
+      state.dimacs = fixedLines.join('\n');
     },
     addZero(state, action: PayloadAction<number>) {
-      const lines = state.dimacs.split("\n");
+      const lines = state.dimacs.split('\n');
 
       const fixedLines = lines.map((line, index) => {
         if (index === action.payload - 1) {
-          return line + " 0";
+          return line + ' 0';
         }
 
         return line;
@@ -85,10 +85,10 @@ export const editorSlice = createSlice({
 
       state.errors = state.errors.filter((e) => e.line !== action.payload);
 
-      state.dimacs = fixedLines.join("\n");
+      state.dimacs = fixedLines.join('\n');
     },
     deleteLine(state, action: PayloadAction<number>) {
-      const lines = state.dimacs.split("\n");
+      const lines = state.dimacs.split('\n');
 
       const fixedLines = lines.filter(
         (_, index) => index !== action.payload - 1
@@ -96,7 +96,7 @@ export const editorSlice = createSlice({
 
       state.errors = state.errors.filter((e) => e.line !== action.payload);
 
-      state.dimacs = fixedLines.join("\n");
+      state.dimacs = fixedLines.join('\n');
     },
   },
 });

@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { useDispatch, useSelector } from "react-redux";
-import { setDimacs } from "../../../redux/slices/editor";
-import { setFormula } from "../../../redux/slices/formula";
-import { RootState } from "../../../redux/store";
+import { useDispatch, useSelector } from 'react-redux';
+import { setDimacs } from '../../../redux/slices/editor';
+import { setFormula } from '../../../redux/slices/formula';
+import { RootState } from '../../../redux/store';
 
-import styles from "./TextArea.module.scss";
+import styles from './TextArea.module.scss';
 
 const TextArea: React.FC<{
   gutterRef: React.RefObject<HTMLDivElement>;
@@ -21,7 +21,7 @@ const TextArea: React.FC<{
     dispatch(setDimacs(e.target.value));
     dispatch(setFormula([]));
 
-    sessionStorage.setItem("formula", "");
+    sessionStorage.setItem('formula', '');
   };
 
   return (

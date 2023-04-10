@@ -1,29 +1,29 @@
-import React from "react";
-import { toast } from "react-hot-toast";
+import React from 'react';
+import { toast } from 'react-hot-toast';
 
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../redux/store";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
 
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import { IconButton, Tooltip } from "@mui/material";
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { IconButton, Tooltip } from '@mui/material';
 
 export const Save: React.FC = () => {
   const { dimacs } = useSelector((state: RootState) => state.editor);
 
   const onClickSave = () => {
-    if (window.confirm("Do you really want to save a formula to a file?")) {
-      const filename = window.prompt("Enter a filename: ");
+    if (window.confirm('Do you really want to save a formula to a file?')) {
+      const filename = window.prompt('Enter a filename: ');
 
       if (filename) {
-        const blob = new Blob([dimacs], { type: "text/plain" });
+        const blob = new Blob([dimacs], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
+        const link = document.createElement('a');
 
         link.download = `${filename}.txt`;
         link.href = url;
         link.click();
 
-        toast.success("Formula was successfully saved!");
+        toast.success('Formula was successfully saved!');
       }
     }
   };

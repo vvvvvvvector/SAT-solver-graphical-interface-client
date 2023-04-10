@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { Solve, Next, SelectSolver, FindAll } from "./Buttons/";
+import { Solve, Next, SelectSolver, FindAll } from './Buttons/';
 
-import styles from "./Panel.module.scss";
+import styles from './Panel.module.scss';
 
 export const Panel: React.FC = () => {
-  const [solver, setSolver] = React.useState("cd");
+  const [solver, setSolver] = React.useState('cd');
 
   return (
     <div className={styles.buttons}>

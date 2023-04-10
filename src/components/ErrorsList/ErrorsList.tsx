@@ -1,25 +1,25 @@
-import React from "react";
+import React from 'react';
 
-import { RootState } from "../../redux/store";
-import { useSelector } from "react-redux";
+import { RootState } from '../../redux/store';
+import { useSelector } from 'react-redux';
 
-import { TableVirtuoso } from "react-virtuoso";
+import { TableVirtuoso } from 'react-virtuoso';
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
-import { ButtonGroup } from "@mui/material";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import { ButtonGroup } from '@mui/material';
 
-import { AddZero, DeleteLine, EditLine } from "./Buttons";
+import { AddZero, DeleteLine, EditLine } from './Buttons';
 
-import { ErrorType } from "../../shared/types";
+import { ErrorType } from '../../shared/types';
 
-import styles from "./ErrorsList.module.scss";
+import styles from './ErrorsList.module.scss';
 
 const ButtonByErrorCode = (error: ErrorType) => {
   switch (error.errorCode) {
@@ -43,12 +43,12 @@ const ButtonByErrorCode = (error: ErrorType) => {
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#fafafa",
-    color: "#28282b",
-    fontFamily: "Inter, Helvetica, Arial, sans-serif",
+    backgroundColor: '#fafafa',
+    color: '#28282b',
+    fontFamily: 'Inter, Helvetica, Arial, sans-serif',
   },
   [`&.${tableCellClasses.body}`]: {
-    fontFamily: "Inter, Helvetica, Arial, sans-serif",
+    fontFamily: 'Inter, Helvetica, Arial, sans-serif',
   },
 }));
 
@@ -64,9 +64,9 @@ export const ErrorsList = () => {
           </h2>
           <TableVirtuoso
             style={{
-              height: "calc((63.75px * 5) + 57px)",
-              boxShadow: "0 2px 2px rgba(0, 0, 0, 0.12)",
-              border: "1px solid #eaeaea",
+              height: 'calc((63.75px * 5) + 57px)',
+              boxShadow: '0 2px 2px rgba(0, 0, 0, 0.12)',
+              border: '1px solid #eaeaea',
             }}
             data={errors}
             components={{
@@ -76,7 +76,7 @@ export const ErrorsList = () => {
               Table: (props) => (
                 <Table
                   {...props}
-                  sx={{ borderCollapse: "separate", tableLayout: "fixed" }}
+                  sx={{ borderCollapse: 'separate', tableLayout: 'fixed' }}
                 />
               ),
               TableHead,
@@ -89,8 +89,8 @@ export const ErrorsList = () => {
               <TableRow>
                 <StyledTableCell
                   sx={{
-                    width: "30%",
-                    backgroundColor: "white",
+                    width: '30%',
+                    backgroundColor: 'white',
                   }}
                   align="center"
                 >
@@ -98,8 +98,8 @@ export const ErrorsList = () => {
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
-                    maxWidth: "125px",
-                    backgroundColor: "white",
+                    maxWidth: '125px',
+                    backgroundColor: 'white',
                   }}
                   align="center"
                 >
@@ -107,8 +107,8 @@ export const ErrorsList = () => {
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
-                    width: "10%",
-                    backgroundColor: "white",
+                    width: '10%',
+                    backgroundColor: 'white',
                   }}
                   align="center"
                 >
@@ -116,7 +116,7 @@ export const ErrorsList = () => {
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
-                    backgroundColor: "white",
+                    backgroundColor: 'white',
                   }}
                   align="center"
                 >
@@ -129,12 +129,12 @@ export const ErrorsList = () => {
                 <StyledTableCell align="center">{`🚫 ${error.description}`}</StyledTableCell>
                 <StyledTableCell
                   sx={{
-                    whiteSpace: "nowrap",
-                    overflowX: "scroll",
+                    whiteSpace: 'nowrap',
+                    overflowX: 'scroll',
                   }}
                   align="center"
                 >
-                  {error.damaged ? error.damaged : "Line is empty here 🙊"}
+                  {error.damaged ? error.damaged : 'Line is empty here 🙊'}
                 </StyledTableCell>
                 <StyledTableCell align="center">{error.line}</StyledTableCell>
                 <StyledTableCell align="center">

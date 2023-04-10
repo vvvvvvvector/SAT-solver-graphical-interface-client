@@ -1,23 +1,23 @@
-import React from "react";
-import toast from "react-hot-toast";
+import React from 'react';
+import toast from 'react-hot-toast';
 
-import axiosInstance from "../../../../axios";
+import axiosInstance from '../../../../axios';
 
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../../redux/store";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../../../redux/store';
 
-import { Button } from "@mui/material";
-import { buttonStyle } from "../../../../shared/mui";
-import { setFormula } from "../../../../redux/slices/formula";
+import { Button } from '@mui/material';
+import { buttonStyle } from '../../../../shared/mui';
+import { setFormula } from '../../../../redux/slices/formula';
 import {
   clearSolutions,
   setSolutions,
-} from "../../../../redux/slices/solutions";
-import LoopIcon from "@mui/icons-material/Loop";
+} from '../../../../redux/slices/solutions';
+import LoopIcon from '@mui/icons-material/Loop';
 
-import Overlay from "./Overlay/Overlay";
+import Overlay from './Overlay/Overlay';
 
-import Status from "./status";
+import Status from './status';
 
 export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
 
       const solutions: number[][] = [];
 
-      const solveResponse = await axiosInstance.post("/solve", {
+      const solveResponse = await axiosInstance.post('/solve', {
         dimacs,
         solver,
       });
@@ -53,7 +53,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
         dispatch(setFormula(solveResponse.data.clauses.slice(0, -1)));
 
         sessionStorage.setItem(
-          "formula",
+          'formula',
           JSON.stringify(solveResponse.data.clauses)
         );
 
@@ -63,9 +63,9 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
         loop.current = Status.PENDING;
 
         while (loop.current === Status.PENDING) {
-          const nextResponse = await axiosInstance.post("/next-solution", {
+          const nextResponse = await axiosInstance.post('/next-solution', {
             solver,
-            formula: sessionStorage.getItem("formula"),
+            formula: sessionStorage.getItem('formula'),
           });
 
           if (nextResponse.data.satisfiable) {
@@ -73,7 +73,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
             setCounter((prev) => prev + 1);
 
             sessionStorage.setItem(
-              "formula",
+              'formula',
               JSON.stringify(nextResponse.data.clauses)
             );
           } else {
@@ -88,14 +88,14 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
       if (loop.current === Status.STOPPED) {
         toast.success(
           `Successfully found: ${solutions.length} ${
-            solutions.length === 1 ? "solution" : "solutions"
+            solutions.length === 1 ? 'solution' : 'solutions'
           }`,
           {
             duration: 3000,
           }
         );
       } else if (loop.current === Status.END) {
-        toast.success("Successfully found all solutions!", {
+        toast.success('Successfully found all solutions!', {
           duration: 3000,
         });
       }
@@ -106,7 +106,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
     } catch (error: any) {
       console.log(error);
 
-      toast.error("Something went wrong while clicking Find All");
+      toast.error('Something went wrong while clicking Find All');
     }
   };
 
@@ -120,9 +120,9 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
       loop.current = Status.PENDING;
 
       while (loop.current === Status.PENDING) {
-        const response = await axiosInstance.post("/next-solution", {
+        const response = await axiosInstance.post('/next-solution', {
           solver,
-          formula: sessionStorage.getItem("formula"),
+          formula: sessionStorage.getItem('formula'),
         });
 
         if (response.data.satisfiable) {
@@ -130,7 +130,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
           setCounter((prev) => prev + 1);
 
           sessionStorage.setItem(
-            "formula",
+            'formula',
             JSON.stringify(response.data.clauses)
           );
         } else {
@@ -142,7 +142,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
       setOpen(false);
 
       if (loop.current === Status.END) {
-        toast.error("There are no more solutions!", {
+        toast.error('There are no more solutions!', {
           duration: 3000,
         });
       } else {
@@ -150,7 +150,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
 
         toast.success(
           `Successfully found: ${solutions.length} ${
-            solutions.length === 1 ? "solution" : "solutions"
+            solutions.length === 1 ? 'solution' : 'solutions'
           }`,
           {
             duration: 3000,
@@ -163,10 +163,10 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
       dispatch(setSolutions(solutions));
     } catch (error: any) {
       console.log(error);
-      
+
       setLoading(false);
 
-      toast.error("Something went wrong while clicking Find Other");
+      toast.error('Something went wrong while clicking Find Other');
     }
   };
 
@@ -180,7 +180,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
           variant="contained"
           endIcon={<LoopIcon />}
         >
-          {loading ? "Loading..." : "Find other solutions"}
+          {loading ? 'Loading...' : 'Find other solutions'}
         </Button>
       ) : (
         <Button

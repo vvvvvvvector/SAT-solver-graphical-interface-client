@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import { useSelector, useDispatch } from "react-redux";
-import { addError, removeError } from "../../../redux/slices/editor";
-import { RootState } from "../../../redux/store";
+import { useSelector, useDispatch } from 'react-redux';
+import { addError, removeError } from '../../../redux/slices/editor';
+import { RootState } from '../../../redux/store';
 
-import debounce from "lodash.debounce";
+import debounce from 'lodash.debounce';
 
-import styles from "./Errors.module.scss";
+import styles from './Errors.module.scss';
 
 const formulaDefinition = /^p\s+cnf\s+[1-9][0-9]*\s+[1-9][0-9]*\s*$/;
 const lineEndsWithZero = /0\s*$/;
@@ -38,10 +38,10 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
 
   const verify = React.useCallback(
     debounce((dimacs: string) => {
-      const lines = dimacs.split("\n");
+      const lines = dimacs.split('\n');
 
       lines.forEach((line, index) => {
-        if (line.startsWith("c")) {
+        if (line.startsWith('c')) {
           dispatch(removeError({ line: index + 1, length: lines.length }));
           return;
         }
@@ -51,22 +51,22 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
           formulaDefinitionRow.current = index + 1;
         }
 
-        if (line === "" && index !== lines.length - 1) {
-          addNewError(index + 1, 0, "empty line", line);
-        } else if (!line.match(formulaDefinition) && line.startsWith("p")) {
-          addNewError(index + 1, 1, "invalid formula definition", line);
+        if (line === '' && index !== lines.length - 1) {
+          addNewError(index + 1, 0, 'empty line', line);
+        } else if (!line.match(formulaDefinition) && line.startsWith('p')) {
+          addNewError(index + 1, 1, 'invalid formula definition', line);
         } else if (
           !line.match(lineEndsWithZero) &&
-          line !== "" &&
-          !line.startsWith("p")
+          line !== '' &&
+          !line.startsWith('p')
         ) {
-          addNewError(index + 1, 2, "clause must end with 0", line);
+          addNewError(index + 1, 2, 'clause must end with 0', line);
         } else if (
           !line.match(validClause) &&
-          line !== "" &&
-          !line.startsWith("p")
+          line !== '' &&
+          !line.startsWith('p')
         ) {
-          addNewError(index + 1, 3, "invalid clause", line);
+          addNewError(index + 1, 3, 'invalid clause', line);
         } else if (
           line.match(/^p\s+cnf\s+.*$/) &&
           isFormulaDefined.current &&

@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material/";
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material/';
 
-import solvers from "./Solvers";
+import solvers from './Solvers';
 
 export const SelectSolver: React.FC<{
   solver: string;
@@ -11,10 +11,10 @@ export const SelectSolver: React.FC<{
   return (
     <FormControl
       sx={{
-        maxWidth: "243px",
-        width: "100%",
-        "@media (max-width: 1400px)": {
-          maxWidth: "none",
+        maxWidth: '243px',
+        width: '100%',
+        '@media (max-width: 1400px)': {
+          maxWidth: 'none',
         },
       }}
     >

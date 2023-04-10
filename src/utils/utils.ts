@@ -1,4 +1,4 @@
-import { ClauseType } from "../shared/types";
+import { ClauseType } from '../shared/types';
 
 const calculateVariables = (clauses: ClauseType[]) => {
   const variablesSet = new Set();
@@ -22,7 +22,7 @@ export const parseToDimacs = (clauses: ClauseType[]) => {
     clause.variables.forEach((variable) => {
       newDimacs += `${variable} `;
     });
-    newDimacs += index < clauses.length - 1 ? "0\n" : "0";
+    newDimacs += index < clauses.length - 1 ? '0\n' : '0';
   });
 
   return newDimacs;

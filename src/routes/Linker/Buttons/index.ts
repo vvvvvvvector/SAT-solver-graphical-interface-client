@@ -1,2 +1,2 @@
-export * from "./Paste/Paste";
-export * from "./Link/Link";
+export * from './Paste/Paste';
+export * from './Link/Link';

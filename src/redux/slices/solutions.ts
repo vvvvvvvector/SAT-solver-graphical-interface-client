@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
   opened: true,
@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export const solutionsSlice = createSlice({
-  name: "solutions",
+  name: 'solutions',
   initialState,
   reducers: {
     setSolutionsOpened(state, action: PayloadAction<boolean>) {

@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
-import { Paste, Link } from "./Buttons";
-import UploadedFormula from "./UploadedFormula/UploadedFormula";
+import { Paste, Link } from './Buttons';
+import UploadedFormula from './UploadedFormula/UploadedFormula';
 
-import styles from "./Linker.module.scss";
+import styles from './Linker.module.scss';
 
 const Linker: React.FC = () => {
   const { first, second, linked } = useSelector(

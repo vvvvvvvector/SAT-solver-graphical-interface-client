@@ -1,12 +1,12 @@
-import React from "react";
-import { toast } from "react-hot-toast";
+import React from 'react';
+import { toast } from 'react-hot-toast';
 
-import { useDispatch } from "react-redux";
-import { setFirst, setLinked, setSecond } from "../../../redux/slices/linker";
+import { useDispatch } from 'react-redux';
+import { setFirst, setLinked, setSecond } from '../../../redux/slices/linker';
 
-import { Button } from "@mui/material";
+import { Button } from '@mui/material';
 
-import styles from "./UploadedFormula.module.scss";
+import styles from './UploadedFormula.module.scss';
 
 const UploadedFormula: React.FC<{
   dimacs: string;
@@ -22,7 +22,7 @@ const UploadedFormula: React.FC<{
       reader.readAsText(file);
 
       reader.onload = () => {
-        toast.success("First formula was successfully uploaded!");
+        toast.success('First formula was successfully uploaded!');
 
         if (index === 1) {
           dispatch(setFirst(reader.result as string));
@@ -30,26 +30,26 @@ const UploadedFormula: React.FC<{
           dispatch(setSecond(reader.result as string));
         }
 
-        dispatch(setLinked(""));
+        dispatch(setLinked(''));
       };
 
       reader.onerror = () => {
-        toast.error("Error while uploading first formula!");
+        toast.error('Error while uploading first formula!');
       };
     }
 
-    e.target.value = ""; // allows re-add the same file again
+    e.target.value = ''; // allows re-add the same file again
   };
 
   return (
     <div className={styles.formula}>
       <Button
-        sx={{ marginBottom: "25px" }}
+        sx={{ marginBottom: '25px' }}
         size="large"
         variant="contained"
         component="label"
       >
-        {index === 1 ? "Upload 1st formula" : "Upload 2nd formula"}
+        {index === 1 ? 'Upload 1st formula' : 'Upload 2nd formula'}
         <input
           onChange={onClickUpload}
           hidden
@@ -70,10 +70,10 @@ const UploadedFormula: React.FC<{
             dispatch(setSecond(e.target.value));
           }
 
-          dispatch(setLinked(""));
+          dispatch(setLinked(''));
         }}
         placeholder={
-          index === 1 ? "1st formula here..." : "2nd formula here..."
+          index === 1 ? '1st formula here...' : '2nd formula here...'
         }
       />
     </div>

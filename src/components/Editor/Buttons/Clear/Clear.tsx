@@ -1,14 +1,14 @@
-import React from "react";
-import { toast } from "react-hot-toast";
+import React from 'react';
+import { toast } from 'react-hot-toast';
 
-import { useDispatch, useSelector } from "react-redux";
-import { clearDimacs } from "../../../../redux/slices/editor";
-import { clearSolutions } from "../../../../redux/slices/solutions";
-import { setFormula } from "../../../../redux/slices/formula";
-import { RootState } from "../../../../redux/store";
+import { useDispatch, useSelector } from 'react-redux';
+import { clearDimacs } from '../../../../redux/slices/editor';
+import { clearSolutions } from '../../../../redux/slices/solutions';
+import { setFormula } from '../../../../redux/slices/formula';
+import { RootState } from '../../../../redux/store';
 
-import { IconButton, Tooltip } from "@mui/material";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { IconButton, Tooltip } from '@mui/material';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 export const Clear: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,14 +18,14 @@ export const Clear: React.FC = () => {
   const { clauses } = useSelector((state: RootState) => state.formula);
 
   const onClickClear = () => {
-    if (window.confirm("Are you sure you want to clear the workspace?")) {
+    if (window.confirm('Are you sure you want to clear the workspace?')) {
       dispatch(clearDimacs());
       dispatch(clearSolutions());
 
       dispatch(setFormula([]));
-      sessionStorage.setItem("formula", "");
+      sessionStorage.setItem('formula', '');
 
-      toast.success("Workspace was successfully cleared!");
+      toast.success('Workspace was successfully cleared!');
     }
   };
 

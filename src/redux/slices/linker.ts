@@ -1,13 +1,13 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-  first: "",
-  second: "",
-  linked: "",
+  first: '',
+  second: '',
+  linked: '',
 };
 
 export const linkerSlice = createSlice({
-  name: "linker",
+  name: 'linker',
   initialState,
   reducers: {
     setFirst(state, action: PayloadAction<string>) {
@@ -22,22 +22,22 @@ export const linkerSlice = createSlice({
     filterFormula(state, action: PayloadAction<1 | 2>) {
       if (action.payload === 1) {
         state.first = state.first
-          .split("\n")
+          .split('\n')
           .filter((line) => {
             return line.match(
               /^p\s+cnf\s+[1-9][0-9]*\s+[1-9][0-9]*\s*$|^\s*(?:-?[1-9][0-9]*\s+)+0\s*$/
             );
           })
-          .join("\n");
+          .join('\n');
       } else {
         state.second = state.second
-          .split("\n")
+          .split('\n')
           .filter((line) => {
             return line.match(
               /^p\s+cnf\s+[1-9][0-9]*\s+[1-9][0-9]*\s*$|^\s*(?:-?[1-9][0-9]*\s+)+0\s*$/
             );
           })
-          .join("\n");
+          .join('\n');
       }
     },
   },

@@ -1,13 +1,13 @@
-import React from "react";
-import { toast } from "react-hot-toast";
+import React from 'react';
+import { toast } from 'react-hot-toast';
 
-import { useDispatch } from "react-redux";
-import { clearErrors, setDimacs } from "../../../../redux/slices/editor";
-import { setFormula } from "../../../../redux/slices/formula";
-import { clearSolutions } from "../../../../redux/slices/solutions";
+import { useDispatch } from 'react-redux';
+import { clearErrors, setDimacs } from '../../../../redux/slices/editor';
+import { setFormula } from '../../../../redux/slices/formula';
+import { clearSolutions } from '../../../../redux/slices/solutions';
 
-import { IconButton, Tooltip } from "@mui/material";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
+import { IconButton, Tooltip } from '@mui/material';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 export const Upload: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ export const Upload: React.FC = () => {
       reader.readAsText(file);
 
       reader.onload = () => {
-        toast.success("Formula was successfully uploaded!");
+        toast.success('Formula was successfully uploaded!');
 
         const dimacs = reader.result as string;
 
@@ -31,11 +31,11 @@ export const Upload: React.FC = () => {
       };
 
       reader.onerror = () => {
-        toast.error("Error while uploading file!");
+        toast.error('Error while uploading file!');
       };
     }
 
-    e.target.value = ""; // allows re-add the same file again
+    e.target.value = ''; // allows re-add the same file again
   };
 
   return (

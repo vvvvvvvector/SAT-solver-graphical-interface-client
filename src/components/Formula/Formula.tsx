@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react';
 
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../redux/store";
-import { clearDimacs, setDimacs } from "../../redux/slices/editor";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { clearDimacs, setDimacs } from '../../redux/slices/editor';
 
-import { Pagination } from "@mui/material";
+import { Pagination } from '@mui/material';
 
-import FormulaHeader from "./FormulaHeader/FormulaHeader";
-import NoFormula from "./NoFormula/NoFormula";
-import Clause from "./Clause/Clause";
+import FormulaHeader from './FormulaHeader/FormulaHeader';
+import NoFormula from './NoFormula/NoFormula';
+import Clause from './Clause/Clause';
 
-import { parseToDimacs } from "./../../utils/utils";
+import { parseToDimacs } from './../../utils/utils';
 
-import styles from "./Formula.module.scss";
+import styles from './Formula.module.scss';
 
 export const Formula: React.FC = () => {
   const dispatch = useDispatch();
@@ -80,8 +80,8 @@ export const Formula: React.FC = () => {
           {clauses.length > clausesPerPage && (
             <Pagination
               sx={{
-                display: "flex",
-                justifyContent: "center",
+                display: 'flex',
+                justifyContent: 'center',
               }}
               color="primary"
               page={page / clausesPerPage + 1}

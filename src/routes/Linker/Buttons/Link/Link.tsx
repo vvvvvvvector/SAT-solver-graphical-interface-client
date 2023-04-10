@@ -1,14 +1,14 @@
-import React from "react";
-import toast from "react-hot-toast";
+import React from 'react';
+import toast from 'react-hot-toast';
 
-import axiosInstance from "../../../../axios";
+import axiosInstance from '../../../../axios';
 
-import { useDispatch, useSelector } from "react-redux";
-import { filterFormula, setLinked } from "../../../../redux/slices/linker";
-import { RootState } from "../../../../redux/store";
+import { useDispatch, useSelector } from 'react-redux';
+import { filterFormula, setLinked } from '../../../../redux/slices/linker';
+import { RootState } from '../../../../redux/store';
 
-import { Button } from "@mui/material";
-import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
+import { Button } from '@mui/material';
+import InsertLinkOutlinedIcon from '@mui/icons-material/InsertLinkOutlined';
 
 export const Link: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export const Link: React.FC = () => {
     try {
       setLoading(true);
 
-      const response = await axiosInstance.post("/link", {
+      const response = await axiosInstance.post('/link', {
         firstDimacs: first,
         secondDimacs: second,
       });
@@ -33,7 +33,7 @@ export const Link: React.FC = () => {
 
       dispatch(setLinked(response.data.result));
 
-      toast.success("Formulas were successfully linked!");
+      toast.success('Formulas were successfully linked!');
     } catch (error: any) {
       setLoading(false);
 
@@ -53,7 +53,7 @@ export const Link: React.FC = () => {
         // The second formula has wrong amount of clauses!
         toast.error(error.response.data.detail);
       } else {
-        toast.error("Something went wrong!");
+        toast.error('Something went wrong!');
       }
 
       console.error(error);
@@ -63,15 +63,15 @@ export const Link: React.FC = () => {
   return (
     <Button
       sx={{
-        maxWidth: "310px",
-        width: "100%",
+        maxWidth: '310px',
+        width: '100%',
       }}
-      disabled={loading || first === "" || second === ""}
+      disabled={loading || first === '' || second === ''}
       variant="outlined"
       onClick={onClickLink}
       endIcon={<InsertLinkOutlinedIcon />}
     >
-      {loading ? "Linking..." : "Link formulas"}
+      {loading ? 'Linking...' : 'Link formulas'}
     </Button>
   );
 };
