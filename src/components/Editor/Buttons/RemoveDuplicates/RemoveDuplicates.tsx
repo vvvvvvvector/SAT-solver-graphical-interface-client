@@ -35,9 +35,9 @@ export const RemoveDuplicates: React.FC = () => {
   };
 
   return dimacs.length > 0 && errors.length === 0 ? (
-    <Tooltip title="Remove duplicate clauses" arrow>
-      <IconButton onClick={onClickRemoveDuplicates} color="primary">
-        <ContentCutOutlinedIcon color="primary" />
+    <Tooltip title='Remove duplicate clauses' arrow>
+      <IconButton onClick={onClickRemoveDuplicates} color='primary'>
+        <ContentCutOutlinedIcon color='primary' />
       </IconButton>
     </Tooltip>
   ) : (

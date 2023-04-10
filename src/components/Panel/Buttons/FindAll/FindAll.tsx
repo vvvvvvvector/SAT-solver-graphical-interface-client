@@ -80,33 +80,35 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
             loop.current = Status.END;
           }
         }
+      } else {
+        loop.current = Status.UNSATISFIABLE;
       }
 
       setLoading(false);
       setOpen(false);
 
-      if (loop.current === Status.STOPPED) {
-        toast.success(
-          `Successfully found: ${solutions.length} ${
-            solutions.length === 1 ? 'solution' : 'solutions'
-          }`,
-          {
-            duration: 3000,
-          }
-        );
-      } else if (loop.current === Status.END) {
-        toast.success('Successfully found all solutions!', {
-          duration: 3000,
-        });
+      if (loop.current === Status.UNSATISFIABLE) {
+        toast.error('Unsatisfiable!');
+      } else {
+        if (loop.current === Status.END) {
+          toast.success('Successfully found all solutions!');
+        } else if (loop.current === Status.STOPPED) {
+          toast.success(
+            `Successfully found: ${solutions.length} ${
+              solutions.length === 1 ? 'solution' : 'solutions'
+            }`
+          );
+        }
+        setCounter(0);
+        dispatch(setSolutions(solutions));
       }
-
-      setCounter(0);
-
-      dispatch(setSolutions(solutions));
     } catch (error: any) {
       console.log(error);
 
-      toast.error('Something went wrong while clicking Find All');
+      setLoading(false);
+      setOpen(false);
+
+      toast.error('Find All error!');
     }
   };
 
@@ -117,56 +119,61 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
 
       const solutions: number[][] = [];
 
-      loop.current = Status.PENDING;
+      const firstSolutionTry = await axiosInstance.post('/next-solution', {
+        solver,
+        formula: sessionStorage.getItem('formula'),
+      });
 
-      while (loop.current === Status.PENDING) {
-        const response = await axiosInstance.post('/next-solution', {
-          solver,
-          formula: sessionStorage.getItem('formula'),
-        });
+      if (firstSolutionTry.data.satisfiable) {
+        loop.current = Status.PENDING;
 
-        if (response.data.satisfiable) {
-          solutions.push(response.data.next_solution);
-          setCounter((prev) => prev + 1);
+        while (loop.current === Status.PENDING) {
+          const response = await axiosInstance.post('/next-solution', {
+            solver,
+            formula: sessionStorage.getItem('formula'),
+          });
 
-          sessionStorage.setItem(
-            'formula',
-            JSON.stringify(response.data.clauses)
-          );
-        } else {
-          loop.current = Status.END;
+          if (response.data.satisfiable) {
+            solutions.push(response.data.next_solution);
+            setCounter((prev) => prev + 1);
+
+            sessionStorage.setItem(
+              'formula',
+              JSON.stringify(response.data.clauses)
+            );
+          } else {
+            loop.current = Status.END;
+          }
         }
+      } else {
+        loop.current = Status.UNSATISFIABLE;
       }
 
       setLoading(false);
       setOpen(false);
 
-      if (loop.current === Status.END) {
-        toast.error('There are no more solutions!', {
-          duration: 3000,
-        });
+      if (loop.current === Status.UNSATISFIABLE) {
+        toast.error('There are no more solutions!');
       } else {
-        setCounter(solutions.length);
-
-        toast.success(
-          `Successfully found: ${solutions.length} ${
-            solutions.length === 1 ? 'solution' : 'solutions'
-          }`,
-          {
-            duration: 3000,
-          }
-        );
+        if (loop.current === Status.END) {
+          toast.success('Successfully found all solutions!');
+        } else if (loop.current === Status.STOPPED) {
+          toast.success(
+            `Successfully found: ${solutions.length} ${
+              solutions.length === 1 ? 'solution' : 'solutions'
+            }`
+          );
+        }
+        setCounter(0);
+        dispatch(setSolutions(solutions));
       }
-
-      setCounter(0);
-
-      dispatch(setSolutions(solutions));
     } catch (error: any) {
       console.log(error);
 
       setLoading(false);
+      setOpen(false);
 
-      toast.error('Something went wrong while clicking Find Other');
+      toast.error('Find Other error!');
     }
   };
 
@@ -177,7 +184,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
           disabled={errors.length > 0 || loading}
           onClick={onClickFindOther}
           sx={buttonStyle}
-          variant="contained"
+          variant='contained'
           endIcon={<LoopIcon />}
         >
           {loading ? 'Loading...' : 'Find other solutions'}
@@ -187,7 +194,7 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
           disabled={dimacs.length === 0 || errors.length > 0}
           onClick={onClickFindAll}
           sx={buttonStyle}
-          variant="contained"
+          variant='contained'
           endIcon={<LoopIcon />}
         >
           Find All

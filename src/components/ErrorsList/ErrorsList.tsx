@@ -53,7 +53,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export const ErrorsList = () => {
-  const { errors } = useSelector((state: RootState) => state.editor);
+  const errors = useSelector((state: RootState) => state.editor.errors);
 
   return (
     <>
@@ -92,7 +92,7 @@ export const ErrorsList = () => {
                     width: '30%',
                     backgroundColor: 'white',
                   }}
-                  align="center"
+                  align='center'
                 >
                   Error description
                 </StyledTableCell>
@@ -101,7 +101,7 @@ export const ErrorsList = () => {
                     maxWidth: '125px',
                     backgroundColor: 'white',
                   }}
-                  align="center"
+                  align='center'
                 >
                   Damaged line
                 </StyledTableCell>
@@ -110,7 +110,7 @@ export const ErrorsList = () => {
                     width: '10%',
                     backgroundColor: 'white',
                   }}
-                  align="center"
+                  align='center'
                 >
                   Error line
                 </StyledTableCell>
@@ -118,7 +118,7 @@ export const ErrorsList = () => {
                   sx={{
                     backgroundColor: 'white',
                   }}
-                  align="center"
+                  align='center'
                 >
                   Fix proposition 💡
                 </StyledTableCell>
@@ -126,18 +126,18 @@ export const ErrorsList = () => {
             )}
             itemContent={(_: number, error: ErrorType) => (
               <>
-                <StyledTableCell align="center">{`🚫 ${error.description}`}</StyledTableCell>
+                <StyledTableCell align='center'>{`🚫 ${error.description}`}</StyledTableCell>
                 <StyledTableCell
                   sx={{
                     whiteSpace: 'nowrap',
                     overflowX: 'scroll',
                   }}
-                  align="center"
+                  align='center'
                 >
                   {error.damaged ? error.damaged : 'Line is empty here 🙊'}
                 </StyledTableCell>
-                <StyledTableCell align="center">{error.line}</StyledTableCell>
-                <StyledTableCell align="center">
+                <StyledTableCell align='center'>{error.line}</StyledTableCell>
+                <StyledTableCell align='center'>
                   {ButtonByErrorCode(error)}
                 </StyledTableCell>
               </>

@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 25px;
-  font-size: 18px;
+  font-size: var(--formula-solutions-font-size);
   font-family: var(--font-source-code-pro);
 
   @media (max-width: 1390px) {
