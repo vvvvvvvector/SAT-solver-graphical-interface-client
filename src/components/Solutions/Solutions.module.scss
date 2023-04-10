@@ -1,11 +1,11 @@
 .solutionsContainer {
   margin-bottom: 40px;
-  color: #28282b;
+  color: var(--color-black);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 25px;
   font-size: 18px;
-  font-family: "Source Code Pro", monospace;
+  font-family: var(--font-source-code-pro);
 
   @media (max-width: 1390px) {
     grid-template-columns: repeat(4, 1fr);

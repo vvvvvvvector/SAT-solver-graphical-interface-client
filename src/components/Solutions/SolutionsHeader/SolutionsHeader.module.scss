@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
-  color: #28282b;
   margin-bottom: 20px;
 
   .headerLeft {
@@ -11,7 +10,7 @@
 
     h2 {
       cursor: pointer;
-      color: #28282b;
+      color: var(--color-black);
     }
 
     svg {
@@ -23,7 +22,7 @@
       }
 
       path {
-        fill: #28282b;
+        fill: var(--color-black);
       }
     }
   }
