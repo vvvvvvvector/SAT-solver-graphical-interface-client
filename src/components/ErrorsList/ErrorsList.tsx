@@ -64,7 +64,7 @@ export const ErrorsList = () => {
           </h2>
           <TableVirtuoso
             style={{
-              height: "calc((63.75px * 6) + 57px)",
+              height: "calc((63.75px * 5) + 57px)",
               boxShadow: "0 2px 2px rgba(0, 0, 0, 0.12)",
               border: "1px solid #eaeaea",
             }}
