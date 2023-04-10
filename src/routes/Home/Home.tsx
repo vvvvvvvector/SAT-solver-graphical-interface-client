@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   Editor,
@@ -6,9 +6,9 @@ import {
   Formula,
   Solutions,
   ErrorsList,
-} from "../../components";
+} from '../../components';
 
-import styles from "./Home.module.scss";
+import styles from './Home.module.scss';
 
 const Home: React.FC = () => {
   return (

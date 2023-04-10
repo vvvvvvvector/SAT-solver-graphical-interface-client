@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./NoFormula.module.scss";
+import styles from './NoFormula.module.scss';
 
 const NoFormula: React.FC = () => {
   return (

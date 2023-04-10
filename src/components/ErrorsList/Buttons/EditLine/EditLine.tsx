@@ -1,10 +1,10 @@
-import React from "react";
-import { toast } from "react-hot-toast";
+import React from 'react';
+import { toast } from 'react-hot-toast';
 
-import { useDispatch } from "react-redux";
-import { editLine } from "../../../../redux/slices/editor";
+import { useDispatch } from 'react-redux';
+import { editLine } from '../../../../redux/slices/editor';
 
-import { Button } from "@mui/material";
+import { Button } from '@mui/material';
 
 export const EditLine: React.FC<{ line: number; damaged: string }> = ({
   line,
@@ -13,26 +13,26 @@ export const EditLine: React.FC<{ line: number; damaged: string }> = ({
   const dispatch = useDispatch();
 
   const onClick = () => {
-    const editedLine = window.prompt("Edit a clause:", damaged);
+    const editedLine = window.prompt('Edit a clause:', damaged);
 
     if (editedLine) {
       if (editedLine === damaged) {
-        toast.error("You have to write something instead of the same line!");
+        toast.error('You have to write something instead of the same line!');
         return;
       }
 
       dispatch(editLine({ line, editedLine }));
 
-      toast.success("Clause was edited successfully!");
+      toast.success('Clause was edited successfully!');
     } else {
-      toast.error("You have to write something instead of empty line!");
+      toast.error('You have to write something instead of empty line!');
     }
   };
 
   return (
     <Button
       onClick={onClick}
-      sx={{ width: "95px" }}
+      sx={{ width: '95px' }}
       size="small"
       variant="outlined"
     >

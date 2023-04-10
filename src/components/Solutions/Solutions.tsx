@@ -1,15 +1,15 @@
-import React from "react";
-import { toast } from "react-hot-toast";
+import React from 'react';
+import { toast } from 'react-hot-toast';
 
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
-import Solution from "./Solution/Solution";
-import NoSolutions from "./NoSolutions/NoSolutions";
-import SolutionsHeader from "./SolutionsHeader/SolutionsHeader";
+import Solution from './Solution/Solution';
+import NoSolutions from './NoSolutions/NoSolutions';
+import SolutionsHeader from './SolutionsHeader/SolutionsHeader';
 
-import styles from "./Solutions.module.scss";
-import { Pagination } from "@mui/material";
+import styles from './Solutions.module.scss';
+import { Pagination } from '@mui/material';
 
 export const Solutions: React.FC = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -38,27 +38,27 @@ export const Solutions: React.FC = () => {
         `Do you really want to save solution ${solutionIndex + 1} to a file?`
       )
     ) {
-      const filename = window.prompt("Enter a filename: ");
+      const filename = window.prompt('Enter a filename: ');
 
       if (filename) {
         let result =
-          "Solution was found: " + new Date().toLocaleString() + "\n\n";
+          'Solution was found: ' + new Date().toLocaleString() + '\n\n';
 
         solutions[solutionIndex].forEach((variable, index) => {
           result += `x_${Math.abs(variable)} = ${
-            variable > 0 ? "True" : "False"
-          } ${solutions[solutionIndex].length - 1 > index ? "\n" : ""}`;
+            variable > 0 ? 'True' : 'False'
+          } ${solutions[solutionIndex].length - 1 > index ? '\n' : ''}`;
         });
 
-        const blob = new Blob([result], { type: "text/plain" });
+        const blob = new Blob([result], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
+        const link = document.createElement('a');
 
         link.download = `${filename}.txt`;
         link.href = url;
         link.click();
 
-        toast.success("Solution was successfully saved!");
+        toast.success('Solution was successfully saved!');
       }
     }
   };
@@ -84,8 +84,8 @@ export const Solutions: React.FC = () => {
               {solutions.length > solutionsPerPage && (
                 <Pagination
                   sx={{
-                    display: "flex",
-                    justifyContent: "center",
+                    display: 'flex',
+                    justifyContent: 'center',
                   }}
                   color="primary"
                   page={page / solutionsPerPage + 1}

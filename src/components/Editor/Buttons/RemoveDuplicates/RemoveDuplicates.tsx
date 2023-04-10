@@ -1,14 +1,14 @@
-import React from "react";
-import { toast } from "react-hot-toast";
+import React from 'react';
+import { toast } from 'react-hot-toast';
 
-import axiosInstance from "../../../../axios";
+import axiosInstance from '../../../../axios';
 
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../../redux/store";
-import { setDimacs } from "../../../../redux/slices/editor";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../../../redux/store';
+import { setDimacs } from '../../../../redux/slices/editor';
 
-import ContentCutOutlinedIcon from "@mui/icons-material/ContentCutOutlined";
-import { IconButton, Tooltip } from "@mui/material";
+import ContentCutOutlinedIcon from '@mui/icons-material/ContentCutOutlined';
+import { IconButton, Tooltip } from '@mui/material';
 
 export const RemoveDuplicates: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,13 +18,13 @@ export const RemoveDuplicates: React.FC = () => {
   const onClickRemoveDuplicates = async () => {
     try {
       const response = await toast.promise(
-        axiosInstance.post("/remove-duplicates", {
-          dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, ""),
+        axiosInstance.post('/remove-duplicates', {
+          dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, ''),
         }),
         {
-          loading: "Removing duplicates...",
-          success: "Successfully removed duplicates!",
-          error: "Error occured while fixing dimacs!",
+          loading: 'Removing duplicates...',
+          success: 'Successfully removed duplicates!',
+          error: 'Error occured while fixing dimacs!',
         }
       );
 

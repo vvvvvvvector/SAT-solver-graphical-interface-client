@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { VariableType } from "../../../../shared/types";
+import { VariableType } from '../../../../shared/types';
 
-import styles from "./Variable.module.scss";
+import styles from './Variable.module.scss';
 
 const Variable: React.FC<{ variable: VariableType }> = ({ variable }) => {
   return (

@@ -1,17 +1,17 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { useDispatch } from "react-redux";
-import { clearErrors, setDimacs } from "../../../../redux/slices/editor";
-import { clearSolutions } from "../../../../redux/slices/solutions";
-import { setFormula } from "../../../../redux/slices/formula";
+import { useDispatch } from 'react-redux';
+import { clearErrors, setDimacs } from '../../../../redux/slices/editor';
+import { clearSolutions } from '../../../../redux/slices/solutions';
+import { setFormula } from '../../../../redux/slices/formula';
 
-import { Button } from "@mui/material";
-import ContentPasteGoOutlinedIcon from "@mui/icons-material/ContentPasteGoOutlined";
+import { Button } from '@mui/material';
+import ContentPasteGoOutlinedIcon from '@mui/icons-material/ContentPasteGoOutlined';
 
 const style = {
-  maxWidth: "310px",
-  width: "100%",
+  maxWidth: '310px',
+  width: '100%',
 };
 
 export const Paste: React.FC<{ dimacs: string }> = ({ dimacs }) => {
@@ -21,14 +21,14 @@ export const Paste: React.FC<{ dimacs: string }> = ({ dimacs }) => {
   return (
     <Button
       sx={style}
-      disabled={dimacs === ""}
+      disabled={dimacs === ''}
       variant="outlined"
       onClick={() => {
         dispatch(setDimacs(dimacs));
         dispatch(clearErrors());
         dispatch(clearSolutions());
         dispatch(setFormula([]));
-        navigate("/");
+        navigate('/');
       }}
       endIcon={<ContentPasteGoOutlinedIcon />}
     >

@@ -1,15 +1,15 @@
-import React from "react";
-import { toast } from "react-hot-toast";
+import React from 'react';
+import { toast } from 'react-hot-toast';
 
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { clearSolutions } from "../../../redux/slices/solutions";
-import { addClause, setFormulaOpened } from "../../../redux/slices/formula";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../../redux/store';
+import { clearSolutions } from '../../../redux/slices/solutions';
+import { addClause, setFormulaOpened } from '../../../redux/slices/formula';
 
-import { IconButton, Tooltip } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { IconButton, Tooltip } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
-import styles from "./FormulaHeader.module.scss";
+import styles from './FormulaHeader.module.scss';
 
 const FormulaHeader: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,14 +22,14 @@ const FormulaHeader: React.FC = () => {
     );
 
     if (input) {
-      const clause = input?.split("|").map((item) => parseInt(item));
+      const clause = input?.split('|').map((item) => parseInt(item));
 
       if (clause) {
         dispatch(addClause(clause));
 
-        toast.success("Clause was successfully added!");
+        toast.success('Clause was successfully added!');
 
-        sessionStorage.setItem("formula", "");
+        sessionStorage.setItem('formula', '');
         dispatch(clearSolutions());
       }
     }
@@ -40,11 +40,11 @@ const FormulaHeader: React.FC = () => {
       <div className={styles.headerLeft}>
         <h2 onClick={() => dispatch(setFormulaOpened(!opened))}>
           {clauses.length > 0
-            ? "Formula in CNF"
-            : "There are no formula so far"}
+            ? 'Formula in CNF'
+            : 'There are no formula so far'}
         </h2>
         <svg
-          className={opened ? styles["opened"] : ""}
+          className={opened ? styles['opened'] : ''}
           width="10"
           height="6"
           viewBox="0 0 10 6"

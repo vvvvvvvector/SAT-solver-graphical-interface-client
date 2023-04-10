@@ -1,17 +1,17 @@
-import React from "react";
-import { toast } from "react-hot-toast";
+import React from 'react';
+import { toast } from 'react-hot-toast';
 
-import { useDispatch } from "react-redux";
-import { editClause, removeClause } from "../../../redux/slices/formula";
-import { clearSolutions } from "../../../redux/slices/solutions";
+import { useDispatch } from 'react-redux';
+import { editClause, removeClause } from '../../../redux/slices/formula';
+import { clearSolutions } from '../../../redux/slices/solutions';
 
-import SaveIcon from "@mui/icons-material/Save";
+import SaveIcon from '@mui/icons-material/Save';
 
-import Variable from "./Variable/Variable";
+import Variable from './Variable/Variable';
 
-import { ClauseType } from "../../../shared/types";
+import { ClauseType } from '../../../shared/types';
 
-import styles from "./Clause.module.scss";
+import styles from './Clause.module.scss';
 
 const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
   const clauseRef = React.useRef<HTMLDivElement>(null);
 
   const [editMode, setEditMode] = React.useState(false);
-  const [editInputValue, setEditInputValue] = React.useState("");
+  const [editInputValue, setEditInputValue] = React.useState('');
 
   React.useEffect(() => {
     const clickOutsideClause = (event: MouseEvent) => {
@@ -31,25 +31,25 @@ const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
       }
     };
 
-    document.body.addEventListener("click", clickOutsideClause);
+    document.body.addEventListener('click', clickOutsideClause);
 
-    return () => document.body.removeEventListener("click", clickOutsideClause);
+    return () => document.body.removeEventListener('click', clickOutsideClause);
   }, []);
 
   const onRemoveClause = () => {
     dispatch(removeClause(clause.id));
 
-    toast.success("Clause was successfully removed!");
+    toast.success('Clause was successfully removed!');
 
-    sessionStorage.setItem("formula", "");
+    sessionStorage.setItem('formula', '');
     dispatch(clearSolutions());
   };
 
   const onEditClause = () => {
     let editedClause: number[] = [];
 
-    if (editInputValue !== "")
-      editedClause = editInputValue.split("|").map((i) => parseInt(i));
+    if (editInputValue !== '')
+      editedClause = editInputValue.split('|').map((i) => parseInt(i));
 
     dispatch(
       editClause({
@@ -61,10 +61,10 @@ const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
     setEditMode(false);
 
     if (editedClause.length > 0)
-      toast.success("Clause was successfully updated!");
-    else toast.success("Clause was successfully removed!");
+      toast.success('Clause was successfully updated!');
+    else toast.success('Clause was successfully removed!');
 
-    sessionStorage.setItem("formula", "");
+    sessionStorage.setItem('formula', '');
     dispatch(clearSolutions());
   };
 
@@ -75,8 +75,8 @@ const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
           <input
             autoFocus
             onKeyDown={(event) => {
-              if (event.key === "Enter") onEditClause();
-              if (event.key === "Escape") setEditMode(false);
+              if (event.key === 'Enter') onEditClause();
+              if (event.key === 'Escape') setEditMode(false);
             }}
             value={editInputValue}
             onChange={(event) => setEditInputValue(event.target.value)}
@@ -105,7 +105,7 @@ const Clause: React.FC<{ clause: ClauseType }> = ({ clause }) => {
             <svg
               onClick={() => {
                 setEditMode(true);
-                setEditInputValue(clause.variables.join(" | "));
+                setEditInputValue(clause.variables.join(' | '));
               }}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 30 30"

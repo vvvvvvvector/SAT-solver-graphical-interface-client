@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link } from 'react-router-dom';
 
-import styles from "./Header.module.scss";
+import styles from './Header.module.scss';
 
 export const Header: React.FC = () => {
   return (
@@ -16,16 +16,16 @@ export const Header: React.FC = () => {
             <ul>
               <li>
                 <Link
-                  style={{ color: "inherit", textDecoration: "inherit" }}
-                  to={"/"}
+                  style={{ color: 'inherit', textDecoration: 'inherit' }}
+                  to={'/'}
                 >
                   Home
                 </Link>
               </li>
               <li>
                 <Link
-                  style={{ color: "inherit", textDecoration: "inherit" }}
-                  to={"/linker"}
+                  style={{ color: 'inherit', textDecoration: 'inherit' }}
+                  to={'/linker'}
                 >
                   Formulas linker
                 </Link>

@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import VariableValue from "./VariableValue/VariableValue";
+import VariableValue from './VariableValue/VariableValue';
 
-import styles from "./Solution.module.scss";
+import styles from './Solution.module.scss';
 
 const Solution: React.FC<{
   solution: number[];

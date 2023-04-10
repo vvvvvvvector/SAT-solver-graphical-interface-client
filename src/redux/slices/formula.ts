@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ClauseType } from "../../shared/types";
+import { ClauseType } from '../../shared/types';
 
 const initialState = {
   opened: true,
@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const formulaSlice = createSlice({
-  name: "formula",
+  name: 'formula',
   initialState,
   reducers: {
     setFormulaOpened(state, action: PayloadAction<boolean>) {
