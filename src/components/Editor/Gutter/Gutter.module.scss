@@ -1,7 +1,7 @@
 .gutter {
   box-sizing: border-box;
   background-color: #1876d2;
-  height: 400px;
+  height: var(--editor-height);
   overflow-y: hidden;
   display: flex;
   flex-direction: column;

@@ -1,18 +1,22 @@
 .header {
+  display: flex;
+  justify-content: center;
   z-index: 20;
   position: sticky;
   top: 0;
   left: 0;
   right: 0;
   border-bottom: 1px solid var(--header-border-color);
+  background-color: rgba(#ffffff, 0.92);
 
   div {
     box-sizing: border-box;
     height: 62px;
+    max-width: var(--window-width);
+    width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 10px 0px;
-    background-color: rgba(#ffffff, 0.92);
     align-items: center;
 
     h1 {
@@ -44,18 +48,12 @@
       }
     }
 
-    @media (max-width: 690px) {
+    @media (max-width: 1144px) {
       height: 92px;
       flex-direction: column;
 
       ul {
         margin-top: 10px;
-      }
-    }
-
-    @media (max-width: 470px) {
-      h2 {
-        font-size: 16px;
       }
     }
   }

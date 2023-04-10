@@ -4,7 +4,7 @@
   position: absolute;
   top: 0;
   pointer-events: none;
-  height: 400px;
+  height: var(--editor-height);
   width: 100%;
   overflow-y: hidden;
 
