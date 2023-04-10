@@ -9,9 +9,9 @@ export const Header: React.FC = () => {
     <>
       <header className={styles.header}>
         <div>
-          <h2>
+          <h1>
             SAT-solver graphical interface<span>🤖</span>
-          </h2>
+          </h1>
           <nav>
             <ul>
               <li>
