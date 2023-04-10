@@ -88,15 +88,18 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
       setOpen(false);
 
       if (loop.current === Status.UNSATISFIABLE) {
-        toast.error('Unsatisfiable!');
+        toast.error('Unsatisfiable!', { duration: 3000 });
       } else {
         if (loop.current === Status.END) {
-          toast.success('Successfully found all solutions!');
+          toast.success('Successfully found all solutions!', {
+            duration: 3000,
+          });
         } else if (loop.current === Status.STOPPED) {
           toast.success(
             `Successfully found: ${solutions.length} ${
               solutions.length === 1 ? 'solution' : 'solutions'
-            }`
+            }`,
+            { duration: 3000 }
           );
         }
         setCounter(0);
@@ -153,15 +156,18 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
       setOpen(false);
 
       if (loop.current === Status.UNSATISFIABLE) {
-        toast.error('There are no more solutions!');
+        toast.error('There are no more solutions!', { duration: 3000 });
       } else {
         if (loop.current === Status.END) {
-          toast.success('Successfully found all solutions!');
+          toast.success('Successfully found all solutions!', {
+            duration: 3000,
+          });
         } else if (loop.current === Status.STOPPED) {
           toast.success(
             `Successfully found: ${solutions.length} ${
               solutions.length === 1 ? 'solution' : 'solutions'
-            }`
+            }`,
+            { duration: 3000 }
           );
         }
         setCounter(0);

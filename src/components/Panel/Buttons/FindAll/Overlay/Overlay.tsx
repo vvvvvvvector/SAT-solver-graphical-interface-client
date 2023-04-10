@@ -23,14 +23,15 @@ const Overlap: React.FC<{
         <h3>{`Found ${counter} ${
           counter == 1 ? 'solution' : 'solutions'
         }...`}</h3>
-        <CircularProgress color="primary" />
+        <CircularProgress color='primary' />
         <Button
+          disabled={counter == 0}
           sx={{
             maxWidth: '200px',
             width: '100%',
           }}
-          color="primary"
-          variant="outlined"
+          color='primary'
+          variant='outlined'
           onClick={() => {
             setOpen(false);
             loop.current = Status.STOPPED;
