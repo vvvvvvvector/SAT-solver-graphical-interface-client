@@ -78,7 +78,7 @@ export const Solve: React.FC<{ solver: string }> = ({ solver }) => {
       onClick={onClickSolve}
       disabled={loading || dimacs === '' || errors.length > 0}
       endIcon={<CalculateOutlinedIcon />}
-      variant="contained"
+      variant='contained'
     >
       {loading ? 'Solving...' : 'Solve'}
     </Button>

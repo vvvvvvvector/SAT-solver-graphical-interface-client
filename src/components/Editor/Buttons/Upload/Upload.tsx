@@ -1,6 +1,7 @@
 import React from 'react';
 import { toast } from 'react-hot-toast';
 
+import { RootState } from '../../../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, setDimacs } from '../../../../redux/slices/editor';
 import { setFormula } from '../../../../redux/slices/formula';
@@ -8,7 +9,6 @@ import { clearSolutions } from '../../../../redux/slices/solutions';
 
 import { IconButton, Tooltip } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { RootState } from '../../../../redux/store';
 
 export const Upload: React.FC = () => {
   const dispatch = useDispatch();
