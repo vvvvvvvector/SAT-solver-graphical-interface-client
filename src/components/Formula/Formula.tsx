@@ -72,7 +72,9 @@ export const Formula: React.FC = () => {
         <>
           <div className={styles.formulaContainer}>
             {clauses.length > 0 ? (
-              <ul className={styles.formula}>{renderFormula()}</ul>
+              <ul className={`${styles.formula} hide-scrollbars`}>
+                {renderFormula()}
+              </ul>
             ) : (
               <NoFormula />
             )}
@@ -83,7 +85,7 @@ export const Formula: React.FC = () => {
                 display: 'flex',
                 justifyContent: 'center',
               }}
-              color="primary"
+              color='primary'
               page={page / clausesPerPage + 1}
               onChange={(_, value: number) =>
                 setPage((value - 1) * clausesPerPage)

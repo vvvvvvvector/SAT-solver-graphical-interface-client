@@ -26,7 +26,7 @@ const TextArea: React.FC<{
 
   return (
     <textarea
-      className={styles.editorTextArea}
+      className={`${styles.editorTextArea} hide-scrollbars`}
       onScroll={() => {
         if (gutterRef.current && textAreaRef.current && errorsRef.current) {
           const { scrollTop } = textAreaRef.current;
@@ -35,12 +35,12 @@ const TextArea: React.FC<{
           errorsRef.current.scrollTop = scrollTop;
         }
       }}
-      placeholder="DIMACS CNF format only allowed here..."
+      placeholder='DIMACS CNF format only allowed here...'
       ref={textAreaRef}
-      wrap="off"
-      autoCorrect="off"
-      autoCapitalize="off"
-      spellCheck="false"
+      wrap='off'
+      autoCorrect='off'
+      autoCapitalize='off'
+      spellCheck='false'
       value={dimacs}
       onChange={onChangeTextArea}
     />
