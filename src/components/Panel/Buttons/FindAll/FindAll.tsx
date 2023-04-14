@@ -1,10 +1,9 @@
-import React from 'react';
+import { FC, useRef, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/hooks';
 
 import { Button } from '@mui/material';
 import { buttonStyle } from '../../../../shared/mui';
@@ -19,19 +18,23 @@ import Overlay from './Overlay/Overlay';
 
 import Status from './status';
 
-export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
-  const dispatch = useDispatch();
+interface FindAllProps {
+  solver: string;
+}
 
-  const loop = React.useRef<Status>(Status.NOTSTARTED);
+export const FindAll: FC<FindAllProps> = ({ solver }) => {
+  const dispatch = useAppDispatch();
 
-  const [counter, setCounter] = React.useState(0);
-  const [loading, setLoading] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
+  const loop = useRef<Status>(Status.NOTSTARTED);
 
-  const { clauses, changed } = useSelector((state: RootState) => state.formula);
-  const { dimacs, errors } = useSelector((state: RootState) => state.editor);
+  const [counter, setCounter] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  React.useEffect(() => {
+  const { clauses, changed } = useAppSelector((state) => state.formula);
+  const { dimacs, errors } = useAppSelector((state) => state.editor);
+
+  useEffect(() => {
     loop.current = Status.NOTSTARTED;
   }, [dimacs]);
 
@@ -43,8 +46,8 @@ export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
       const solutions: number[][] = [];
 
       const solveResponse = await axiosInstance.post('/solve', {
-        dimacs,
         solver,
+        dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, ''),
       });
 
       if (solveResponse.data.satisfiable) {

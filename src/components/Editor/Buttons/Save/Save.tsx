@@ -1,14 +1,12 @@
-import React from 'react';
+import { FC } from 'react';
 import { toast } from 'react-hot-toast';
-
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../redux/store';
 
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { IconButton, Tooltip } from '@mui/material';
+import { useAppSelector } from '../../../../redux/hooks/hooks';
 
-export const Save: React.FC = () => {
-  const { dimacs } = useSelector((state: RootState) => state.editor);
+export const Save: FC = () => {
+  const { dimacs } = useAppSelector((state) => state.editor);
 
   const onClickSave = () => {
     if (window.confirm('Do you really want to save a formula to a file?')) {
@@ -29,9 +27,9 @@ export const Save: React.FC = () => {
   };
 
   return dimacs.length ? (
-    <Tooltip title="Save formula to a file" arrow>
-      <IconButton onClick={onClickSave} color="primary">
-        <FileDownloadOutlinedIcon color="primary" />
+    <Tooltip title='Save formula to a file' arrow>
+      <IconButton onClick={onClickSave} color='primary'>
+        <FileDownloadOutlinedIcon color='primary' />
       </IconButton>
     </Tooltip>
   ) : (

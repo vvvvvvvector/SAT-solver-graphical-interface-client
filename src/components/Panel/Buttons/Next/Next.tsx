@@ -1,43 +1,59 @@
-import React from 'react';
+import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/hooks';
 import { setSolution } from '../../../../redux/slices/solutions';
 import { buttonStyle } from '../../../../shared/mui';
-import { RootState } from '../../../../redux/store';
 
 import { Button } from '@mui/material';
 import ForwardOutlinedIcon from '@mui/icons-material/ForwardOutlined';
 
-export const Next: React.FC<{ solver: string }> = ({ solver }) => {
-  const dispatch = useDispatch();
+import { IClause } from '../../../../shared/types';
 
-  const [loading, setLoading] = React.useState(false);
+interface NextProps {
+  solver: string;
+}
 
-  const { clauses } = useSelector((state: RootState) => state.formula);
-  const { solutions } = useSelector((state: RootState) => state.solutions);
-  const { dimacs, errors } = useSelector((state: RootState) => state.editor);
+interface APIResponse<TData> {
+  data: TData;
+}
+
+export const Next: FC<NextProps> = ({ solver }) => {
+  const dispatch = useAppDispatch();
+
+  const [loading, setLoading] = useState(false);
+
+  const { clauses } = useAppSelector((state) => state.formula);
+  const { solutions } = useAppSelector((state) => state.solutions);
+  const { dimacs, errors } = useAppSelector((state) => state.editor);
 
   const onClickNext = async () => {
     try {
       setLoading(true);
 
-      const response = await axiosInstance.post('next-solution', {
+      const {
+        data,
+      }:
+        | APIResponse<{
+            satisfiable: true;
+            clauses: IClause[];
+            next_solution: number[];
+          }>
+        | APIResponse<{
+            satisfiable: false;
+          }> = await axiosInstance.post('next-solution', {
         solver,
         formula: sessionStorage.getItem('formula'),
       });
 
       setLoading(false);
 
-      if (response.data.satisfiable) {
-        sessionStorage.setItem(
-          'formula',
-          JSON.stringify(response.data.clauses)
-        );
+      if (data.satisfiable) {
+        sessionStorage.setItem('formula', JSON.stringify(data.clauses));
 
-        dispatch(setSolution(response.data.next_solution));
+        dispatch(setSolution(data.next_solution));
 
         toast.success('Next solution was successfully found!');
       } else {
@@ -62,7 +78,7 @@ export const Next: React.FC<{ solver: string }> = ({ solver }) => {
         errors.length > 0
       }
       endIcon={<ForwardOutlinedIcon />}
-      variant="contained"
+      variant='contained'
     >
       {loading ? 'Finding...' : 'Next solution'}
     </Button>

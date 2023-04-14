@@ -1,21 +1,20 @@
-import React from 'react';
+import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/hooks';
 import { filterFormula, setLinked } from '../../../../redux/slices/linker';
-import { RootState } from '../../../../redux/store';
 
 import { Button } from '@mui/material';
 import InsertLinkOutlinedIcon from '@mui/icons-material/InsertLinkOutlined';
 
-export const Link: React.FC = () => {
-  const dispatch = useDispatch();
+export const Link: FC = () => {
+  const dispatch = useAppDispatch();
 
-  const { first, second } = useSelector((state: RootState) => state.linker);
+  const { first, second } = useAppSelector((state) => state.linker);
 
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onClickLink = async () => {
     dispatch(filterFormula(1));
@@ -67,7 +66,7 @@ export const Link: React.FC = () => {
         width: '100%',
       }}
       disabled={loading || first === '' || second === ''}
-      variant="outlined"
+      variant='outlined'
       onClick={onClickLink}
       endIcon={<InsertLinkOutlinedIcon />}
     >

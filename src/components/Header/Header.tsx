@@ -1,10 +1,12 @@
-import React from 'react';
+import { FC } from 'react';
 
 import { Outlet, Link } from 'react-router-dom';
 
+import GitHubIcon from '@mui/icons-material/GitHub';
+
 import styles from './Header.module.scss';
 
-export const Header: React.FC = () => {
+export const Header: FC = () => {
   return (
     <>
       <header className={styles.header}>
@@ -31,6 +33,29 @@ export const Header: React.FC = () => {
                 </Link>
               </li>
             </ul>
+            <div></div>
+            <a
+              target='_blank'
+              rel='noopener noreferrer'
+              href='https://github.com/vvvvvvvector/SAT-solver-graphical-interface-frontend'
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <GitHubIcon
+                sx={{
+                  transition: 'color 0.2s ease',
+                  cursor: 'pointer',
+                  color: '#666666',
+                  fontSize: '21px',
+                  '&:hover': {
+                    color: '#28282b',
+                  },
+                }}
+              />
+            </a>
           </nav>
         </div>
       </header>

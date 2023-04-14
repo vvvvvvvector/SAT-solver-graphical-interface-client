@@ -1,6 +1,10 @@
-import { ClauseType } from '../shared/types';
+import { IClause } from '../shared/types';
 
-const calculateVariables = (clauses: ClauseType[]) => {
+export const formulaDefinition = /^p\s+cnf\s+[1-9][0-9]*\s+[1-9][0-9]*\s*$/;
+export const lineEndsWithZero = /0\s*$/;
+export const validClause = /^\s*(?:-?[1-9][0-9]*\s+)+0\s*$/;
+
+const calculateVariables = (clauses: IClause[]) => {
   const variablesSet = new Set();
 
   clauses.forEach((clause) => {
@@ -12,7 +16,7 @@ const calculateVariables = (clauses: ClauseType[]) => {
   return variablesSet.size;
 };
 
-export const parseToDimacs = (clauses: ClauseType[]) => {
+export const parseToDimacs = (clauses: IClause[]) => {
   const variables_n = calculateVariables(clauses);
   const clauses_n = clauses.length;
 

@@ -1,24 +1,25 @@
-import React from 'react';
+import { forwardRef, useRef, useCallback, useEffect } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
 import { addError, removeError } from '../../../redux/slices/editor';
-import { RootState } from '../../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
+
+import {
+  formulaDefinition,
+  lineEndsWithZero,
+  validClause,
+} from '../../../utils/utils';
 
 import debounce from 'lodash.debounce';
 
 import styles from './Errors.module.scss';
 
-const formulaDefinition = /^p\s+cnf\s+[1-9][0-9]*\s+[1-9][0-9]*\s*$/;
-const lineEndsWithZero = /0\s*$/;
-const validClause = /^\s*(?:-?[1-9][0-9]*\s+)+0\s*$/;
+const Errors = forwardRef<HTMLDivElement>((_, ref) => {
+  const dispatch = useAppDispatch();
 
-const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
-  const dispatch = useDispatch();
+  const formulaDefinitionRow = useRef(0);
+  const isFormulaDefined = useRef(false);
 
-  const formulaDefinitionRow = React.useRef(0);
-  const isFormulaDefined = React.useRef(false);
-
-  const { dimacs, errors } = useSelector((state: RootState) => state.editor);
+  const { dimacs, errors } = useAppSelector((state) => state.editor);
 
   const addNewError = (
     line: number,
@@ -36,7 +37,7 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
     );
   };
 
-  const verify = React.useCallback(
+  const verify = useCallback(
     debounce((dimacs: string) => {
       const lines = dimacs.split('\n');
 
@@ -86,7 +87,7 @@ const Errors = React.forwardRef<HTMLDivElement>((_, ref) => {
     []
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     formulaDefinitionRow.current = 0;
     isFormulaDefined.current = false;
 

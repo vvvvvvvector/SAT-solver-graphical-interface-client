@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 
 import styles from './NoFormula.module.scss';
 
-const NoFormula: React.FC = () => {
+const NoFormula: FC = () => {
   return (
     <div className={styles.noFormula}>
       <p>¯\_(ツ)_/¯</p>

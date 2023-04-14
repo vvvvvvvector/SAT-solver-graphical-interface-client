@@ -1,7 +1,6 @@
-import React from 'react';
+import { FC, forwardRef } from 'react';
 
-import { RootState } from '../../redux/store';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../redux/hooks/hooks';
 
 import { TableVirtuoso } from 'react-virtuoso';
 
@@ -17,11 +16,11 @@ import { ButtonGroup } from '@mui/material';
 
 import { AddZero, DeleteLine, EditLine } from './Buttons';
 
-import { ErrorType } from '../../shared/types';
+import { IError } from '../../shared/types';
 
 import styles from './ErrorsList.module.scss';
 
-const ButtonByErrorCode = (error: ErrorType) => {
+const ButtonByErrorCode = (error: IError) => {
   switch (error.errorCode) {
     case 0:
       return <DeleteLine line={error.line} />;
@@ -52,25 +51,26 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-export const ErrorsList = () => {
-  const errors = useSelector((state: RootState) => state.editor.errors);
+export const ErrorsList: FC = () => {
+  const errors = useAppSelector((state) => state.editor.errors);
 
   return (
     <>
       {errors.length > 0 ? (
         <div className={styles.errors}>
           <h2 className={styles.header}>
-            There are {errors.length} errors in Your formula 😭
+            {`There are ${errors.length} errors in Your formula :<`}
           </h2>
           <TableVirtuoso
             style={{
-              height: 'calc((63.75px * 5) + 57px)',
-              boxShadow: '0 2px 2px rgba(0, 0, 0, 0.12)',
-              border: '1px solid #eaeaea',
+              height: 'calc((63.75px * 6) + 57px)',
+              // boxShadow: '0 2px 2px rgba(0, 0, 0, 0.12)',
+              // border: '1px solid #eaeaea',
             }}
+            className='hide-scrollbars'
             data={errors}
             components={{
-              Scroller: React.forwardRef<HTMLDivElement>((props, ref) => (
+              Scroller: forwardRef<HTMLDivElement>((props, ref) => (
                 <TableContainer component={Paper} {...props} ref={ref} />
               )),
               Table: (props) => (
@@ -81,9 +81,9 @@ export const ErrorsList = () => {
               ),
               TableHead,
               TableRow: ({ item: _item, ...props }) => <TableRow {...props} />,
-              TableBody: React.forwardRef<HTMLTableSectionElement>(
-                (props, ref) => <TableBody {...props} ref={ref} />
-              ),
+              TableBody: forwardRef<HTMLTableSectionElement>((props, ref) => (
+                <TableBody {...props} ref={ref} />
+              )),
             }}
             fixedHeaderContent={() => (
               <TableRow>
@@ -124,7 +124,7 @@ export const ErrorsList = () => {
                 </StyledTableCell>
               </TableRow>
             )}
-            itemContent={(_: number, error: ErrorType) => (
+            itemContent={(_: number, error: IError) => (
               <>
                 <StyledTableCell align='center'>{`🚫 ${error.description}`}</StyledTableCell>
                 <StyledTableCell
@@ -132,9 +132,10 @@ export const ErrorsList = () => {
                     whiteSpace: 'nowrap',
                     overflowX: 'scroll',
                   }}
+                  className='hide-scrollbars'
                   align='center'
                 >
-                  {error.damaged ? error.damaged : 'Line is empty here 🙊'}
+                  {error.damaged ? error.damaged : 'Line is empty here 🤷‍♂️'}
                 </StyledTableCell>
                 <StyledTableCell align='center'>{error.line}</StyledTableCell>
                 <StyledTableCell align='center'>

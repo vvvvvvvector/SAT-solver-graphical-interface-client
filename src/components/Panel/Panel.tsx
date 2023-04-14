@@ -1,11 +1,13 @@
-import React from 'react';
+import { FC, useState } from 'react';
 
 import { Solve, Next, SelectSolver, FindAll } from './Buttons/';
 
 import styles from './Panel.module.scss';
 
-export const Panel: React.FC = () => {
-  const [solver, setSolver] = React.useState('cd');
+import { ShortName } from './Buttons/SelectSolver/Solvers';
+
+export const Panel: FC = () => {
+  const [solver, setSolver] = useState<ShortName>('cd');
 
   return (
     <div className={styles.buttons}>

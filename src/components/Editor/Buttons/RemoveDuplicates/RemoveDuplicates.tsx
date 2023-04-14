@@ -1,19 +1,18 @@
-import React from 'react';
+import { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../../../redux/store';
 import { setDimacs } from '../../../../redux/slices/editor';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/hooks';
 
 import ContentCutOutlinedIcon from '@mui/icons-material/ContentCutOutlined';
 import { IconButton, Tooltip } from '@mui/material';
 
-export const RemoveDuplicates: React.FC = () => {
-  const dispatch = useDispatch();
+export const RemoveDuplicates: FC = () => {
+  const dispatch = useAppDispatch();
 
-  const { dimacs, errors } = useSelector((state: RootState) => state.editor);
+  const { dimacs, errors } = useAppSelector((state) => state.editor);
 
   const onClickRemoveDuplicates = async () => {
     try {

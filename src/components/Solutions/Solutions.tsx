@@ -1,36 +1,33 @@
-import React from 'react';
+import { FC, useRef, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { useAppSelector } from '../../redux/hooks/hooks';
 
 import Solution from './Solution/Solution';
 import NoSolutions from './NoSolutions/NoSolutions';
 import SolutionsHeader from './SolutionsHeader/SolutionsHeader';
 
-import styles from './Solutions.module.scss';
 import { Pagination } from '@mui/material';
 
-export const Solutions: React.FC = () => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
+import styles from './Solutions.module.scss';
+
+export const Solutions: FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const solutionsPerPage = 10;
 
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = useState(0);
 
-  const { solutions, opened } = useSelector(
-    (state: RootState) => state.solutions
-  );
+  const { solutions, opened } = useAppSelector((state) => state.solutions);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setPage(0);
-  }, [solutions]);
 
-  // React.useEffect(() => {
-  //   containerRef.current?.scrollIntoView({
-  //     behavior: "smooth",
-  //   });
-  // }, [solutions]);
+    containerRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  }, [solutions]);
 
   const handleSaveSolution = (solutionIndex: number) => {
     if (
@@ -87,7 +84,7 @@ export const Solutions: React.FC = () => {
                     display: 'flex',
                     justifyContent: 'center',
                   }}
-                  color="primary"
+                  color='primary'
                   page={page / solutionsPerPage + 1}
                   onChange={(_, value: number) => {
                     setPage((value - 1) * solutionsPerPage);
