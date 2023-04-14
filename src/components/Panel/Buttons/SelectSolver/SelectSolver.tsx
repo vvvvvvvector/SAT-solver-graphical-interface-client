@@ -1,13 +1,15 @@
-import React from 'react';
+import { FC } from 'react';
 
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material/';
 
 import solvers from './Solvers';
 
-export const SelectSolver: React.FC<{
+interface SelectSolverProps {
   solver: string;
   setSolver: (value: string) => void;
-}> = ({ solver, setSolver }) => {
+}
+
+export const SelectSolver: FC<SelectSolverProps> = ({ solver, setSolver }) => {
   return (
     <FormControl
       sx={{
@@ -18,11 +20,11 @@ export const SelectSolver: React.FC<{
         },
       }}
     >
-      <InputLabel id="select-solver-label">SAT-solver</InputLabel>
+      <InputLabel id='select-solver-label'>SAT-solver</InputLabel>
       <Select
-        id="select-solver"
-        labelId="select-solver-label"
-        label="SAT-solver"
+        id='select-solver'
+        labelId='select-solver-label'
+        label='SAT-solver'
         onChange={(event) => {
           setSolver(event.target.value as string);
         }}

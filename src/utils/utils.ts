@@ -1,6 +1,6 @@
-import { ClauseType } from '../shared/types';
+import { IClause } from '../shared/types';
 
-const calculateVariables = (clauses: ClauseType[]) => {
+const calculateVariables = (clauses: IClause[]) => {
   const variablesSet = new Set();
 
   clauses.forEach((clause) => {
@@ -12,7 +12,7 @@ const calculateVariables = (clauses: ClauseType[]) => {
   return variablesSet.size;
 };
 
-export const parseToDimacs = (clauses: ClauseType[]) => {
+export const parseToDimacs = (clauses: IClause[]) => {
   const variables_n = calculateVariables(clauses);
   const clauses_n = clauses.length;
 

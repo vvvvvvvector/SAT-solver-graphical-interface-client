@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ErrorType } from '../../shared/types';
+import { IError } from '../../shared/types';
 
 export const editorSlice = createSlice({
   name: 'editor',
   initialState: {
     dimacs: '',
-    errors: [] as ErrorType[],
+    errors: [] as IError[],
   },
   reducers: {
     setDimacs(state, action: PayloadAction<string>) {
@@ -16,7 +16,7 @@ export const editorSlice = createSlice({
       state.dimacs = '';
       state.errors = [];
     },
-    addError(state, action: PayloadAction<ErrorType>) {
+    addError(state, action: PayloadAction<IError>) {
       const error = state.errors.find((e) => e.line === action.payload.line);
 
       if (!error) {

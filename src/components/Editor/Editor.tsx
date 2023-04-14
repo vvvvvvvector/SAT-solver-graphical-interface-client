@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useRef } from 'react';
 
 import Gutter from './Gutter/Gutter';
 import TextArea from './TextArea/TextArea';
@@ -7,9 +7,9 @@ import { Save, Upload, Fix, Clear, RemoveDuplicates } from './Buttons/';
 
 import styles from './Editor.module.scss';
 
-export const Editor: React.FC = () => {
-  const errorsRef = React.useRef<HTMLDivElement>(null);
-  const gutterRef = React.useRef<HTMLDivElement>(null);
+export const Editor: FC = () => {
+  const errorsRef = useRef<HTMLDivElement>(null);
+  const gutterRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className={styles.editor}>

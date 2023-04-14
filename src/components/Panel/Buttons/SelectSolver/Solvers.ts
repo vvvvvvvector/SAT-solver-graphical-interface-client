@@ -1,4 +1,9 @@
-const solvers = [
+interface Solver {
+  name: string;
+  short: string;
+}
+
+const solvers: Solver[] = [
   {
     name: 'Cadical',
     short: 'cd',

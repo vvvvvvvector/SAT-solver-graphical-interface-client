@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useDispatch } from 'react-redux';
@@ -8,10 +8,12 @@ import { Button } from '@mui/material';
 
 import styles from './UploadedFormula.module.scss';
 
-const UploadedFormula: React.FC<{
+interface UploadedFormulaProps {
   dimacs: string;
   index: 1 | 2;
-}> = ({ dimacs, index }) => {
+}
+
+const UploadedFormula: FC<UploadedFormulaProps> = ({ dimacs, index }) => {
   const dispatch = useDispatch();
 
   const onClickUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,23 +47,23 @@ const UploadedFormula: React.FC<{
     <div className={styles.formula}>
       <Button
         sx={{ marginBottom: '25px' }}
-        size="large"
-        variant="contained"
-        component="label"
+        size='large'
+        variant='contained'
+        component='label'
       >
         {index === 1 ? 'Upload 1st formula' : 'Upload 2nd formula'}
         <input
           onChange={onClickUpload}
           hidden
-          type="file"
-          accept=".txt, .cnf"
+          type='file'
+          accept='.txt, .cnf'
         />
       </Button>
       <textarea
-        wrap="off"
-        autoCorrect="off"
-        autoCapitalize="off"
-        spellCheck="false"
+        wrap='off'
+        autoCorrect='off'
+        autoCapitalize='off'
+        spellCheck='false'
         value={dimacs}
         onChange={(e) => {
           if (index === 1) {

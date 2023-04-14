@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
@@ -16,10 +16,14 @@ import CalculateOutlinedIcon from '@mui/icons-material/CalculateOutlined';
 
 import { buttonStyle } from '../../../../shared/mui';
 
-export const Solve: React.FC<{ solver: string }> = ({ solver }) => {
+interface SolveProps {
+  solver: string;
+}
+
+export const Solve: FC<SolveProps> = ({ solver }) => {
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { dimacs, errors } = useSelector((state: RootState) => state.editor);
 

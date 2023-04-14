@@ -1,8 +1,12 @@
-import React from 'react';
+import { FC } from 'react';
 
 import styles from './VariableValue.module.scss';
 
-const VariableValue: React.FC<{ value: number }> = ({ value }) => {
+interface VariableValueProps {
+  value: number;
+}
+
+const VariableValue: FC<VariableValueProps> = ({ value }) => {
   return (
     <div className={styles.solution}>
       <div>

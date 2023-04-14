@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useRef, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
@@ -19,19 +19,23 @@ import Overlay from './Overlay/Overlay';
 
 import Status from './status';
 
-export const FindAll: React.FC<{ solver: string }> = ({ solver }) => {
+interface FindAllProps {
+  solver: string;
+}
+
+export const FindAll: FC<FindAllProps> = ({ solver }) => {
   const dispatch = useDispatch();
 
-  const loop = React.useRef<Status>(Status.NOTSTARTED);
+  const loop = useRef<Status>(Status.NOTSTARTED);
 
-  const [counter, setCounter] = React.useState(0);
-  const [loading, setLoading] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
+  const [counter, setCounter] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const { clauses, changed } = useSelector((state: RootState) => state.formula);
   const { dimacs, errors } = useSelector((state: RootState) => state.editor);
 
-  React.useEffect(() => {
+  useEffect(() => {
     loop.current = Status.NOTSTARTED;
   }, [dimacs]);
 
