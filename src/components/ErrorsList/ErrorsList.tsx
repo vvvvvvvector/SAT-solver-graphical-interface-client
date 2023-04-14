@@ -68,6 +68,7 @@ export const ErrorsList = () => {
               boxShadow: '0 2px 2px rgba(0, 0, 0, 0.12)',
               border: '1px solid #eaeaea',
             }}
+            className='hide-scrollbars'
             data={errors}
             components={{
               Scroller: React.forwardRef<HTMLDivElement>((props, ref) => (
@@ -132,6 +133,7 @@ export const ErrorsList = () => {
                     whiteSpace: 'nowrap',
                     overflowX: 'scroll',
                   }}
+                  className='hide-scrollbars'
                   align='center'
                 >
                   {error.damaged ? error.damaged : 'Line is empty here 🙊'}
