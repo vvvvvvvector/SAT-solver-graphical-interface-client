@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, forwardRef } from 'react';
 
 import { RootState } from '../../redux/store';
 import { useSelector } from 'react-redux';
@@ -17,11 +17,11 @@ import { ButtonGroup } from '@mui/material';
 
 import { AddZero, DeleteLine, EditLine } from './Buttons';
 
-import { ErrorType } from '../../shared/types';
+import { IError } from '../../shared/types';
 
 import styles from './ErrorsList.module.scss';
 
-const ButtonByErrorCode = (error: ErrorType) => {
+const ButtonByErrorCode = (error: IError) => {
   switch (error.errorCode) {
     case 0:
       return <DeleteLine line={error.line} />;
@@ -52,7 +52,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-export const ErrorsList = () => {
+export const ErrorsList: FC = () => {
   const errors = useSelector((state: RootState) => state.editor.errors);
 
   return (
@@ -71,7 +71,7 @@ export const ErrorsList = () => {
             className='hide-scrollbars'
             data={errors}
             components={{
-              Scroller: React.forwardRef<HTMLDivElement>((props, ref) => (
+              Scroller: forwardRef<HTMLDivElement>((props, ref) => (
                 <TableContainer component={Paper} {...props} ref={ref} />
               )),
               Table: (props) => (
@@ -82,9 +82,9 @@ export const ErrorsList = () => {
               ),
               TableHead,
               TableRow: ({ item: _item, ...props }) => <TableRow {...props} />,
-              TableBody: React.forwardRef<HTMLTableSectionElement>(
-                (props, ref) => <TableBody {...props} ref={ref} />
-              ),
+              TableBody: forwardRef<HTMLTableSectionElement>((props, ref) => (
+                <TableBody {...props} ref={ref} />
+              )),
             }}
             fixedHeaderContent={() => (
               <TableRow>
@@ -125,7 +125,7 @@ export const ErrorsList = () => {
                 </StyledTableCell>
               </TableRow>
             )}
-            itemContent={(_: number, error: ErrorType) => (
+            itemContent={(_: number, error: IError) => (
               <>
                 <StyledTableCell align='center'>{`🚫 ${error.description}`}</StyledTableCell>
                 <StyledTableCell

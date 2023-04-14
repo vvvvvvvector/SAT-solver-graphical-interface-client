@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
@@ -14,15 +14,20 @@ const style = {
   width: '100%',
 };
 
-export const Paste: React.FC<{ dimacs: string }> = ({ dimacs }) => {
+interface PasteProps {
+  dimacs: string;
+}
+
+export const Paste: FC<PasteProps> = ({ dimacs }) => {
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   return (
     <Button
       sx={style}
       disabled={dimacs === ''}
-      variant="outlined"
+      variant='outlined'
       onClick={() => {
         dispatch(setDimacs(dimacs));
         dispatch(clearErrors());

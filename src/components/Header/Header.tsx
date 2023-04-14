@@ -1,10 +1,10 @@
-import React from 'react';
+import { FC } from 'react';
 
 import { Outlet, Link } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 
-export const Header: React.FC = () => {
+export const Header: FC = () => {
   return (
     <>
       <header className={styles.header}>

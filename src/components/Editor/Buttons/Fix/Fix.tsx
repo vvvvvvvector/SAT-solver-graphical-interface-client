@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
@@ -10,7 +10,7 @@ import { setDimacs } from '../../../../redux/slices/editor';
 import { IconButton, Tooltip } from '@mui/material';
 import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
 
-export const Fix: React.FC = () => {
+export const Fix: FC = () => {
   const dispatch = useDispatch();
 
   const { dimacs } = useSelector((state: RootState) => state.editor);
@@ -46,9 +46,9 @@ export const Fix: React.FC = () => {
   };
 
   return dimacs.length > 0 ? (
-    <Tooltip title="Try to fix all errors in dimacs" arrow>
-      <IconButton onClick={onClickFix} color="primary">
-        <AutoFixHighOutlinedIcon color="primary" />
+    <Tooltip title='Try to fix all errors in dimacs' arrow>
+      <IconButton onClick={onClickFix} color='primary'>
+        <AutoFixHighOutlinedIcon color='primary' />
       </IconButton>
     </Tooltip>
   ) : (

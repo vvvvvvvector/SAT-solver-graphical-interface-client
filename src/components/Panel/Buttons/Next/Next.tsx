@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
@@ -11,10 +11,14 @@ import { RootState } from '../../../../redux/store';
 import { Button } from '@mui/material';
 import ForwardOutlinedIcon from '@mui/icons-material/ForwardOutlined';
 
-export const Next: React.FC<{ solver: string }> = ({ solver }) => {
+interface NextProps {
+  solver: string;
+}
+
+export const Next: FC<NextProps> = ({ solver }) => {
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { clauses } = useSelector((state: RootState) => state.formula);
   const { solutions } = useSelector((state: RootState) => state.solutions);
@@ -62,7 +66,7 @@ export const Next: React.FC<{ solver: string }> = ({ solver }) => {
         errors.length > 0
       }
       endIcon={<ForwardOutlinedIcon />}
-      variant="contained"
+      variant='contained'
     >
       {loading ? 'Finding...' : 'Next solution'}
     </Button>

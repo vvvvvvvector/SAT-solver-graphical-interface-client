@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -8,7 +8,7 @@ import UploadedFormula from './UploadedFormula/UploadedFormula';
 
 import styles from './Linker.module.scss';
 
-const Linker: React.FC = () => {
+const Linker: FC = () => {
   const { first, second, linked } = useSelector(
     (state: RootState) => state.linker
   );

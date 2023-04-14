@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, RefObject, useRef } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setDimacs } from '../../../redux/slices/editor';
@@ -7,13 +7,15 @@ import { RootState } from '../../../redux/store';
 
 import styles from './TextArea.module.scss';
 
-const TextArea: React.FC<{
-  gutterRef: React.RefObject<HTMLDivElement>;
-  errorsRef: React.RefObject<HTMLDivElement>;
-}> = ({ gutterRef, errorsRef }) => {
+interface TextAreaProps {
+  gutterRef: RefObject<HTMLDivElement>;
+  errorsRef: RefObject<HTMLDivElement>;
+}
+
+const TextArea: FC<TextAreaProps> = ({ gutterRef, errorsRef }) => {
   const dispatch = useDispatch();
 
-  const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const { dimacs } = useSelector((state: RootState) => state.editor);
 

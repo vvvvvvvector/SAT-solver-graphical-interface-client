@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useState, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -14,19 +14,19 @@ import { parseToDimacs } from './../../utils/utils';
 
 import styles from './Formula.module.scss';
 
-export const Formula: React.FC = () => {
+export const Formula: FC = () => {
   const dispatch = useDispatch();
 
   const clausesPerPage = 115;
 
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = useState(0);
 
   const { clauses, opened, changed } = useSelector(
     (state: RootState) => state.formula
   );
 
   // Reset page to first while setting new clauses via dimacs (formula)
-  React.useEffect(() => {
+  useEffect(() => {
     /*
       if (!changed) -> formula was just loaded and solved for the first time
       else -> formula in CNF was just edited(remove/edit/add clause)

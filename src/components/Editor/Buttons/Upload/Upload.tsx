@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { RootState } from '../../../../redux/store';
@@ -10,7 +10,7 @@ import { clearSolutions } from '../../../../redux/slices/solutions';
 import { IconButton, Tooltip } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 
-export const Upload: React.FC = () => {
+export const Upload: FC = () => {
   const dispatch = useDispatch();
 
   const currentDimacs = useSelector((state: RootState) => state.editor.dimacs);

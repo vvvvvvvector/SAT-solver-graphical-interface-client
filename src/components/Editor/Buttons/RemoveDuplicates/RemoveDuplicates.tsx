@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
@@ -10,7 +10,7 @@ import { setDimacs } from '../../../../redux/slices/editor';
 import ContentCutOutlinedIcon from '@mui/icons-material/ContentCutOutlined';
 import { IconButton, Tooltip } from '@mui/material';
 
-export const RemoveDuplicates: React.FC = () => {
+export const RemoveDuplicates: FC = () => {
   const dispatch = useDispatch();
 
   const { dimacs, errors } = useSelector((state: RootState) => state.editor);

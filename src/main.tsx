@@ -35,6 +35,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-    <Toaster position="top-center" />
+    <Toaster position='top-center' />
   </React.StrictMode>
 );

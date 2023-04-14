@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useState, MutableRefObject } from 'react';
 
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -8,12 +8,14 @@ import styles from './Overlay.module.scss';
 
 import Status from '../status';
 
-const Overlap: React.FC<{
+interface OverlayProps {
   open: boolean;
   counter: number;
-  loop: React.MutableRefObject<Status>;
-}> = ({ open, counter, loop }) => {
-  const [loading, setLoading] = React.useState(false);
+  loop: MutableRefObject<Status>;
+}
+
+const Overlay: FC<OverlayProps> = ({ open, counter, loop }) => {
+  const [loading, setLoading] = useState(false);
 
   return (
     <Backdrop
@@ -45,4 +47,4 @@ const Overlap: React.FC<{
   );
 };
 
-export default Overlap;
+export default Overlay;

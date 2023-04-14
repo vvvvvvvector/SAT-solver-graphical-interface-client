@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useDispatch } from 'react-redux';
@@ -6,10 +6,12 @@ import { editLine } from '../../../../redux/slices/editor';
 
 import { Button } from '@mui/material';
 
-export const EditLine: React.FC<{ line: number; damaged: string }> = ({
-  line,
-  damaged,
-}) => {
+interface EditLineProps {
+  line: number;
+  damaged: string;
+}
+
+export const EditLine: FC<EditLineProps> = ({ line, damaged }) => {
   const dispatch = useDispatch();
 
   const onClick = () => {
@@ -33,8 +35,8 @@ export const EditLine: React.FC<{ line: number; damaged: string }> = ({
     <Button
       onClick={onClick}
       sx={{ width: '95px' }}
-      size="small"
-      variant="outlined"
+      size='small'
+      variant='outlined'
     >
       Edit
     </Button>

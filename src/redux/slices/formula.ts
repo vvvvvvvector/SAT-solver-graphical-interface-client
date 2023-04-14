@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ClauseType } from '../../shared/types';
+import { IClause } from '../../shared/types';
 
 const initialState = {
   opened: true,
   changed: false,
-  clauses: [] as ClauseType[],
+  clauses: [] as IClause[],
 };
 
 export const formulaSlice = createSlice({
@@ -13,10 +13,12 @@ export const formulaSlice = createSlice({
   initialState,
   reducers: {
     setFormulaOpened(state, action: PayloadAction<boolean>) {
-      return { ...state, opened: action.payload };
+      state.opened = action.payload;
     },
-    setFormula(state, action: PayloadAction<ClauseType[]>) {
-      return { ...state, clauses: action.payload, changed: false };
+    setFormula(state, action: PayloadAction<IClause[]>) {
+      state.clauses = action.payload;
+
+      state.changed = false;
     },
     addClause(state, action: PayloadAction<number[]>) {
       if (state.clauses.length > 0) {

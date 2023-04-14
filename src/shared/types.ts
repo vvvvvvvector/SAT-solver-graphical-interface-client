@@ -1,17 +1,17 @@
-export type VariableType = {
+export interface IVariable {
   id: number;
   index: number;
   clauseId: number;
-};
+}
 
-export type ClauseType = {
+export interface IClause {
   id: number;
   variables: number[];
-};
+}
 
-export type ErrorType = {
+export interface IError {
   line: number;
   errorCode: 0 | 1 | 2 | 3 | 4;
   description: string;
   damaged: string;
-};
+}
