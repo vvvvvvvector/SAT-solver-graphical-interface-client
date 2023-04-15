@@ -2,11 +2,11 @@ import { FC } from 'react';
 
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material/';
 
-import solvers from './Solvers';
+import solvers, { ShortName } from './Solvers';
 
 interface SelectSolverProps {
-  solver: string;
-  setSolver: (value: string) => void;
+  solver: ShortName;
+  setSolver: (value: ShortName) => void;
 }
 
 export const SelectSolver: FC<SelectSolverProps> = ({ solver, setSolver }) => {
@@ -26,7 +26,7 @@ export const SelectSolver: FC<SelectSolverProps> = ({ solver, setSolver }) => {
         labelId='select-solver-label'
         label='SAT-solver'
         onChange={(event) => {
-          setSolver(event.target.value as string);
+          setSolver(event.target.value as ShortName);
         }}
         value={solver}
       >

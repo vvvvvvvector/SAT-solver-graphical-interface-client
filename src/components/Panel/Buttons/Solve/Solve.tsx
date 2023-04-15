@@ -3,8 +3,8 @@ import { toast } from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
 
-import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../../redux/store';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   clearSolutions,
   setSolution,
@@ -15,9 +15,14 @@ import { Button } from '@mui/material';
 import CalculateOutlinedIcon from '@mui/icons-material/CalculateOutlined';
 
 import { buttonStyle } from '../../../../shared/mui';
+import { IClause } from '../../../../shared/types';
 
 interface SolveProps {
   solver: string;
+}
+
+interface APIResponse<TData> {
+  data: TData;
 }
 
 export const Solve: FC<SolveProps> = ({ solver }) => {
@@ -31,27 +36,30 @@ export const Solve: FC<SolveProps> = ({ solver }) => {
     try {
       setLoading(true);
 
-      const response = await axiosInstance.post('solve', {
+      const {
+        data,
+      }: APIResponse<{
+        satisfiable: boolean;
+        clauses: IClause[];
+        first_solution: number[];
+      }> = await axiosInstance.post('solve', {
         solver,
         dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, ''),
       });
 
       setLoading(false);
 
-      if (response.data.satisfiable) {
-        dispatch(setFormula(response.data.clauses.slice(0, -1)));
+      if (data.satisfiable) {
+        dispatch(setFormula(data.clauses.slice(0, -1)));
 
-        sessionStorage.setItem(
-          'formula',
-          JSON.stringify(response.data.clauses)
-        );
+        sessionStorage.setItem('formula', JSON.stringify(data.clauses));
 
         dispatch(clearSolutions());
-        dispatch(setSolution(response.data.first_solution));
+        dispatch(setSolution(data.first_solution));
 
         toast.success('Satisfiable!');
       } else {
-        dispatch(setFormula(response.data.clauses));
+        dispatch(setFormula(data.clauses));
         dispatch(clearSolutions());
 
         toast.error('Unsatisfiable!');

@@ -11,8 +11,14 @@ import { RootState } from '../../../../redux/store';
 import { Button } from '@mui/material';
 import ForwardOutlinedIcon from '@mui/icons-material/ForwardOutlined';
 
+import { IClause } from '../../../../shared/types';
+
 interface NextProps {
   solver: string;
+}
+
+interface APIResponse<TData> {
+  data: TData;
 }
 
 export const Next: FC<NextProps> = ({ solver }) => {
@@ -28,20 +34,27 @@ export const Next: FC<NextProps> = ({ solver }) => {
     try {
       setLoading(true);
 
-      const response = await axiosInstance.post('next-solution', {
+      const {
+        data,
+      }:
+        | APIResponse<{
+            satisfiable: true;
+            clauses: IClause[];
+            next_solution: number[];
+          }>
+        | APIResponse<{
+            satisfiable: false;
+          }> = await axiosInstance.post('next-solution', {
         solver,
         formula: sessionStorage.getItem('formula'),
       });
 
       setLoading(false);
 
-      if (response.data.satisfiable) {
-        sessionStorage.setItem(
-          'formula',
-          JSON.stringify(response.data.clauses)
-        );
+      if (data.satisfiable) {
+        sessionStorage.setItem('formula', JSON.stringify(data.clauses));
 
-        dispatch(setSolution(response.data.next_solution));
+        dispatch(setSolution(data.next_solution));
 
         toast.success('Next solution was successfully found!');
       } else {
