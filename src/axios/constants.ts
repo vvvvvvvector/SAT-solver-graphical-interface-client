@@ -1,1 +1,1 @@
-export const baseURL = 'https://sat-solver-backend-deploy.onrender.com';
+export const baseURL = 'https://sat-solver-gui-backend.onrender.com/';
