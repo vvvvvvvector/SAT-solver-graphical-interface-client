@@ -1,9 +1,8 @@
 import React, { FC, RefObject, useRef } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
 import { setDimacs } from '../../../redux/slices/editor';
 import { setFormula } from '../../../redux/slices/formula';
-import { RootState } from '../../../redux/store';
 
 import styles from './TextArea.module.scss';
 
@@ -13,11 +12,11 @@ interface TextAreaProps {
 }
 
 const TextArea: FC<TextAreaProps> = ({ gutterRef, errorsRef }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  const { dimacs } = useSelector((state: RootState) => state.editor);
+  const { dimacs } = useAppSelector((state) => state.editor);
 
   const onChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     dispatch(setDimacs(e.target.value));

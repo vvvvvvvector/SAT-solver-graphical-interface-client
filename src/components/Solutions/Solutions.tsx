@@ -1,8 +1,7 @@
 import { FC, useRef, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { useAppSelector } from '../../redux/hooks/hooks';
 
 import Solution from './Solution/Solution';
 import NoSolutions from './NoSolutions/NoSolutions';
@@ -18,9 +17,7 @@ export const Solutions: FC = () => {
 
   const [page, setPage] = useState(0);
 
-  const { solutions, opened } = useSelector(
-    (state: RootState) => state.solutions
-  );
+  const { solutions, opened } = useAppSelector((state) => state.solutions);
 
   useEffect(() => {
     setPage(0);

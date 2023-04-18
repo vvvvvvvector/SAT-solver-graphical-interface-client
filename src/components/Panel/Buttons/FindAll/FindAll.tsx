@@ -3,8 +3,7 @@ import toast from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/hooks';
 
 import { Button } from '@mui/material';
 import { buttonStyle } from '../../../../shared/mui';
@@ -24,7 +23,7 @@ interface FindAllProps {
 }
 
 export const FindAll: FC<FindAllProps> = ({ solver }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const loop = useRef<Status>(Status.NOTSTARTED);
 
@@ -32,8 +31,8 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const { clauses, changed } = useSelector((state: RootState) => state.formula);
-  const { dimacs, errors } = useSelector((state: RootState) => state.editor);
+  const { clauses, changed } = useAppSelector((state) => state.formula);
+  const { dimacs, errors } = useAppSelector((state) => state.editor);
 
   useEffect(() => {
     loop.current = Status.NOTSTARTED;
@@ -47,8 +46,8 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
       const solutions: number[][] = [];
 
       const solveResponse = await axiosInstance.post('/solve', {
-        dimacs,
         solver,
+        dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, ''),
       });
 
       if (solveResponse.data.satisfiable) {

@@ -3,8 +3,7 @@ import { toast } from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
 
-import { RootState } from '../../../../redux/store';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/hooks';
 import {
   clearSolutions,
   setSolution,
@@ -26,11 +25,11 @@ interface APIResponse<TData> {
 }
 
 export const Solve: FC<SolveProps> = ({ solver }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(false);
 
-  const { dimacs, errors } = useSelector((state: RootState) => state.editor);
+  const { dimacs, errors } = useAppSelector((state) => state.editor);
 
   const onClickSolve = async () => {
     try {
