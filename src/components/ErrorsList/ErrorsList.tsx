@@ -64,9 +64,9 @@ export const ErrorsList: FC = () => {
           </h2>
           <TableVirtuoso
             style={{
-              height: 'calc((63.75px * 5) + 57px)',
-              boxShadow: '0 2px 2px rgba(0, 0, 0, 0.12)',
-              border: '1px solid #eaeaea',
+              height: 'calc((63.75px * 6) + 57px)',
+              // boxShadow: '0 2px 2px rgba(0, 0, 0, 0.12)',
+              // border: '1px solid #eaeaea',
             }}
             className='hide-scrollbars'
             data={errors}
@@ -136,7 +136,7 @@ export const ErrorsList: FC = () => {
                   className='hide-scrollbars'
                   align='center'
                 >
-                  {error.damaged ? error.damaged : 'Line is empty here 🙊'}
+                  {error.damaged ? error.damaged : 'Line is empty here 🤷‍♂️'}
                 </StyledTableCell>
                 <StyledTableCell align='center'>{error.line}</StyledTableCell>
                 <StyledTableCell align='center'>

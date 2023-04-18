@@ -24,13 +24,12 @@ export const Solutions: FC = () => {
 
   useEffect(() => {
     setPage(0);
-  }, [solutions]);
 
-  // useEffect(() => {
-  //   containerRef.current?.scrollIntoView({
-  //     behavior: "smooth",
-  //   });
-  // }, [solutions]);
+    containerRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  }, [solutions]);
 
   const handleSaveSolution = (solutionIndex: number) => {
     if (

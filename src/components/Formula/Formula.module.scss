@@ -1,13 +1,14 @@
 .formulaContainer {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   margin-top: 20px;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.12);
+  // box-shadow: 0 2px 2px rgba(0, 0, 0, 0.12);
   border: 1px solid var(--formula-solutions-border-color);
+  border-bottom-width: 3px;
   border-radius: 7px;
   background-color: var(--formula-solutions-background-color);
 
   .formula {
-    max-height: calc((31px * 12) + 30px);
+    max-height: calc((31px * 15) + 30px);
     overflow-y: auto;
     border-radius: 15px;
     padding: 15px 8px;

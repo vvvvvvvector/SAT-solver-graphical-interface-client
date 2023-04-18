@@ -17,8 +17,8 @@ const Home: React.FC = () => {
         <Editor />
         <ErrorsList />
         <Panel />
-        <Formula />
         <Solutions />
+        <Formula />
       </section>
     </div>
   );
