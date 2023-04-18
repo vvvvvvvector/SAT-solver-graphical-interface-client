@@ -1,24 +1,23 @@
 import { forwardRef, useRef, useCallback, useEffect } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
 import { addError, removeError } from '../../../redux/slices/editor';
-import { RootState } from '../../../redux/store';
 
 import debounce from 'lodash.debounce';
 
 import styles from './Errors.module.scss';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
 
 const formulaDefinition = /^p\s+cnf\s+[1-9][0-9]*\s+[1-9][0-9]*\s*$/;
 const lineEndsWithZero = /0\s*$/;
 const validClause = /^\s*(?:-?[1-9][0-9]*\s+)+0\s*$/;
 
 const Errors = forwardRef<HTMLDivElement>((_, ref) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const formulaDefinitionRow = useRef(0);
   const isFormulaDefined = useRef(false);
 
-  const { dimacs, errors } = useSelector((state: RootState) => state.editor);
+  const { dimacs, errors } = useAppSelector((state) => state.editor);
 
   const addNewError = (
     line: number,

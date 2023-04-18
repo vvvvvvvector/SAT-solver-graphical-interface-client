@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
-import { RootState } from '../../../../redux/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/hooks';
 import { clearErrors, setDimacs } from '../../../../redux/slices/editor';
 import { setFormula } from '../../../../redux/slices/formula';
 import { clearSolutions } from '../../../../redux/slices/solutions';
@@ -11,9 +10,9 @@ import { IconButton, Tooltip } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 export const Upload: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const currentDimacs = useSelector((state: RootState) => state.editor.dimacs);
+  const currentDimacs = useAppSelector((state) => state.editor.dimacs);
 
   const onClickUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files instanceof FileList) {

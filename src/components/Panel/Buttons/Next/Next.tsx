@@ -3,10 +3,9 @@ import toast from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/hooks';
 import { setSolution } from '../../../../redux/slices/solutions';
 import { buttonStyle } from '../../../../shared/mui';
-import { RootState } from '../../../../redux/store';
 
 import { Button } from '@mui/material';
 import ForwardOutlinedIcon from '@mui/icons-material/ForwardOutlined';
@@ -22,13 +21,13 @@ interface APIResponse<TData> {
 }
 
 export const Next: FC<NextProps> = ({ solver }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(false);
 
-  const { clauses } = useSelector((state: RootState) => state.formula);
-  const { solutions } = useSelector((state: RootState) => state.solutions);
-  const { dimacs, errors } = useSelector((state: RootState) => state.editor);
+  const { clauses } = useAppSelector((state) => state.formula);
+  const { solutions } = useAppSelector((state) => state.solutions);
+  const { dimacs, errors } = useAppSelector((state) => state.editor);
 
   const onClickNext = async () => {
     try {

@@ -32,6 +32,16 @@
     }
 
     nav {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+
+      div {
+        width: 1px;
+        height: 10px;
+        background-color: hsl(0, 0%, 85%);
+      }
+
       ul {
         display: flex;
         color: #666666;

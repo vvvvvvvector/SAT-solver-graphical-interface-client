@@ -1,12 +1,11 @@
 import { forwardRef, useMemo } from 'react';
 
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
+import { useAppSelector } from '../../../redux/hooks/hooks';
 
 import styles from './Gutter.module.scss';
 
 const Gutter = forwardRef<HTMLDivElement>((_, ref) => {
-  const { dimacs } = useSelector((state: RootState) => state.editor);
+  const { dimacs } = useAppSelector((state) => state.editor);
 
   const length = useMemo(() => dimacs.split('\n').length, [dimacs]);
 

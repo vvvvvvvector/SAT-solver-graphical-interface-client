@@ -1,8 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../redux/store';
 import { clearDimacs, setDimacs } from '../../redux/slices/editor';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks';
 
 import { Pagination } from '@mui/material';
 
@@ -15,15 +14,13 @@ import { parseToDimacs } from './../../utils/utils';
 import styles from './Formula.module.scss';
 
 export const Formula: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const clausesPerPage = 115;
 
   const [page, setPage] = useState(0);
 
-  const { clauses, opened, changed } = useSelector(
-    (state: RootState) => state.formula
-  );
+  const { clauses, opened, changed } = useAppSelector((state) => state.formula);
 
   // Reset page to first while setting new clauses via dimacs (formula)
   useEffect(() => {

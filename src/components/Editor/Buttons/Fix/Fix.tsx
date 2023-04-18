@@ -3,17 +3,16 @@ import { toast } from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../../../redux/store';
 import { setDimacs } from '../../../../redux/slices/editor';
 
 import { IconButton, Tooltip } from '@mui/material';
 import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/hooks';
 
 export const Fix: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { dimacs } = useSelector((state: RootState) => state.editor);
+  const { dimacs } = useAppSelector((state) => state.editor);
 
   const onClickFix = async () => {
     try {

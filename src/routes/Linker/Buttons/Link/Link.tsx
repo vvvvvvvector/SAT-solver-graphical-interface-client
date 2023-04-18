@@ -3,17 +3,16 @@ import toast from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/hooks';
 import { filterFormula, setLinked } from '../../../../redux/slices/linker';
-import { RootState } from '../../../../redux/store';
 
 import { Button } from '@mui/material';
 import InsertLinkOutlinedIcon from '@mui/icons-material/InsertLinkOutlined';
 
 export const Link: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { first, second } = useSelector((state: RootState) => state.linker);
+  const { first, second } = useAppSelector((state) => state.linker);
 
   const [loading, setLoading] = useState(false);
 

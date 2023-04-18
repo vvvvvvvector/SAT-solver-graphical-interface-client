@@ -1,7 +1,6 @@
 import { FC, forwardRef } from 'react';
 
-import { RootState } from '../../redux/store';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../redux/hooks/hooks';
 
 import { TableVirtuoso } from 'react-virtuoso';
 
@@ -53,14 +52,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export const ErrorsList: FC = () => {
-  const errors = useSelector((state: RootState) => state.editor.errors);
+  const errors = useAppSelector((state) => state.editor.errors);
 
   return (
     <>
       {errors.length > 0 ? (
         <div className={styles.errors}>
           <h2 className={styles.header}>
-            There are {errors.length} errors in Your formula 😭
+            {`There are ${errors.length} errors in Your formula :<`}
           </h2>
           <TableVirtuoso
             style={{

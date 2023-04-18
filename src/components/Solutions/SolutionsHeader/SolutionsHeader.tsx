@@ -1,17 +1,14 @@
 import { FC } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { setSolutionsOpened } from '../../../redux/slices/solutions';
-import { RootState } from '../../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
 
 import styles from './SolutionsHeader.module.scss';
 
 const SolutionsHeader: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { solutions, opened } = useSelector(
-    (state: RootState) => state.solutions
-  );
+  const { solutions, opened } = useAppSelector((state) => state.solutions);
 
   return (
     <div className={styles.header}>
