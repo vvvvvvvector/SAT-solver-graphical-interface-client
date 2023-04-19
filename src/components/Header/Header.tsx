@@ -46,6 +46,7 @@ export const Header: FC = () => {
             >
               <GitHubIcon
                 sx={{
+                  transition: 'color 0.2s ease',
                   cursor: 'pointer',
                   color: '#666666',
                   fontSize: '21px',
