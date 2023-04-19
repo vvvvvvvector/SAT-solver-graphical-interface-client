@@ -7,8 +7,9 @@ import Solution from './Solution/Solution';
 import NoSolutions from './NoSolutions/NoSolutions';
 import SolutionsHeader from './SolutionsHeader/SolutionsHeader';
 
-import styles from './Solutions.module.scss';
 import { Pagination } from '@mui/material';
+
+import styles from './Solutions.module.scss';
 
 export const Solutions: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);

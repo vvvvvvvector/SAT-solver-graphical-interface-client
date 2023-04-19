@@ -1,15 +1,17 @@
 import { forwardRef, useRef, useCallback, useEffect } from 'react';
 
 import { addError, removeError } from '../../../redux/slices/editor';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
+
+import {
+  formulaDefinition,
+  lineEndsWithZero,
+  validClause,
+} from '../../../utils/utils';
 
 import debounce from 'lodash.debounce';
 
 import styles from './Errors.module.scss';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
-
-const formulaDefinition = /^p\s+cnf\s+[1-9][0-9]*\s+[1-9][0-9]*\s*$/;
-const lineEndsWithZero = /0\s*$/;
-const validClause = /^\s*(?:-?[1-9][0-9]*\s+)+0\s*$/;
 
 const Errors = forwardRef<HTMLDivElement>((_, ref) => {
   const dispatch = useAppDispatch();

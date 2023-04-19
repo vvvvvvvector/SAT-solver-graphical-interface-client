@@ -1,7 +1,7 @@
 import { FC, useRef, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../../redux/hooks/hooks';
 import { editClause, removeClause } from '../../../redux/slices/formula';
 import { clearSolutions } from '../../../redux/slices/solutions';
 
@@ -18,7 +18,7 @@ interface ClauseProps {
 }
 
 const Clause: FC<ClauseProps> = ({ clause }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const clauseRef = useRef<HTMLDivElement>(null);
 
