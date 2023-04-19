@@ -20,8 +20,6 @@ export const Solutions: FC = () => {
 
   const { solutions, opened } = useAppSelector((state) => state.solutions);
 
-  console.log(page);
-
   useEffect(() => {
     // page state: 0 10 20 30 40 50 60 70 80 90 100
 
