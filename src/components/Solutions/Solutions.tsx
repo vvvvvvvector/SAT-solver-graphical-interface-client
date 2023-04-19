@@ -20,8 +20,18 @@ export const Solutions: FC = () => {
 
   const { solutions, opened } = useAppSelector((state) => state.solutions);
 
+  console.log(page);
+
   useEffect(() => {
-    setPage(0);
+    // page state: 0 10 20 30 40 50 60 70 80 90 100
+
+    // page irl:  1 2 3 4 5 6 7 8 9 10 11
+
+    setPage(
+      solutions.length % 10 === 0
+        ? solutions.length - solutionsPerPage
+        : Math.floor(solutions.length / solutionsPerPage) * solutionsPerPage
+    );
 
     containerRef.current?.scrollIntoView({
       behavior: 'smooth',
