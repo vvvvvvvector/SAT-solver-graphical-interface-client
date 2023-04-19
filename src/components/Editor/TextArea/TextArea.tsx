@@ -27,7 +27,7 @@ const TextArea: FC<TextAreaProps> = ({ gutterRef, errorsRef }) => {
 
   return (
     <textarea
-      className={`${styles.editorTextArea} hide-scrollbars`}
+      className={`${styles.editorTextArea} ${styles.customScrollbar}`}
       onScroll={() => {
         if (gutterRef.current && textAreaRef.current && errorsRef.current) {
           const { scrollTop } = textAreaRef.current;

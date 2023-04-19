@@ -12,8 +12,9 @@ interface SelectSolverProps {
 export const SelectSolver: FC<SelectSolverProps> = ({ solver, setSolver }) => {
   return (
     <FormControl
+      variant='outlined'
       sx={{
-        maxWidth: '243px',
+        maxWidth: '180px',
         width: '100%',
         '@media (max-width: 1400px)': {
           maxWidth: 'none',

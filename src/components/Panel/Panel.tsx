@@ -11,10 +11,10 @@ export const Panel: FC = () => {
 
   return (
     <div className={styles.buttons}>
-      <SelectSolver solver={solver} setSolver={setSolver} />
       <FindAll solver={solver} />
       <Solve solver={solver} />
       <Next solver={solver} />
+      <SelectSolver solver={solver} setSolver={setSolver} />
     </div>
   );
 };
