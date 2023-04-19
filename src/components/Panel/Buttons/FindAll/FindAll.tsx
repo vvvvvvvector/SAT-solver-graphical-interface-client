@@ -31,7 +31,10 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const { clauses, changed } = useAppSelector((state) => state.formula);
+  const solutionsLength = useAppSelector(
+    (state) => state.solutions.solutions.length
+  );
+  const isFormulaChanged = useAppSelector((state) => state.formula.changed);
   const { dimacs, errors } = useAppSelector((state) => state.editor);
 
   useEffect(() => {
@@ -199,7 +202,7 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
 
   return (
     <>
-      {clauses.length > 0 && !changed ? (
+      {solutionsLength > 0 && !isFormulaChanged ? (
         <Button
           disabled={errors.length > 0 || loading}
           onClick={onClickFindOther}
