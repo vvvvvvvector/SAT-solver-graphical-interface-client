@@ -120,7 +120,7 @@ export const ErrorsList: FC = () => {
                   }}
                   align='center'
                 >
-                  Fix proposition 💡
+                  Quick fix 💡
                 </StyledTableCell>
               </TableRow>
             )}
