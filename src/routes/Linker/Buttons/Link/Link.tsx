@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import axiosInstance from '../../../../axios';
 
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/hooks';
-import { filterFormula, setLinked } from '../../../../redux/slices/linker';
+import { setLinked } from '../../../../redux/slices/linker';
 
 import { Button } from '@mui/material';
 import InsertLinkOutlinedIcon from '@mui/icons-material/InsertLinkOutlined';
@@ -17,9 +17,6 @@ export const Link: FC = () => {
   const [loading, setLoading] = useState(false);
 
   const onClickLink = async () => {
-    dispatch(filterFormula(1));
-    dispatch(filterFormula(2));
-
     try {
       setLoading(true);
 
