@@ -8,15 +8,24 @@
   border: 0;
   resize: none;
   font-size: 16px;
+  overflow-y: scroll;
 }
 
 .customScrollbar::-webkit-scrollbar {
   width: 10px;
 }
 
+.customScrollbar::-webkit-scrollbar:horizontal {
+  display: none;
+}
+
+.customScrollbar::-webkit-scrollbar-track {
+  background: hsl(0, 0%, 97%);
+}
+
 .customScrollbar::-webkit-scrollbar-thumb {
   height: 100px;
-  background: hsl(0, 0%, 80%);
+  background: hsl(0, 0%, 85%);
 }
 
 .customScrollbar::-webkit-scrollbar-thumb:hover {
