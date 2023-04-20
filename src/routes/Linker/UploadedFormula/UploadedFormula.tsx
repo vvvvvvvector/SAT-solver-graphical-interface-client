@@ -47,7 +47,7 @@ const UploadedFormula: FC<UploadedFormulaProps> = ({ dimacs, index }) => {
     <div className={styles.formula}>
       <Button
         sx={{ marginBottom: '25px' }}
-        size='large'
+        size='medium'
         variant='contained'
         component='label'
       >
