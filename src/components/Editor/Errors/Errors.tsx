@@ -11,8 +11,9 @@ import {
 
 import debounce from 'lodash.debounce';
 
-import styles from './Errors.module.scss';
 import { Tooltip } from '@mui/material';
+
+import styles from './Errors.module.scss';
 
 const Errors = forwardRef<HTMLDivElement>((_, ref) => {
   const dispatch = useAppDispatch();
@@ -22,17 +23,56 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
 
   const { dimacs, errors } = useAppSelector((state) => state.editor);
 
-  const addNewError = (
-    line: number,
-    errorCode: 0 | 1 | 2 | 3 | 4,
-    description: string,
-    damaged: string
-  ) => {
+  const addEmplyLineError = (line: number, damaged: string) => {
     dispatch(
       addError({
         line,
-        errorCode,
-        description,
+        errorCode: 0,
+        description: 'empty line',
+        damaged,
+      })
+    );
+  };
+
+  const addInvalidFormulaDefinitionError = (line: number, damaged: string) => {
+    dispatch(
+      addError({
+        line,
+        errorCode: 1,
+        description: 'invalid formula definition',
+        damaged,
+      })
+    );
+  };
+
+  const addThereAreNoZeroError = (line: number, damaged: string) => {
+    dispatch(
+      addError({
+        line,
+        errorCode: 2,
+        description: 'clause must end with 0',
+        damaged,
+      })
+    );
+  };
+
+  const addInvalidClauseError = (line: number, damaged: string) => {
+    dispatch(
+      addError({
+        line,
+        errorCode: 3,
+        description: 'invalid clause',
+        damaged,
+      })
+    );
+  };
+
+  const addFormulaAlreadyDefinedError = (line: number, damaged: string) => {
+    dispatch(
+      addError({
+        line,
+        errorCode: 4,
+        description: `formula was already defined in line ${formulaDefinitionRow.current}`,
         damaged,
       })
     );
@@ -54,32 +94,27 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
         }
 
         if (line === '' && index !== lines.length - 1) {
-          addNewError(index + 1, 0, 'empty line', line);
+          addEmplyLineError(index + 1, line);
         } else if (!line.match(formulaDefinition) && line.startsWith('p')) {
-          addNewError(index + 1, 1, 'invalid formula definition', line);
+          addInvalidFormulaDefinitionError(index + 1, line);
         } else if (
           !line.match(lineEndsWithZero) &&
           line !== '' &&
           !line.startsWith('p')
         ) {
-          addNewError(index + 1, 2, 'clause must end with 0', line);
+          addThereAreNoZeroError(index + 1, line);
         } else if (
           !line.match(validClause) &&
           line !== '' &&
           !line.startsWith('p')
         ) {
-          addNewError(index + 1, 3, 'invalid clause', line);
+          addInvalidClauseError(index + 1, line);
         } else if (
           line.match(/^p\s+cnf\s+.*$/) &&
           isFormulaDefined.current &&
           index + 1 !== formulaDefinitionRow.current
         ) {
-          addNewError(
-            index + 1,
-            4,
-            `formula was already defined in line ${formulaDefinitionRow.current}`,
-            line
-          );
+          addFormulaAlreadyDefinedError(index + 1, line);
         } else {
           dispatch(removeError({ line: index + 1, length: lines.length }));
         }
@@ -100,8 +135,8 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
       {errors.map((error, index) => (
         <Tooltip
           key={index}
-          placement='right'
-          title={`err[Ln:${error.line}]: ${error.description}`}
+          placement='top'
+          title={`ERROR [Ln:${error.line}]: ${error.description}`}
           arrow
         >
           <div
