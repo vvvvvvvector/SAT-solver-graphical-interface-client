@@ -8,7 +8,7 @@ export const buttonStyle = {
   '&:disabled': {
     backgroundColor: 'hsl(0, 0%, 94%)',
   },
-  maxWidth: '260px',
+  maxWidth: '275px',
   width: '100%',
   '@media (max-width: 1400px)': {
     maxWidth: 'none',
