@@ -2,6 +2,8 @@ import { FC, useState, useRef } from 'react';
 
 import { IError } from '../../../../shared/types';
 
+import ErrorInfo from './ErrorInfo/ErrorInfo';
+
 import styles from './Error.module.scss';
 
 interface ErrorProps {
@@ -30,33 +32,7 @@ const Error: FC<ErrorProps> = ({ error, index }) => {
         top: `${(error.line - 1) * 20 - index * 20}px`,
       }}
     >
-      {isOpened && (
-        <div
-          style={{
-            top: `${error.line < 7 ? 20 : -110}px`,
-          }}
-          className={styles.errorInfo}
-        >
-          <span>
-            {error.damaged === '' ? 'Line is empty here' : error.damaged}
-          </span>
-          <span>{`ERR[Ln:${error.line}, Cd: ${error.errorCode}]: ${error.description}`}</span>
-          <span>{`quick fix is available`}</span>
-          <span
-            style={
-              error.line < 7
-                ? {
-                    bottom: '100%',
-                    transform: 'rotate(180deg)',
-                  }
-                : {
-                    top: '100%',
-                  }
-            }
-            className={styles.errorInfoArrow}
-          />
-        </div>
-      )}
+      {isOpened && <ErrorInfo error={error} />}
     </div>
   );
 };
