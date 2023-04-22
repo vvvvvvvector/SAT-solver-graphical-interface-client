@@ -34,7 +34,7 @@ export const EditLine: FC<EditLineProps> = ({ line, damaged }) => {
   return (
     <Button
       onClick={onClick}
-      sx={{ width: '95px' }}
+      sx={{ width: '150px' }}
       size='small'
       variant='outlined'
     >
