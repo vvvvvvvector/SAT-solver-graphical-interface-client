@@ -89,30 +89,21 @@ export const ErrorsList: FC = () => {
               <TableRow>
                 <StyledTableCell
                   sx={{
-                    width: '30%',
+                    // width: '37%',
                     backgroundColor: 'white',
                   }}
                   align='center'
                 >
-                  Error description
+                  Description
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
-                    maxWidth: '125px',
+                    // maxWidth: '130px',
                     backgroundColor: 'white',
                   }}
                   align='center'
                 >
-                  Damaged line
-                </StyledTableCell>
-                <StyledTableCell
-                  sx={{
-                    width: '10%',
-                    backgroundColor: 'white',
-                  }}
-                  align='center'
-                >
-                  Error line
+                  Line
                 </StyledTableCell>
                 <StyledTableCell
                   sx={{
@@ -126,7 +117,7 @@ export const ErrorsList: FC = () => {
             )}
             itemContent={(_: number, error: IError) => (
               <>
-                <StyledTableCell align='center'>{`🚫 ${error.description}`}</StyledTableCell>
+                <StyledTableCell align='center'>{`${error.description} [Ln:${error.line},Cd:${error.errorCode}]`}</StyledTableCell>
                 <StyledTableCell
                   sx={{
                     whiteSpace: 'nowrap',
@@ -135,9 +126,17 @@ export const ErrorsList: FC = () => {
                   className='hide-scrollbars'
                   align='center'
                 >
-                  {error.damaged ? error.damaged : 'Line is empty here 🤷‍♂️'}
+                  <span
+                    style={{
+                      fontWeight: 600,
+                      textDecorationLine: 'underline',
+                      textDecorationStyle: 'wavy',
+                      textDecorationColor: '#dc2626',
+                    }}
+                  >
+                    {error.damaged ? error.damaged : 'Line is empty here 🤷‍♂️'}
+                  </span>
                 </StyledTableCell>
-                <StyledTableCell align='center'>{error.line}</StyledTableCell>
                 <StyledTableCell align='center'>
                   {ButtonByErrorCode(error)}
                 </StyledTableCell>

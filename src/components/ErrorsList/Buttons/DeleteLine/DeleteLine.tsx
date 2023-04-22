@@ -21,7 +21,7 @@ export const DeleteLine: FC<DeleteLineProps> = ({ line }) => {
   return (
     <Button
       onClick={onClick}
-      sx={{ width: '95px' }}
+      sx={{ width: '150px' }}
       size='small'
       variant='outlined'
     >
