@@ -21,7 +21,7 @@ const Error: FC<ErrorProps> = ({ error, index }) => {
       onMouseEnter={() => {
         interval.current = setTimeout(() => {
           setIsOpened(true);
-        }, 500);
+        }, 350);
       }}
       onMouseLeave={() => {
         clearTimeout(interval.current);
