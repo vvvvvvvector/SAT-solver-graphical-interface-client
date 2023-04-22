@@ -76,14 +76,14 @@ const ErrorInfo: FC<ErrorInfoProps> = ({ error }) => {
   return (
     <div
       style={{
-        top: `${error.line < 7 ? 20 : -110}px`,
+        top: `${error.line < 7 ? 20 : -116}px`,
       }}
       className={styles.errorInfo}
     >
       <span>{error.damaged === '' ? 'Line is empty here' : error.damaged}</span>
       <span>{`ERR[Ln:${error.line},Code:${error.errorCode}] -> ${error.description}`}</span>
       <span className={styles.quickFix}>
-        {`Quick ${error.errorCode === 3 ? 'fixes are' : 'fix is'} available:`}{' '}
+        {`Quick ${error.errorCode === 3 ? 'fixes are' : 'fix is'} available: `}
         {QuickFixByCode(error)}
       </span>
       <span
