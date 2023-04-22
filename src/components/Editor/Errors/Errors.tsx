@@ -28,7 +28,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
       addError({
         line,
         errorCode: 0,
-        description: 'empty line',
+        description: 'no empty lines allowed',
         damaged,
       })
     );

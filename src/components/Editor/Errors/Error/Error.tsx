@@ -2,8 +2,6 @@ import { FC, useState, useRef } from 'react';
 
 import { IError } from '../../../../shared/types';
 
-// import { Tooltip } from '@mui/material';
-
 import styles from './Error.module.scss';
 
 interface ErrorProps {
@@ -18,13 +16,13 @@ const Error: FC<ErrorProps> = ({ error, index }) => {
 
   return (
     <div
-      onMouseOver={() => {
-        // interval.current = setTimeout(() => {
-        setIsOpened(true);
-        // }, 550);
+      onMouseEnter={() => {
+        interval.current = setTimeout(() => {
+          setIsOpened(true);
+        }, 500);
       }}
       onMouseLeave={() => {
-        // clearTimeout(interval.current);
+        clearTimeout(interval.current);
         setIsOpened(false);
       }}
       className={styles.error}
@@ -35,12 +33,28 @@ const Error: FC<ErrorProps> = ({ error, index }) => {
       {isOpened && (
         <div
           style={{
-            top: `${error.line < 7 ? 20 : -112}px`,
+            top: `${error.line < 7 ? 20 : -110}px`,
           }}
           className={styles.errorInfo}
         >
-          <span>{`ERR [Ln:${error.line}]: ${error.description}`}</span>
-          <span>{`ERR [Code: ${error.errorCode}]: quick fix is available`}</span>
+          <span>
+            {error.damaged === '' ? 'Line is empty here' : error.damaged}
+          </span>
+          <span>{`ERR[Ln:${error.line}, Cd: ${error.errorCode}]: ${error.description}`}</span>
+          <span>{`quick fix is available`}</span>
+          <span
+            style={
+              error.line < 7
+                ? {
+                    bottom: '100%',
+                    transform: 'rotate(180deg)',
+                  }
+                : {
+                    top: '100%',
+                  }
+            }
+            className={styles.errorInfoArrow}
+          />
         </div>
       )}
     </div>
