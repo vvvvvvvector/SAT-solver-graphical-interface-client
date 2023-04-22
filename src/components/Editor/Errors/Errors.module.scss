@@ -7,18 +7,4 @@
   height: var(--editor-height);
   width: calc(100% - 10px);
   overflow-y: hidden;
-
-  .error {
-    height: 20px;
-    pointer-events: all;
-    cursor: pointer;
-    color: var(--color-black);
-    background-color: rgba(#ff7878, 0.6);
-    padding-left: 15px;
-    padding-right: 5px;
-    line-height: 1.25;
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-  }
 }

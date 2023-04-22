@@ -11,7 +11,7 @@ import {
 
 import debounce from 'lodash.debounce';
 
-import { Tooltip } from '@mui/material';
+import Error from './Error/Error';
 
 import styles from './Errors.module.scss';
 
@@ -133,29 +133,16 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div ref={ref} className={styles.errors}>
       {errors.map((error, index) => (
-        <Tooltip
-          key={index}
-          placement='top'
-          title={`ERROR [Ln:${error.line}]: ${error.description}`}
-          arrow
-        >
-          <div
-            className={styles.error}
-            style={{
-              top: `${(error.line - 1) * 20 - index * 20}px`,
-            }}
-          >
-            <span></span>
-          </div>
-        </Tooltip>
+        <Error key={error.line} error={error} index={index} />
       ))}
       <div
-        className={styles.error}
         style={{
+          height: '20px',
+          position: 'relative',
           top: `1e6px`,
         }}
       >
-        end of errors
+        <span></span>
       </div>
     </div>
   );
