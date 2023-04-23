@@ -36,7 +36,10 @@ const QuickFixByCode = (error: IError) => {
   };
 
   const onEdit = () => {
-    const editedLine = window.prompt('Edit a clause:', error.damaged);
+    const editedLine = window.prompt(
+      'Clause example: 1 2 3 4 0',
+      error.damaged
+    );
 
     if (editedLine) {
       if (editedLine === error.damaged) {
@@ -124,9 +127,7 @@ const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
       } else if (errorInfoArrowPos + errorInfoWidth > 1008) {
         errorInfoRef.current.style.right = '0px';
       } else {
-        errorInfoRef.current.style.left = `${
-          cursorX - 6 - Math.ceil(errorInfoWidth / 2)
-        }px`;
+        errorInfoRef.current.style.left = `${errorInfoArrowPos - 6}px`;
       }
     }
   }, []);
@@ -142,7 +143,11 @@ const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
       <span>{error.damaged === '' ? 'Line is empty here' : error.damaged}</span>
       <span>{`ERR[Ln:${error.line},Code:${error.errorCode}] -> ${error.description}`}</span>
       <span className={styles.quickFix}>
-        {`Quick ${error.errorCode === 3 ? 'fixes are' : 'fix is'} available: `}
+        {`Quick ${
+          error.errorCode === 3 || error.errorCode === 4
+            ? 'fixes are'
+            : 'fix is'
+        } available: `}
         {QuickFixByCode(error)}
       </span>
       <span
