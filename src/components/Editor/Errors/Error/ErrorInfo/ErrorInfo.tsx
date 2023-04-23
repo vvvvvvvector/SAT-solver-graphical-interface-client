@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useAppDispatch } from '../../../../../redux/hooks/hooks';
@@ -14,6 +14,18 @@ import styles from './ErrorInfo.module.scss';
 
 const QuickFixByCode = (error: IError) => {
   const dispatch = useAppDispatch();
+
+  const onReplace = () => {
+    const splitedDescription = error.description.split(' ');
+    const firstFormulaDefinitionLine =
+      +splitedDescription[splitedDescription.length - 1];
+
+    dispatch(
+      editLine({ line: firstFormulaDefinitionLine, editedLine: error.damaged })
+    );
+
+    dispatch(deleteLine(error.line));
+  };
 
   const onDelete = () => {
     dispatch(deleteLine(error.line));
@@ -62,19 +74,54 @@ const QuickFixByCode = (error: IError) => {
         </>
       );
     case 4:
-      return <button onClick={onDelete}>delete</button>;
+      return (
+        <>
+          <button onClick={onReplace}>replace</button>
+          <button
+            style={{
+              marginLeft: '12px',
+            }}
+            onClick={onDelete}
+          >
+            delete
+          </button>
+        </>
+      );
+
     default:
       return <span>No quick fix available</span>;
   }
 };
 
 interface ErrorInfoProps {
+  cursorX: number;
   error: IError;
 }
 
-const ErrorInfo: FC<ErrorInfoProps> = ({ error }) => {
+const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
+  let errorInfoRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (errorInfoRef.current) {
+      const errorInfoWidth = errorInfoRef.current.getBoundingClientRect().width;
+
+      const errorInfoArrowPos = cursorX - Math.ceil(errorInfoWidth / 2);
+
+      if (errorInfoArrowPos < 0) {
+        errorInfoRef.current.style.left = '0px';
+      } else if (errorInfoArrowPos + errorInfoWidth > 1008) {
+        errorInfoRef.current.style.right = '0px';
+      } else {
+        errorInfoRef.current.style.left = `${
+          cursorX - 6 - Math.ceil(errorInfoWidth / 2)
+        }px`;
+      }
+    }
+  }, []);
+
   return (
     <div
+      ref={errorInfoRef}
       style={{
         top: `${error.line < 7 ? 20 : -116}px`,
       }}
