@@ -14,14 +14,24 @@ interface ErrorProps {
 const Error: FC<ErrorProps> = ({ error, index }) => {
   const interval = useRef<number>(0);
 
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  const cursorPosition = useRef<number>(0);
+
   const [isOpened, setIsOpened] = useState(false);
 
   return (
     <div
-      onMouseEnter={() => {
+      ref={errorRef}
+      onMouseEnter={(event: React.MouseEvent<HTMLDivElement>) => {
         interval.current = setTimeout(() => {
+          if (errorRef.current) {
+            cursorPosition.current =
+              event.clientX - errorRef.current.getBoundingClientRect().left;
+          }
+
           setIsOpened(true);
-        }, 350);
+        }, 300);
       }}
       onMouseLeave={() => {
         clearTimeout(interval.current);
@@ -32,7 +42,7 @@ const Error: FC<ErrorProps> = ({ error, index }) => {
         top: `${(error.line - 1) * 20 - index * 20}px`,
       }}
     >
-      {isOpened && <ErrorInfo error={error} />}
+      {isOpened && <ErrorInfo cursorX={cursorPosition.current} error={error} />}
     </div>
   );
 };
