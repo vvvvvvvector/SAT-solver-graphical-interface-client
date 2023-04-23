@@ -1,6 +1,7 @@
 import { FC, forwardRef } from 'react';
 
-import { useAppSelector } from '../../redux/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks';
+import { deleteLine, editLine } from '../../redux/slices/editor';
 
 import { TableVirtuoso } from 'react-virtuoso';
 
@@ -12,7 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { ButtonGroup } from '@mui/material';
+import { Button, ButtonGroup } from '@mui/material';
 
 import { AddZero, DeleteLine, EditLine } from './Buttons';
 
@@ -21,9 +22,28 @@ import { IError } from '../../shared/types';
 import styles from './ErrorsList.module.scss';
 
 const ButtonByErrorCode = (error: IError) => {
+  const dispatch = useAppDispatch();
+
+  const onReplace = () => {
+    const splitedDescription = error.description.split(' ');
+    const firstFormulaDefinitionLine =
+      +splitedDescription[splitedDescription.length - 1];
+
+    dispatch(
+      editLine({ line: firstFormulaDefinitionLine, editedLine: error.damaged })
+    );
+
+    dispatch(deleteLine(error.line));
+  };
+
   switch (error.errorCode) {
     case 0:
-      return <DeleteLine line={error.line} />;
+      return (
+        <ButtonGroup>
+          <EditLine damaged={error.damaged} line={error.line} />
+          <DeleteLine line={error.line} />
+        </ButtonGroup>
+      );
     case 1:
       return <EditLine damaged={error.damaged} line={error.line} />;
     case 2:
@@ -36,7 +56,19 @@ const ButtonByErrorCode = (error: IError) => {
         </ButtonGroup>
       );
     case 4:
-      return <DeleteLine line={error.line} />;
+      return (
+        <ButtonGroup>
+          <Button
+            onClick={onReplace}
+            sx={{ width: '150px' }}
+            size='small'
+            variant='outlined'
+          >
+            replace
+          </Button>
+          <DeleteLine line={error.line} />
+        </ButtonGroup>
+      );
   }
 };
 
