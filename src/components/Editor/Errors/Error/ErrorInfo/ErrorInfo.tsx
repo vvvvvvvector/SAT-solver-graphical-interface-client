@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, useLayoutEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useAppDispatch } from '../../../../../redux/hooks/hooks';
@@ -54,7 +54,19 @@ const QuickFixByCode = (error: IError) => {
 
   switch (error.errorCode) {
     case 0:
-      return <button onClick={onDelete}>delete empty</button>;
+      return (
+        <>
+          <button onClick={onEdit}>edit</button>
+          <button
+            style={{
+              marginLeft: '12px',
+            }}
+            onClick={onDelete}
+          >
+            delete
+          </button>
+        </>
+      );
     case 1:
       return <button onClick={onEdit}>edit</button>;
     case 2:
@@ -101,7 +113,7 @@ interface ErrorInfoProps {
 const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
   let errorInfoRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (errorInfoRef.current) {
       const errorInfoWidth = errorInfoRef.current.getBoundingClientRect().width;
 
