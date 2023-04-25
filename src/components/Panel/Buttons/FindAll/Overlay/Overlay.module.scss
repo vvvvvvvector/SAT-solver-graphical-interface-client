@@ -1,8 +1,10 @@
 .dialog {
+  border: 1px solid var(--formula-solutions-border-color);
+  border-bottom-width: 3px;
+  background-color: var(--formula-solutions-background-color);
   max-width: 240px;
   width: 100%;
   border-radius: 25px;
-  background-color: var(--color-white);
   display: flex;
   flex-direction: column;
   gap: 40px;
