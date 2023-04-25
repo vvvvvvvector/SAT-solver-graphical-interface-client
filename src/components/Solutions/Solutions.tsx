@@ -37,37 +37,6 @@ export const Solutions: FC = () => {
     });
   }, [solutions]);
 
-  const handleSaveSolution = (solutionIndex: number) => {
-    if (
-      window.confirm(
-        `Do you really want to save solution ${solutionIndex + 1} to a file?`
-      )
-    ) {
-      const filename = window.prompt('Enter a filename: ');
-
-      if (filename) {
-        let result =
-          'Solution was found: ' + new Date().toLocaleString() + '\n\n';
-
-        solutions[solutionIndex].forEach((variable, index) => {
-          result += `x_${Math.abs(variable)} = ${
-            variable > 0 ? 'True' : 'False'
-          } ${solutions[solutionIndex].length - 1 > index ? '\n' : ''}`;
-        });
-
-        const blob = new Blob([result], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-
-        link.download = `${filename}.txt`;
-        link.href = url;
-        link.click();
-
-        toast.success('Solution was successfully saved!');
-      }
-    }
-  };
-
   return (
     <>
       <SolutionsHeader />
@@ -82,7 +51,7 @@ export const Solutions: FC = () => {
                     <Solution
                       key={solutionIndex}
                       solution={solution}
-                      onClickSolution={() => handleSaveSolution(solutionIndex)}
+                      solutionIndex={solutionIndex}
                     />
                   ))}
               </div>

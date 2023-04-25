@@ -1,33 +1,40 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import VariableValue from './VariableValue/VariableValue';
-
-import SaveAsIcon from '@mui/icons-material/SaveAs';
+import FullSolution from './FullSolution/FullSolution';
 
 import styles from './Solution.module.scss';
 
 interface SolutionProps {
   solution: number[];
-  onClickSolution: () => void;
+  solutionIndex: number;
 }
 
-const Solution: FC<SolutionProps> = ({ solution, onClickSolution }) => {
+const Solution: FC<SolutionProps> = ({ solution, solutionIndex }) => {
+  const [isOpened, setIsOpened] = useState(false);
+
   return (
-    <div className={styles.container}>
-      <div className={`${styles.solutions} hide-scrollbars`}>
-        {solution.map((value, valueIndex) => (
-          <VariableValue key={valueIndex} value={value} />
-        ))}
-      </div>
-      <button onClick={onClickSolution}>
-        <SaveAsIcon
-          sx={{
-            color: '#d5d5d5',
-            fontSize: '1.2rem',
-          }}
+    <>
+      {isOpened && (
+        <FullSolution
+          solution={solution}
+          solutionIndex={solutionIndex}
+          isOpened={isOpened}
+          setIsOpened={setIsOpened}
         />
-      </button>
-    </div>
+      )}
+      <div className={styles.container}>
+        <div
+          onClick={() => setIsOpened(true)}
+          className={`${styles.solutions} hide-scrollbars`}
+        >
+          {solution.slice(0, 7).map((value, valueIndex) => (
+            <VariableValue key={valueIndex} value={value} />
+          ))}
+          {solution.length > 7 && <span>...</span>}
+        </div>
+      </div>
+    </>
   );
 };
 
