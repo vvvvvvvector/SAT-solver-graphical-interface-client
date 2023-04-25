@@ -15,6 +15,20 @@ $popup-color: #e5e5e5;
   position: absolute;
   // left: 275px;
 
+  animation-duration: 0.23s;
+  animation-name: animate-pop;
+  animation-timing-function: cubic-bezier(0.26, 0.53, 0.74, 1.48);
+
+  @keyframes animate-pop {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
   span {
     height: 23px;
     color: hsl(0, 0%, 32%);
