@@ -19,6 +19,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
   const dispatch = useAppDispatch();
 
   const formulaDefinitionRow = useRef(0);
+  const variablesRange = useRef(-1);
   const isFormulaDefined = useRef(false);
 
   const { dimacs, errors } = useAppSelector((state) => state.editor);
@@ -78,6 +79,21 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
     );
   };
 
+  const addVariableNotInDefinedRangeError = (
+    line: number,
+    damaged: string,
+    variable: number
+  ) => {
+    dispatch(
+      addError({
+        line,
+        errorCode: 5,
+        description: `Wrong varible value: ${variable} => range[1..${variablesRange.current}]`,
+        damaged,
+      })
+    );
+  };
+
   const verify = useCallback(
     debounce((dimacs: string) => {
       const lines = dimacs.split('\n');
@@ -88,9 +104,24 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
           return;
         }
 
+        const lineVariablesArray: number[] = line
+          .split(' ')
+          .filter((item) => item !== '')
+          .map((item) => +item);
+
         if (line.match(/^p\scnf\s.*$/) && !isFormulaDefined.current) {
           isFormulaDefined.current = true;
+          variablesRange.current = lineVariablesArray[2];
           formulaDefinitionRow.current = index + 1;
+          return;
+        }
+
+        for (let variable of lineVariablesArray) {
+          const variableAbs = Math.abs(variable);
+          if (variableAbs > variablesRange.current) {
+            addVariableNotInDefinedRangeError(index + 1, line, variableAbs);
+            return;
+          }
         }
 
         if (line === '' && index !== lines.length - 1) {

@@ -102,6 +102,8 @@ const QuickFixByCode = (error: IError) => {
           </button>
         </>
       );
+    case 5:
+      return <button onClick={onEdit}>edit</button>;
 
     default:
       return <span>No quick fix available</span>;
