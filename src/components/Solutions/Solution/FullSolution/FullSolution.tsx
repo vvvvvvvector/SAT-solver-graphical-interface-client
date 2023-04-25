@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { Backdrop, Button } from '@mui/material';
@@ -20,9 +20,27 @@ const FullSolution: FC<FullSolutionProps> = ({
   isOpened,
   setIsOpened,
 }) => {
+  const isFirstRender = useRef(false);
+  const fullSolutionRef = useRef<HTMLDivElement>(null);
+
   const [fullSolution, setFullSolution] = useState('');
 
   useEffect(() => {
+    const onClickOutside = (event: MouseEvent) => {
+      if (isFirstRender.current) {
+        if (
+          fullSolutionRef.current &&
+          !event.composedPath().includes(fullSolutionRef.current)
+        ) {
+          setIsOpened(false);
+        }
+      }
+      isFirstRender.current = true;
+    };
+
+    document.body.addEventListener('click', onClickOutside);
+    document.body.style.overflow = 'hidden';
+
     let result = '';
 
     solution.forEach((variable, index) => {
@@ -32,6 +50,11 @@ const FullSolution: FC<FullSolutionProps> = ({
     });
 
     setFullSolution(result);
+
+    return () => {
+      document.body.style.overflow = 'scroll';
+      document.body.removeEventListener('click', onClickOutside);
+    };
   }, []);
 
   const onClickSaveBinary = () => {
@@ -65,7 +88,7 @@ const FullSolution: FC<FullSolutionProps> = ({
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
       open={isOpened}
     >
-      <div className={styles.overlay}>
+      <div ref={fullSolutionRef} className={styles.fullSolution}>
         <CloseIcon
           className={styles.closeIcon}
           onClick={() => setIsOpened(false)}
