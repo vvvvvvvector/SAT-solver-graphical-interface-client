@@ -88,7 +88,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
       addError({
         line,
         errorCode: 5,
-        description: `Wrong varible value: ${variable} => range[1..${variablesRange.current}]`,
+        description: `Wrong variable value: ${variable} => range[1..${variablesRange.current}]`,
         damaged,
       })
     );
