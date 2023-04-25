@@ -69,6 +69,11 @@ const ButtonByErrorCode = (error: IError) => {
           <DeleteLine line={error.line} />
         </ButtonGroup>
       );
+    case 5:
+      return <EditLine damaged={error.damaged} line={error.line} />;
+
+    default:
+      return <span>No quick fix available</span>;
   }
 };
 
