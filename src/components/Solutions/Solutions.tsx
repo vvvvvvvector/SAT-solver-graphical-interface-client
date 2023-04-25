@@ -51,7 +51,7 @@ export const Solutions: FC = () => {
                     <Solution
                       key={solutionIndex}
                       solution={solution}
-                      solutionIndex={solutionIndex}
+                      solutionIndex={solutionIndex + page}
                     />
                   ))}
               </div>
