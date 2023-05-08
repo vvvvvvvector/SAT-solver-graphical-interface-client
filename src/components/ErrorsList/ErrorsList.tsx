@@ -21,9 +21,7 @@ import { IError } from '../../shared/types';
 
 import styles from './ErrorsList.module.scss';
 
-const ButtonByErrorCode = (error: IError) => {
-  const dispatch = useAppDispatch();
-
+const ButtonByErrorCode = (error: IError, dispatch: any) => {
   const onReplace = () => {
     const splitedDescription = error.description.split(' ');
     const firstFormulaDefinitionLine =
@@ -89,6 +87,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export const ErrorsList: FC = () => {
+  const dispatch = useAppDispatch();
+
   const errors = useAppSelector((state) => state.editor.errors);
 
   return (
@@ -175,7 +175,7 @@ export const ErrorsList: FC = () => {
                   </span>
                 </StyledTableCell>
                 <StyledTableCell align='center'>
-                  {ButtonByErrorCode(error)}
+                  {ButtonByErrorCode(error, dispatch)}
                 </StyledTableCell>
               </>
             )}

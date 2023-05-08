@@ -111,16 +111,20 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
 
         if (line.match(/^p\scnf\s.*$/) && !isFormulaDefined.current) {
           isFormulaDefined.current = true;
-          variablesRange.current = lineVariablesArray[2];
+          variablesRange.current = lineVariablesArray[2]; // definition line -> undefined undefined variablesRange clausesNumber
           formulaDefinitionRow.current = index + 1;
-          return;
         }
 
-        for (let variable of lineVariablesArray) {
-          const variableAbs = Math.abs(variable);
-          if (variableAbs > variablesRange.current) {
-            addVariableNotInDefinedRangeError(index + 1, line, variableAbs);
-            return;
+        if (variablesRange.current > 0) {
+          for (let variable of lineVariablesArray) {
+            const variableAbs = Math.abs(variable);
+            if (
+              variableAbs > variablesRange.current &&
+              !line.match(/^p\scnf\s.*$/)
+            ) {
+              addVariableNotInDefinedRangeError(index + 1, line, variableAbs);
+              return; // will not check the rest of the line for this error type, only the first one
+            }
           }
         }
 
