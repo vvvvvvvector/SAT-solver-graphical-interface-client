@@ -12,12 +12,10 @@ export const Problems: FC = () => {
   const errors = useAppSelector((state) => state.editor.errors);
 
   useEffect(() => {
-    setIsOpened(false);
-
     return () => {
       setIsOpened(false);
     };
-  }, [errors]);
+  }, []);
 
   return (
     <>
