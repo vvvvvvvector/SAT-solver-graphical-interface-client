@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  Editor,
-  Panel,
-  Formula,
-  Solutions,
-  ErrorsList,
-} from '../../components';
+import { Editor, Panel, Formula, Solutions, Problems } from '../../components';
 
 import styles from './Home.module.scss';
 
@@ -15,7 +9,7 @@ const Home: React.FC = () => {
     <div className={styles.container}>
       <section className={styles.content}>
         <Editor />
-        <ErrorsList />
+        <Problems />
         <Panel />
         <Solutions />
         <Formula />

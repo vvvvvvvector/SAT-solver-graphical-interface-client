@@ -1,0 +1,32 @@
+.errors {
+  margin-bottom: 30px;
+
+  .header {
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: rgba(#ff7878, 0.2);
+    border-bottom: 3px solid rgba(#ff7878, 0.5);
+    border-bottom-width: 3px;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.025);
+    }
+
+    span {
+      font-size: 21px;
+      font-weight: bolder;
+      color: var(--color-black);
+    }
+
+    span:last-of-type:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}
