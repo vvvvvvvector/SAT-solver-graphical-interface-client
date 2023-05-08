@@ -25,33 +25,39 @@ const QuickFixByCode = (error: IError) => {
     );
 
     dispatch(deleteLine(error.line));
+
+    toast.success('Line was successfully replaced!');
   };
 
   const onDelete = () => {
     dispatch(deleteLine(error.line));
+
+    toast.success('Line was successfully deleted!');
   };
 
   const onAddZero = () => {
     dispatch(addZero(error.line));
+
+    toast.success('Zero was successfully added!');
   };
 
   const onEdit = () => {
     const editedLine = window.prompt(
-      'Clause example: 1 2 3 4 0',
+      'Line edit mode:\n\n-> Right formula def. example: p cnf <variables n> <clauses k>, where n & k > 0\n\n-> Right clause example: 1 2 3 4 0',
       error.damaged
     );
 
     if (editedLine) {
       if (editedLine === error.damaged) {
-        toast.error('You have to write something instead of the same line!');
+        toast.error('You must write something instead of the same line!');
         return;
       }
 
       dispatch(editLine({ line: error.line, editedLine }));
 
-      toast.success('Clause was edited successfully!');
+      toast.success('Line was successfully edited!');
     } else {
-      toast.error('You have to write something instead of empty line!');
+      toast.error('You must write something instead of an empty line!');
     }
   };
 
@@ -59,51 +65,51 @@ const QuickFixByCode = (error: IError) => {
     case 0:
       return (
         <>
+          {'Fix propositions: '}
+          <button onClick={onDelete}>delete</button>
+          {' | '}
           <button onClick={onEdit}>edit</button>
-          <button
-            style={{
-              marginLeft: '12px',
-            }}
-            onClick={onDelete}
-          >
-            delete
-          </button>
         </>
       );
     case 1:
-      return <button onClick={onEdit}>edit</button>;
+      return (
+        <>
+          {'Fix proposition: '}
+          <button onClick={onEdit}>edit</button>
+        </>
+      );
     case 2:
-      return <button onClick={onAddZero}>add zero</button>;
+      return (
+        <>
+          {'Quick fix is available: '}
+          <button onClick={onAddZero}>add zero</button>
+        </>
+      );
     case 3:
       return (
         <>
+          {'Fix propositions: '}
           <button onClick={onEdit}>edit</button>
-          <button
-            style={{
-              marginLeft: '12px',
-            }}
-            onClick={onDelete}
-          >
-            delete
-          </button>
+          {' | '}
+          <button onClick={onDelete}>delete</button>
         </>
       );
     case 4:
       return (
         <>
+          {'Fix propositions: '}
           <button onClick={onReplace}>replace</button>
-          <button
-            style={{
-              marginLeft: '12px',
-            }}
-            onClick={onDelete}
-          >
-            delete
-          </button>
+          {' | '}
+          <button onClick={onDelete}>delete</button>
         </>
       );
     case 5:
-      return <button onClick={onEdit}>edit</button>;
+      return (
+        <>
+          {'Fix proposition: '}
+          <button onClick={onEdit}>edit</button>
+        </>
+      );
 
     default:
       return <span>No quick fix available</span>;
@@ -143,15 +149,10 @@ const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
       className={styles.errorInfo}
     >
       <span>{error.damaged === '' ? 'Line is empty here' : error.damaged}</span>
+      <div className={styles.firstDiv}></div>
       <span>{`ERR[Ln:${error.line},Code:${error.errorCode}] -> ${error.description}`}</span>
-      <span className={styles.quickFix}>
-        {`Quick ${
-          error.errorCode === 3 || error.errorCode === 4
-            ? 'fixes are'
-            : 'fix is'
-        } available: `}
-        {QuickFixByCode(error)}
-      </span>
+      <div className={styles.secondDiv}></div>
+      <span className={styles.quickFix}>{QuickFixByCode(error)}</span>
       <span
         style={
           error.line < 7

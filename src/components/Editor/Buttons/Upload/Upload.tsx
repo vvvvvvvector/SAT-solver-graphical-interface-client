@@ -46,7 +46,7 @@ export const Upload: FC = () => {
   };
 
   return (
-    <Tooltip title='Upload formula' arrow>
+    <Tooltip title='Upload the formula' arrow>
       <IconButton color='primary' component='label'>
         <input
           hidden

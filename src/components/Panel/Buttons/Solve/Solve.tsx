@@ -32,6 +32,8 @@ export const Solve: FC<SolveProps> = ({ solver }) => {
   const { dimacs, errors } = useAppSelector((state) => state.editor);
 
   const onClickSolve = async () => {
+    const id = toast.loading('Solving...');
+
     try {
       setLoading(true);
 
@@ -56,27 +58,27 @@ export const Solve: FC<SolveProps> = ({ solver }) => {
         dispatch(clearSolutions());
         dispatch(setSolution(data.first_solution));
 
-        toast.success('Satisfiable!');
+        toast.success('Satisfiable!', { id });
       } else {
         dispatch(setFormula(data.clauses));
         dispatch(clearSolutions());
 
-        toast.error('Unsatisfiable!');
+        toast.error('Unsatisfiable!', { id });
       }
     } catch (error: any) {
       setLoading(false);
 
       if (error.response.status === 418) {
         // Wrong number of clauses
-        toast.error(error.response.data.detail);
+        toast.error(error.response.data.detail, { id });
       } else if (error.response.status === 419) {
         // Wrong variable value
-        toast.error(error.response.data.detail);
+        toast.error(error.response.data.detail, { id });
       } else if (error.response.status === 420) {
         // No formula definition
-        toast.error(error.response.data.detail);
+        toast.error(error.response.data.detail, { id });
       } else {
-        toast.error('Something went wrong!');
+        toast.error('Something went wrong!', { id });
       }
 
       console.error(error);

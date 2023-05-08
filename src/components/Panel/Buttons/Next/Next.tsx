@@ -30,6 +30,8 @@ export const Next: FC<NextProps> = ({ solver }) => {
   const { dimacs, errors } = useAppSelector((state) => state.editor);
 
   const onClickNext = async () => {
+    const id = toast.loading('Solving...');
+
     try {
       setLoading(true);
 
@@ -55,13 +57,13 @@ export const Next: FC<NextProps> = ({ solver }) => {
 
         dispatch(setSolution(data.next_solution));
 
-        toast.success('Next solution was successfully found!');
+        toast.success('Next solution was successfully found!', { id });
       } else {
-        toast.error('There are no more solutions!');
+        toast.error('There are no more solutions!', { id });
       }
     } catch (error) {
       setLoading(false);
-      toast.error('Something went wrong!');
+      toast.error('Something went wrong!', { id });
       console.error('Something went wrong!', error);
     }
   };

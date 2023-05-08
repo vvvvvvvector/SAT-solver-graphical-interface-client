@@ -39,15 +39,25 @@ $popup-color: #e5e5e5;
       cursor: pointer;
       font-family: var(--font-source-code-pro);
       font-size: 16px;
-      color: hsl(0, 0%, 32%);
+      color: hsl(210, 79%, 46%);
       background-color: transparent;
       border: none;
 
       &:hover {
         text-decoration: underline;
-        color: hsl(0, 0%, 20%);
+        color: hsl(210, 79%, 30%);
       }
     }
+  }
+
+  .firstDiv {
+    background-color: hsl(0, 0%, 80%);
+    height: 1px;
+  }
+
+  .secondDiv {
+    background-color: hsl(0, 0%, 80%);
+    height: 1px;
   }
 
   span:first-child {

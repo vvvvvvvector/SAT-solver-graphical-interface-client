@@ -27,7 +27,7 @@ export const Save: FC = () => {
   };
 
   return dimacs.length ? (
-    <Tooltip title='Save formula to a file' arrow>
+    <Tooltip title='Save the formula to a file' arrow>
       <IconButton onClick={onClickSave} color='primary'>
         <FileDownloadOutlinedIcon color='primary' />
       </IconButton>
