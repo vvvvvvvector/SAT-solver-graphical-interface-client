@@ -16,10 +16,10 @@ import { Button, ButtonGroup } from '@mui/material';
 
 import { AddZero, DeleteLine, EditLine } from '../Buttons';
 
-import { IError } from '../../../shared/types';
+import { ErrorsMap, IError } from '../../../shared/types';
 import { useAppDispatch } from '../../../redux/hooks/hooks';
 
-const ButtonByErrorCode = (error: IError, dispatch: any) => {
+const ButtonByErrorCode = (line: number, error: IError, dispatch: any) => {
   const onReplace = () => {
     const splitedDescription = error.description.split(' ');
     const firstFormulaDefinitionLine =
@@ -29,26 +29,26 @@ const ButtonByErrorCode = (error: IError, dispatch: any) => {
       editLine({ line: firstFormulaDefinitionLine, editedLine: error.damaged })
     );
 
-    dispatch(deleteLine(error.line));
+    dispatch(deleteLine(line));
   };
 
   switch (error.errorCode) {
     case 0:
       return (
         <ButtonGroup>
-          <EditLine damaged={error.damaged} line={error.line} />
-          <DeleteLine line={error.line} />
+          <EditLine damaged={error.damaged} line={line} />
+          <DeleteLine line={line} />
         </ButtonGroup>
       );
     case 1:
-      return <EditLine damaged={error.damaged} line={error.line} />;
+      return <EditLine damaged={error.damaged} line={line} />;
     case 2:
-      return <AddZero line={error.line} />;
+      return <AddZero line={line} />;
     case 3:
       return (
         <ButtonGroup>
-          <EditLine damaged={error.damaged} line={error.line} />
-          <DeleteLine line={error.line} />
+          <EditLine damaged={error.damaged} line={line} />
+          <DeleteLine line={line} />
         </ButtonGroup>
       );
     case 4:
@@ -62,11 +62,11 @@ const ButtonByErrorCode = (error: IError, dispatch: any) => {
           >
             replace
           </Button>
-          <DeleteLine line={error.line} />
+          <DeleteLine line={line} />
         </ButtonGroup>
       );
     case 5:
-      return <EditLine damaged={error.damaged} line={error.line} />;
+      return <EditLine damaged={error.damaged} line={line} />;
 
     default:
       return <span>No quick fix available</span>;
@@ -85,7 +85,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 interface ErrorsTableProps {
-  errors: IError[];
+  errors: ErrorsMap;
 }
 
 const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
@@ -114,7 +114,7 @@ const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
           // border: '1px solid #eaeaea',
         }}
         className='hide-scrollbars'
-        data={errors}
+        data={Object.entries(errors)}
         components={{
           Scroller: forwardRef<HTMLDivElement>((props, ref) => (
             <TableContainer component={Paper} {...props} ref={ref} />
@@ -161,9 +161,9 @@ const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
             </StyledTableCell>
           </TableRow>
         )}
-        itemContent={(_: number, error: IError) => (
+        itemContent={(_: number, [line, error]: [string, IError]) => (
           <>
-            <StyledTableCell align='center'>{`${error.description} [Ln:${error.line},Cd:${error.errorCode}]`}</StyledTableCell>
+            <StyledTableCell align='center'>{`${error.description} [Ln:${line},Cd:${error.errorCode}]`}</StyledTableCell>
             <StyledTableCell
               sx={{
                 whiteSpace: 'nowrap',
@@ -184,7 +184,7 @@ const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
               </span>
             </StyledTableCell>
             <StyledTableCell align='center'>
-              {ButtonByErrorCode(error, dispatch)}
+              {ButtonByErrorCode(+line, error, dispatch)}
             </StyledTableCell>
           </>
         )}

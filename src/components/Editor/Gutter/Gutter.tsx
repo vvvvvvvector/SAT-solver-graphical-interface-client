@@ -5,7 +5,7 @@ import { useAppSelector } from '../../../redux/hooks/hooks';
 import styles from './Gutter.module.scss';
 
 const Gutter = forwardRef<HTMLDivElement>((_, ref) => {
-  const { dimacs } = useAppSelector((state) => state.editor);
+  const { dimacs, errors } = useAppSelector((state) => state.editor);
 
   const length = useMemo(() => dimacs.split('\n').length, [dimacs]);
 
@@ -14,7 +14,7 @@ const Gutter = forwardRef<HTMLDivElement>((_, ref) => {
       <div>
         {[...Array(length)].map((_, index) => (
           <div className={styles.gutterCell} key={index}>
-            {`${index + 1}`}
+            {`${errors[index + 1] ? '!' : ''} ${index + 1}`}
           </div>
         ))}
       </div>

@@ -28,9 +28,11 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
     dispatch(
       addError({
         line,
-        errorCode: 0,
-        description: 'no empty lines allowed',
-        damaged,
+        err: {
+          errorCode: 0,
+          description: 'no empty lines allowed',
+          damaged,
+        },
       })
     );
   };
@@ -39,9 +41,11 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
     dispatch(
       addError({
         line,
-        errorCode: 1,
-        description: 'invalid formula definition',
-        damaged,
+        err: {
+          errorCode: 1,
+          description: 'invalid formula definition',
+          damaged,
+        },
       })
     );
   };
@@ -50,9 +54,11 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
     dispatch(
       addError({
         line,
-        errorCode: 2,
-        description: 'clause must end with 0',
-        damaged,
+        err: {
+          errorCode: 2,
+          description: 'clause must end with 0',
+          damaged,
+        },
       })
     );
   };
@@ -61,9 +67,11 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
     dispatch(
       addError({
         line,
-        errorCode: 3,
-        description: 'invalid clause',
-        damaged,
+        err: {
+          errorCode: 3,
+          description: 'invalid clause',
+          damaged,
+        },
       })
     );
   };
@@ -72,9 +80,11 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
     dispatch(
       addError({
         line,
-        errorCode: 4,
-        description: `formula was already defined in line ${formulaDefinitionRow.current}`,
-        damaged,
+        err: {
+          errorCode: 4,
+          description: `formula was already defined in line ${formulaDefinitionRow.current}`,
+          damaged,
+        },
       })
     );
   };
@@ -87,9 +97,11 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
     dispatch(
       addError({
         line,
-        errorCode: 5,
-        description: `Wrong variable value: ${variable} => range[1..${variablesRange.current}]`,
-        damaged,
+        err: {
+          errorCode: 5,
+          description: `Wrong variable value: ${variable} => range[1..${variablesRange.current}]`,
+          damaged,
+        },
       })
     );
   };
@@ -100,7 +112,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
 
       lines.forEach((line, index) => {
         if (line.startsWith('c')) {
-          dispatch(removeError({ line: index + 1, length: lines.length }));
+          dispatch(removeError(index + 1));
           return;
         }
 
@@ -151,7 +163,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
         ) {
           addFormulaAlreadyDefinedError(index + 1, line);
         } else {
-          dispatch(removeError({ line: index + 1, length: lines.length }));
+          dispatch(removeError(index + 1));
         }
       });
     }, 50),
@@ -167,8 +179,8 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
 
   return (
     <div ref={ref} className={styles.errors}>
-      {errors.map((error, index) => (
-        <Error key={error.line} error={error} index={index} />
+      {Object.entries(errors).map(([key, value], index) => (
+        <Error key={key} error={value} line={+key} index={index} />
       ))}
       <div
         style={{

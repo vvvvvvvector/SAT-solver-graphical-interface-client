@@ -7,11 +7,12 @@ import ErrorInfo from './ErrorInfo/ErrorInfo';
 import styles from './Error.module.scss';
 
 interface ErrorProps {
+  line: number;
   error: IError;
   index: number;
 }
 
-const Error: FC<ErrorProps> = ({ error, index }) => {
+const Error: FC<ErrorProps> = ({ line, error, index }) => {
   const interval = useRef<number>(0);
 
   const errorRef = useRef<HTMLDivElement>(null);
@@ -39,10 +40,12 @@ const Error: FC<ErrorProps> = ({ error, index }) => {
       }}
       className={styles.error}
       style={{
-        top: `${(error.line - 1) * 20 - index * 20}px`,
+        top: `${(line - 1) * 20 - index * 20}px`,
       }}
     >
-      {isOpened && <ErrorInfo cursorX={cursorPosition.current} error={error} />}
+      {isOpened && (
+        <ErrorInfo cursorX={cursorPosition.current} error={error} line={line} />
+      )}
     </div>
   );
 };

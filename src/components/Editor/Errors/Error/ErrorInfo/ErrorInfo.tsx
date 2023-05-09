@@ -12,7 +12,7 @@ import { IError } from '../../../../../shared/types';
 
 import styles from './ErrorInfo.module.scss';
 
-const QuickFixByCode = (error: IError) => {
+const QuickFixByCode = (line: number, error: IError) => {
   const dispatch = useAppDispatch();
 
   const onReplace = () => {
@@ -24,15 +24,15 @@ const QuickFixByCode = (error: IError) => {
       editLine({ line: firstFormulaDefinitionLine, editedLine: error.damaged })
     );
 
-    dispatch(deleteLine(error.line));
+    dispatch(deleteLine(line));
   };
 
   const onDelete = () => {
-    dispatch(deleteLine(error.line));
+    dispatch(deleteLine(line));
   };
 
   const onAddZero = () => {
-    dispatch(addZero(error.line));
+    dispatch(addZero(line));
   };
 
   const onEdit = () => {
@@ -47,7 +47,7 @@ const QuickFixByCode = (error: IError) => {
         return;
       }
 
-      dispatch(editLine({ line: error.line, editedLine }));
+      dispatch(editLine({ line, editedLine }));
 
       toast.success('Clause was edited successfully!');
     } else {
@@ -111,11 +111,12 @@ const QuickFixByCode = (error: IError) => {
 };
 
 interface ErrorInfoProps {
+  line: number;
   cursorX: number;
   error: IError;
 }
 
-const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
+const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error, line }) => {
   let errorInfoRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -138,23 +139,23 @@ const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
     <div
       ref={errorInfoRef}
       style={{
-        top: `${error.line < 7 ? 20 : -116}px`,
+        top: `${line < 7 ? 20 : -116}px`,
       }}
       className={styles.errorInfo}
     >
       <span>{error.damaged === '' ? 'Line is empty here' : error.damaged}</span>
-      <span>{`ERR[Ln:${error.line},Code:${error.errorCode}] -> ${error.description}`}</span>
+      <span>{`ERR[Ln:${line},Code:${error.errorCode}] -> ${error.description}`}</span>
       <span className={styles.quickFix}>
         {`Quick ${
           error.errorCode === 3 || error.errorCode === 4
             ? 'fixes are'
             : 'fix is'
         } available: `}
-        {QuickFixByCode(error)}
+        {QuickFixByCode(line, error)}
       </span>
       <span
         style={
-          error.line < 7
+          line < 7
             ? {
                 bottom: '100%',
                 transform: 'rotate(180deg)',
