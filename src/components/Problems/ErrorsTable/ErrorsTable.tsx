@@ -157,7 +157,7 @@ const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
               }}
               align='center'
             >
-              Quick fix 💡
+              Fix proposition 💡
             </StyledTableCell>
           </TableRow>
         )}
