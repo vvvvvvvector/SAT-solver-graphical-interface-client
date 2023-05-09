@@ -112,7 +112,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
 
       lines.forEach((line, index) => {
         if (line.startsWith('c')) {
-          dispatch(removeError(index + 1));
+          dispatch(removeError({ line: index + 1, length: lines.length }));
           return;
         }
 
@@ -163,7 +163,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
         ) {
           addFormulaAlreadyDefinedError(index + 1, line);
         } else {
-          dispatch(removeError(index + 1));
+          dispatch(removeError({ line: index + 1, length: lines.length }));
         }
       });
     }, 50),

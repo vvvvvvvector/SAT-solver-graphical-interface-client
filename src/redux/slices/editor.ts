@@ -32,15 +32,28 @@ export const editorSlice = createSlice({
         };
       }
     },
-    removeError(state, action: PayloadAction<number>) {
-      const error = state.errors[`${action.payload}`];
+    removeError(
+      state,
+      action: PayloadAction<{ line: number; length: number }>
+    ) {
+      const error = state.errors[`${action.payload.line}`];
 
       if (error) {
-        const { [action.payload.toString()]: _, ...withoutElement } =
+        const { [action.payload.line.toString()]: _, ...withoutThisError } =
           state.errors;
 
-        state.errors = withoutElement;
+        state.errors = withoutThisError;
       }
+
+      let filteredErrors: ErrorsMap = {};
+
+      for (const k in state.errors) {
+        if (!(parseInt(k) > action.payload.length)) {
+          filteredErrors = { ...filteredErrors, [k]: state.errors[k] };
+        }
+      }
+
+      state.errors = filteredErrors;
     },
     addZero(state, action: PayloadAction<number>) {
       const lines = state.dimacs.split('\n');

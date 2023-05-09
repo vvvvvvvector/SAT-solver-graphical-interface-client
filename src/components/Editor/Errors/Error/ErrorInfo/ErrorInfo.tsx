@@ -59,51 +59,51 @@ const QuickFixByCode = (line: number, error: IError) => {
     case 0:
       return (
         <>
+          {'Fix propositions: '}
+          <button onClick={onDelete}>delete</button>
+          {' | '}
           <button onClick={onEdit}>edit</button>
-          <button
-            style={{
-              marginLeft: '12px',
-            }}
-            onClick={onDelete}
-          >
-            delete
-          </button>
         </>
       );
     case 1:
-      return <button onClick={onEdit}>edit</button>;
+      return (
+        <>
+          {'Fix proposition: '}
+          <button onClick={onEdit}>edit</button>
+        </>
+      );
     case 2:
-      return <button onClick={onAddZero}>add zero</button>;
+      return (
+        <>
+          {'Quick fix is available: '}
+          <button onClick={onAddZero}>add zero</button>
+        </>
+      );
     case 3:
       return (
         <>
+          {'Fix propositions: '}
           <button onClick={onEdit}>edit</button>
-          <button
-            style={{
-              marginLeft: '12px',
-            }}
-            onClick={onDelete}
-          >
-            delete
-          </button>
+          {' | '}
+          <button onClick={onDelete}>delete</button>
         </>
       );
     case 4:
       return (
         <>
+          {'Fix propositions: '}
           <button onClick={onReplace}>replace</button>
-          <button
-            style={{
-              marginLeft: '12px',
-            }}
-            onClick={onDelete}
-          >
-            delete
-          </button>
+          {' | '}
+          <button onClick={onDelete}>delete</button>
         </>
       );
     case 5:
-      return <button onClick={onEdit}>edit</button>;
+      return (
+        <>
+          {'Fix proposition: '}
+          <button onClick={onEdit}>edit</button>
+        </>
+      );
 
     default:
       return <span>No quick fix available</span>;
@@ -145,14 +145,7 @@ const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error, line }) => {
     >
       <span>{error.damaged === '' ? 'Line is empty here' : error.damaged}</span>
       <span>{`ERR[Ln:${line},Code:${error.errorCode}] -> ${error.description}`}</span>
-      <span className={styles.quickFix}>
-        {`Quick ${
-          error.errorCode === 3 || error.errorCode === 4
-            ? 'fixes are'
-            : 'fix is'
-        } available: `}
-        {QuickFixByCode(line, error)}
-      </span>
+      <span className={styles.quickFix}>{QuickFixByCode(line, error)}</span>
       <span
         style={
           line < 7

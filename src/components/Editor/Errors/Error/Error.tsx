@@ -32,7 +32,7 @@ const Error: FC<ErrorProps> = ({ line, error, index }) => {
           }
 
           setIsOpened(true);
-        }, 250);
+        }, 225);
       }}
       onMouseLeave={() => {
         clearTimeout(interval.current);
