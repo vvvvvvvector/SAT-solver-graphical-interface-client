@@ -75,7 +75,7 @@ export const Next: FC<NextProps> = ({ solver }) => {
         clauses.length === 0 ||
         dimacs === '' ||
         solutions.length === 0 ||
-        errors.length > 0
+        Object.keys(errors).length > 0
       }
       endIcon={<ForwardOutlinedIcon />}
       variant='contained'

@@ -20,7 +20,16 @@ export const editorSlice = createSlice({
       const error = state.errors[`${action.payload.line}`];
 
       if (!error) {
+        // if this error doesn't exist yet
         state.errors[`${action.payload.line}`] = action.payload.err;
+      } else {
+        // rewrite error if it exists
+        state.errors = {
+          ...state.errors,
+          [`${action.payload.line}`]: {
+            ...action.payload.err,
+          },
+        };
       }
     },
     removeError(state, action: PayloadAction<number>) {

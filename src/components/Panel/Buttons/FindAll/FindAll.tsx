@@ -204,7 +204,7 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
     <>
       {solutionsLength > 0 && !isFormulaChanged ? (
         <Button
-          disabled={errors.length > 0 || loading}
+          disabled={Object.keys(errors).length > 0 || loading}
           onClick={onClickFindOther}
           sx={buttonStyle}
           variant='contained'
@@ -214,7 +214,7 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
         </Button>
       ) : (
         <Button
-          disabled={dimacs.length === 0 || errors.length > 0}
+          disabled={dimacs.length === 0 || Object.keys(errors).length > 0}
           onClick={onClickFindAll}
           sx={buttonStyle}
           variant='contained'

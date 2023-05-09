@@ -9,11 +9,7 @@ import styles from './Problems.module.scss';
 export const Problems: FC = () => {
   const [isOpened, setIsOpened] = useState(false);
 
-  const { dimacs, errors } = useAppSelector((state) => state.editor);
-
-  useEffect(() => {
-    setIsOpened(false);
-  }, [dimacs]);
+  const { errors } = useAppSelector((state) => state.editor);
 
   return (
     <>

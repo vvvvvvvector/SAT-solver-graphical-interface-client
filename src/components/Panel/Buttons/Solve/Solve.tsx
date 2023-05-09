@@ -87,7 +87,7 @@ export const Solve: FC<SolveProps> = ({ solver }) => {
     <Button
       sx={buttonStyle}
       onClick={onClickSolve}
-      disabled={loading || dimacs === '' || errors.length > 0}
+      disabled={loading || dimacs === '' || Object.keys(errors).length > 0}
       endIcon={<CalculateOutlinedIcon />}
       variant='contained'
     >
