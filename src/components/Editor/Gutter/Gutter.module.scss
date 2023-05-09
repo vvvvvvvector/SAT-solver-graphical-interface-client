@@ -8,6 +8,8 @@
   padding: 10px;
 
   .gutterCell {
+    display: flex;
+    justify-content: space-between;
     color: var(--color-white);
     font-size: 16px;
     line-height: 1.25;

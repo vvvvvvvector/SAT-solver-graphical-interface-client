@@ -14,7 +14,8 @@ const Gutter = forwardRef<HTMLDivElement>((_, ref) => {
       <div>
         {[...Array(length)].map((_, index) => (
           <div className={styles.gutterCell} key={index}>
-            {`${errors[index + 1] ? '❗️' : ''} ${index + 1}`}
+            <span>{`${errors[index + 1] ? '❗️' : ''}`}</span>
+            <span>{`${index + 1}`}</span>
           </div>
         ))}
       </div>
