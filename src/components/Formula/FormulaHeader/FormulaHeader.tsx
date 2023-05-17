@@ -43,7 +43,9 @@ const FormulaHeader: FC = () => {
             : 'There are no formula so far'}
         </h2>
         <svg
-          className={opened ? styles['opened'] : ''}
+          style={{
+            transform: opened ? 'rotate(0deg)' : 'rotate(180deg)',
+          }}
           width='10'
           height='6'
           viewBox='0 0 10 6'

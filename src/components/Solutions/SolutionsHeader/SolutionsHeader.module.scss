@@ -17,10 +17,6 @@
       margin-left: 10px;
       transition: transform 0.3s ease-in-out;
 
-      &.opened {
-        transform: rotate(180deg);
-      }
-
       path {
         fill: var(--color-black);
       }

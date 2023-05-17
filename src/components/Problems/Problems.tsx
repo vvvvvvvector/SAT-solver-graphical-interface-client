@@ -22,7 +22,9 @@ export const Problems: FC = () => {
                 {isOpened ? 'Hide errors list' : 'Show errors list'}
               </span>
               <svg
-                className={isOpened ? styles.active : ''}
+                style={{
+                  transform: isOpened ? 'rotate(0deg)' : 'rotate(180deg)',
+                }}
                 width='10'
                 height='6'
                 viewBox='0 0 10 6'
