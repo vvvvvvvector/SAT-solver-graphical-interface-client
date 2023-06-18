@@ -50,6 +50,16 @@ $popup-color: #e5e5e5;
     }
   }
 
+  .firstDiv {
+    background-color: hsl(0, 0%, 80%);
+    height: 1px;
+  }
+
+  .secondDiv {
+    background-color: hsl(0, 0%, 80%);
+    height: 1px;
+  }
+
   span:first-child {
     color: var(--color-black);
     max-width: 500px;

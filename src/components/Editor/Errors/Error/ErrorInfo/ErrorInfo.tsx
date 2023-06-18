@@ -143,7 +143,9 @@ const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
       className={styles.errorInfo}
     >
       <span>{error.damaged === '' ? 'Line is empty here' : error.damaged}</span>
+      <div className={styles.firstDiv}></div>
       <span>{`ERR[Ln:${error.line},Code:${error.errorCode}] -> ${error.description}`}</span>
+      <div className={styles.secondDiv}></div>
       <span className={styles.quickFix}>{QuickFixByCode(error)}</span>
       <span
         style={
