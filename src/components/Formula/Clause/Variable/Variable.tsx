@@ -1,18 +1,16 @@
 import { FC } from 'react';
 
-import { IVariable } from '../../../../shared/types';
-
 import styles from './Variable.module.scss';
 
 interface VariableProps {
-  variable: IVariable;
+  index: number;
 }
 
-const Variable: FC<VariableProps> = ({ variable }) => {
+const Variable: FC<VariableProps> = ({ index }) => {
   return (
     <div className={styles.variable}>
-      {variable.index > 0 ? <span>x</span> : <span>&#172;x</span>}
-      <sub>{variable.index > 0 ? variable.index : variable.index * -1}</sub>
+      {index > 0 ? <span>x</span> : <span>&#172;x</span>}
+      <sub>{index > 0 ? index : index * -1}</sub>
     </div>
   );
 };

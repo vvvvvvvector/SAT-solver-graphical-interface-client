@@ -1,9 +1,3 @@
-export interface IVariable {
-  id: number;
-  index: number;
-  clauseId: number;
-}
-
 export interface IClause {
   id: number;
   variables: number[];
