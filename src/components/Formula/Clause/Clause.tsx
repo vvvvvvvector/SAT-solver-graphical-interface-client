@@ -103,9 +103,7 @@ const Clause: FC<ClauseProps> = ({ clause }) => {
             <p>(</p>
             {clause.variables.map((i, index) => (
               <li key={index}>
-                <Variable
-                  variable={{ id: index, index: i, clauseId: clause.id }}
-                />
+                <Variable index={i} />
                 {clause.variables.length - 1 > index && <span>&#8744;</span>}
               </li>
             ))}
