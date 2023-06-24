@@ -25,33 +25,39 @@ const QuickFixByCode = (error: IError) => {
     );
 
     dispatch(deleteLine(error.line));
+
+    toast.success('Line was successfully replaced!');
   };
 
   const onDelete = () => {
     dispatch(deleteLine(error.line));
+
+    toast.success('Line was successfully deleted!');
   };
 
   const onAddZero = () => {
     dispatch(addZero(error.line));
+
+    toast.success('Zero was successfully added!');
   };
 
   const onEdit = () => {
     const editedLine = window.prompt(
-      'Clause example: 1 2 3 4 0',
+      'Line edit mode:\n\n-> Right formula def. example: p cnf <variables n> <clauses k>, where n & k > 0\n\n-> Right clause example: 1 2 3 4 0',
       error.damaged
     );
 
     if (editedLine) {
       if (editedLine === error.damaged) {
-        toast.error('You have to write something instead of the same line!');
+        toast.error('You must write something instead of the same line!');
         return;
       }
 
       dispatch(editLine({ line: error.line, editedLine }));
 
-      toast.success('Clause was edited successfully!');
+      toast.success('Line was successfully edited!');
     } else {
-      toast.error('You have to write something instead of empty line!');
+      toast.error('You must write something instead of an empty line!');
     }
   };
 
