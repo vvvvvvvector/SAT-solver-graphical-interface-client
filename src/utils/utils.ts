@@ -5,7 +5,7 @@ export const lineEndsWithZero = /0\s*$/;
 export const validClause = /^\s*(?:-?[1-9][0-9]*\s+)+0\s*$/;
 
 const calculateVariables = (clauses: IClause[]) => {
-  const variablesSet = new Set();
+  const variablesSet = new Set<number>();
 
   clauses.forEach((clause) => {
     clause.variables.forEach((variable) => {
@@ -13,7 +13,7 @@ const calculateVariables = (clauses: IClause[]) => {
     });
   });
 
-  return variablesSet.size;
+  return Math.max(...variablesSet);
 };
 
 export const parseToDimacs = (clauses: IClause[]) => {
