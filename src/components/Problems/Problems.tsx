@@ -16,7 +16,7 @@ export const Problems: FC = () => {
       {errors.length > 0 ? (
         <div className={styles.errors}>
           <div onClick={() => setIsOpened(!isOpened)} className={styles.header}>
-            <span>{`There are ${errors.length} errors in formula ❗️❗️❗️`}</span>
+            <span>{`There are ${errors.length} errors in the formula ❗️❗️❗️`}</span>
             <div>
               <span onClick={() => setIsOpened(!isOpened)}>
                 {isOpened ? 'Hide errors list' : 'Show errors list'}
