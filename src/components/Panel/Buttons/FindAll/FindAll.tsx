@@ -220,7 +220,7 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
           variant='contained'
           endIcon={<LoopIcon />}
         >
-          Find All
+          Find All Solutions
         </Button>
       )}
       {loading && <Overlay loop={loop} counter={counter} open={open} />}
