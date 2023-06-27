@@ -103,7 +103,7 @@ const FullSolution: FC<FullSolutionProps> = ({
           value={fullSolution}
         />
         <Button onClick={onClickSaveBinary} variant='outlined'>
-          Save in a binary form
+          Save to a file in a 1-0 form
         </Button>
       </div>
     </Backdrop>
