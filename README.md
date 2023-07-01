@@ -3,7 +3,7 @@
 <!-- ![v2.2_3](./public/v2.2_3.png) -->
 <!-- ![v2.2_4](./public/v2.2_4.png) -->
 
-![v2.3](./public/vn_1.png)
+![prod_1](./public/prod_1.png)
 
 # How to uruchomić frontend
 
