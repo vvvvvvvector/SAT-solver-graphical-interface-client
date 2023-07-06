@@ -1,7 +1,7 @@
 import { IClause } from '../shared/types';
 
 export const formulaDefinition = /^p\s+cnf\s+[1-9][0-9]*\s+[1-9][0-9]*\s*$/;
-export const lineEndsWithZero = /0\s*$/;
+export const lineEndsWithZero = /\s+0\s*$/;
 export const validClause = /^\s*(?:-?[1-9][0-9]*\s+)+0\s*$/;
 
 const calculateVariables = (clauses: IClause[]) => {
