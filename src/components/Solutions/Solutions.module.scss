@@ -6,7 +6,7 @@
   row-gap: 25px;
   column-gap: 15px;
   font-size: var(--formula-solutions-font-size);
-  font-family: var(--font-source-code-pro);
+  font-family: var(--font-second-font);
 
   @media (max-width: 1390px) {
     grid-template-columns: repeat(4, 1fr);
