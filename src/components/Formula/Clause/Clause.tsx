@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../../redux/hooks/hooks';
 import { editClause, removeClause } from '../../../redux/slices/formula';
 import { clearSolutions } from '../../../redux/slices/solutions';
 
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
 
 import { EditMode, RemoveClause } from './Buttons';
 import Variable from './Variable/Variable';
@@ -91,7 +91,7 @@ const Clause: FC<ClauseProps> = ({ clause }) => {
             value={editInputValue}
             onChange={(event) => setEditInputValue(event.target.value)}
           />
-          <SaveOutlinedIcon
+          <DoneOutlinedIcon
             onClick={onEditClause}
             fontSize='small'
             className={styles.save}
