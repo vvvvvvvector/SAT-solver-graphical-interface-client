@@ -1,24 +1,25 @@
-<!-- ![v2.2_1](./public/v2.2_1.png) -->
-<!-- ![v2.2_2](./public/v2.2_2.png) -->
-<!-- ![v2.2_3](./public/v2.2_3.png) -->
-<!-- ![v2.2_4](./public/v2.2_4.png) -->
+# SAT-solver graphical interface
+
+An open source application built using [React](https://react.dev/).
+
+## About this project
+
+I designed and implemented a helpful application for the Institute of Computer Science at my university. SAT-solver is a program that aims to solve the Boolean satisfiability problem. The SAT-solver graphical interface allows users to work with formulas in the DIMACS CNF format or CNF conveniently, as well as to find and display satisfiable assignments.
+
+## Screenshots
 
 ![prod_1](./public/prod_1.png)
 
-# How to uruchomić frontend
+## Running locally
 
-## 1. Zainstalować Node.js
+1. Install dependencies using npm:
 
-***https://nodejs.org/en/ -> LTS***
+```sh
+npm i
+```
 
-## 2. Wejść do katalogu projektu i...
+2. Start the development server:
 
-napisać w konsoli: **_npm i_** -> zainstalują się wszystkie potrzebne do projektu pakiety
-
-po instalacji ma pojawić się katalog **_node_modules_**
-
-## 3. Uruchomić program kiedy znajdujesz się w katalogu projektu
-
-trzeba napisać w konsoli: **_npm run dev_**
-
-ta komenda uruchomi program na jakimś porcie(domyślnie, chyba na 5173)
+```sh
+npm run dev
+```
