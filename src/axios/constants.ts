@@ -1,1 +1,1 @@
-export const baseURL = 'https://sat-solver-gui-backend.onrender.com/';
+export const baseURL = 'https://sat-solver-graphical-interface-server.vercel.app/';
