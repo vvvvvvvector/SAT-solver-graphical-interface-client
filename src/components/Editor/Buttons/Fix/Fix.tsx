@@ -28,12 +28,12 @@ export const Fix: FC = () => {
       ) {
         const response = await toast.promise(
           axiosInstance.post('/fix', {
-            dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, ''),
+            dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, '')
           }),
           {
             loading: 'Fixing dimacs...',
             success: 'Successfully fixed!',
-            error: 'Error occured while fixing dimacs!',
+            error: 'Error occured while fixing dimacs!'
           }
         );
 

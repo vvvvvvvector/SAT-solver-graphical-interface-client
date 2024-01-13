@@ -39,7 +39,7 @@ const Overlay: FC<OverlayProps> = ({ open, counter, loop }) => {
           disabled={counter == 0 || loading}
           sx={{
             maxWidth: '250px',
-            width: '100%',
+            width: '100%'
           }}
           color='primary'
           variant='outlined'

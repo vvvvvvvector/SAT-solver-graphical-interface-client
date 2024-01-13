@@ -17,8 +17,8 @@ export const SelectSolver: FC<SelectSolverProps> = ({ solver, setSolver }) => {
         maxWidth: '180px',
         width: '100%',
         '@media (max-width: 1400px)': {
-          maxWidth: 'none',
-        },
+          maxWidth: 'none'
+        }
       }}
     >
       <InputLabel id='select-solver-label'>SAT-solver</InputLabel>

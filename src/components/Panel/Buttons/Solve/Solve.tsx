@@ -6,7 +6,7 @@ import axiosInstance from '../../../../axios';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/hooks';
 import {
   clearSolutions,
-  setSolution,
+  setSolution
 } from '../../../../redux/slices/solutions';
 import { setFormula } from '../../../../redux/slices/formula';
 
@@ -38,14 +38,14 @@ export const Solve: FC<SolveProps> = ({ solver }) => {
       setLoading(true);
 
       const {
-        data,
+        data
       }: APIResponse<{
         satisfiable: boolean;
         clauses: IClause[];
         first_solution: number[];
       }> = await axiosInstance.post('solve', {
         solver,
-        dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, ''),
+        dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, '')
       });
 
       setLoading(false);

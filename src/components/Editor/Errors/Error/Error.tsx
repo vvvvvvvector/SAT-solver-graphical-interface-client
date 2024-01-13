@@ -39,7 +39,7 @@ const Error: FC<ErrorProps> = ({ error, index }) => {
       }}
       className={styles.error}
       style={{
-        top: `${(error.line - 1) * 20 - index * 20}px`,
+        top: `${(error.line - 1) * 20 - index * 20}px`
       }}
     >
       {isOpened && <ErrorInfo cursorX={cursorPosition.current} error={error} />}

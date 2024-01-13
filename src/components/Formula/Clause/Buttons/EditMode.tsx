@@ -8,7 +8,7 @@ export const EditMode: FC<{
   return (
     <EditOutlinedIcon
       sx={{
-        fontSize: '1.3rem',
+        fontSize: '1.3rem'
       }}
       onClick={onClickEditMode}
     />

@@ -36,7 +36,7 @@ export const Next: FC<NextProps> = ({ solver }) => {
       setLoading(true);
 
       const {
-        data,
+        data
       }:
         | APIResponse<{
             satisfiable: true;
@@ -47,7 +47,7 @@ export const Next: FC<NextProps> = ({ solver }) => {
             satisfiable: false;
           }> = await axiosInstance.post('next-solution', {
         solver,
-        formula: sessionStorage.getItem('formula'),
+        formula: sessionStorage.getItem('formula')
       });
 
       setLoading(false);

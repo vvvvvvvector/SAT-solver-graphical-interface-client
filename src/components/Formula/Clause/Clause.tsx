@@ -59,7 +59,7 @@ const Clause: FC<ClauseProps> = ({ clause }) => {
     dispatch(
       editClause({
         id: clause.id,
-        editedClause,
+        editedClause
       })
     );
 

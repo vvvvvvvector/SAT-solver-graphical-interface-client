@@ -1,5 +1,4 @@
 import { FC, useRef, useState, useEffect } from 'react';
-import { toast } from 'react-hot-toast';
 
 import { useAppSelector } from '../../redux/hooks/hooks';
 
@@ -33,7 +32,7 @@ export const Solutions: FC = () => {
 
     containerRef.current?.scrollIntoView({
       behavior: 'smooth',
-      block: 'center',
+      block: 'center'
     });
   }, [solutions]);
 
@@ -59,7 +58,7 @@ export const Solutions: FC = () => {
                 <Pagination
                   sx={{
                     display: 'flex',
-                    justifyContent: 'center',
+                    justifyContent: 'center'
                   }}
                   color='primary'
                   page={page / solutionsPerPage + 1}

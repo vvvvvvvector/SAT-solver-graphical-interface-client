@@ -41,7 +41,7 @@ export const Header: FC = () => {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'center'
               }}
             >
               <GitHubIcon
@@ -51,8 +51,8 @@ export const Header: FC = () => {
                   color: '#666666',
                   fontSize: '21px',
                   '&:hover': {
-                    color: '#28282b',
-                  },
+                    color: '#28282b'
+                  }
                 }}
               />
             </a>

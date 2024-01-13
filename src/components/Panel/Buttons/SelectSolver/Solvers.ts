@@ -46,7 +46,7 @@ const solvers: Solver[] = [
   { short: 'mg3', name: 'Mergesat3' },
   { short: 'mc', name: 'Minicard' },
   { short: 'm22', name: 'Minisat22' },
-  { short: 'mgh', name: 'Minisatgh' },
+  { short: 'mgh', name: 'Minisatgh' }
 ];
 
 export default solvers;

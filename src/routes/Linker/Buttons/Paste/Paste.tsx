@@ -11,7 +11,7 @@ import ContentPasteGoOutlinedIcon from '@mui/icons-material/ContentPasteGoOutlin
 
 const style = {
   maxWidth: '310px',
-  width: '100%',
+  width: '100%'
 };
 
 interface PasteProps {

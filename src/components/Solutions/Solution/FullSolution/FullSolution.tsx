@@ -18,7 +18,7 @@ const FullSolution: FC<FullSolutionProps> = ({
   solution,
   solutionIndex,
   isOpened,
-  setIsOpened,
+  setIsOpened
 }) => {
   const isFirstRender = useRef(false);
   const fullSolutionRef = useRef<HTMLDivElement>(null);

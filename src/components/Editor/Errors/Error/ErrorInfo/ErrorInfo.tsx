@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../../../../redux/hooks/hooks';
 import {
   addZero,
   deleteLine,
-  editLine,
+  editLine
 } from '../../../../../redux/slices/editor';
 
 import { IError } from '../../../../../shared/types';
@@ -144,7 +144,7 @@ const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
     <div
       ref={errorInfoRef}
       style={{
-        top: `${error.line < 7 ? 20 : -116}px`,
+        top: `${error.line < 7 ? 20 : -116}px`
       }}
       className={styles.errorInfo}
     >
@@ -158,10 +158,10 @@ const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
           error.line < 7
             ? {
                 bottom: '100%',
-                transform: 'rotate(180deg)',
+                transform: 'rotate(180deg)'
               }
             : {
-                top: '100%',
+                top: '100%'
               }
         }
         className={styles.errorInfoArrow}

@@ -10,8 +10,8 @@ export const store = configureStore({
     formula,
     solutions,
     editor,
-    linker,
-  },
+    linker
+  }
 });
 
 export type RootState = ReturnType<typeof store.getState>;

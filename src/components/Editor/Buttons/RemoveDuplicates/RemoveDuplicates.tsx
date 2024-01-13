@@ -18,12 +18,12 @@ export const RemoveDuplicates: FC = () => {
     try {
       const response = await toast.promise(
         axiosInstance.post('/remove-duplicates', {
-          dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, ''),
+          dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, '')
         }),
         {
           loading: 'Removing duplicates...',
           success: 'Successfully removed duplicates!',
-          error: 'Error occured while fixing dimacs!',
+          error: 'Error occured while fixing dimacs!'
         }
       );
 

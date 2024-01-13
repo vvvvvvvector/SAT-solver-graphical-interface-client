@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
@@ -20,14 +19,14 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home />,
+        element: <Home />
       },
       {
         path: '/linker',
-        element: <Linker />,
-      },
-    ],
-  },
+        element: <Linker />
+      }
+    ]
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

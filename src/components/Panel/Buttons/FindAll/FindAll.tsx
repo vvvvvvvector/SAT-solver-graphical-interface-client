@@ -10,7 +10,7 @@ import { buttonStyle } from '../../../../shared/mui';
 import { setFormula } from '../../../../redux/slices/formula';
 import {
   clearSolutions,
-  setSolutions,
+  setSolutions
 } from '../../../../redux/slices/solutions';
 import LoopIcon from '@mui/icons-material/Loop';
 
@@ -35,7 +35,9 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
     (state) => state.solutions.solutions.length
   );
 
-  const cnfFormulaLength = useAppSelector((state) => state.formula.clauses.length);
+  const cnfFormulaLength = useAppSelector(
+    (state) => state.formula.clauses.length
+  );
   const { dimacs, errors } = useAppSelector((state) => state.editor);
 
   useEffect(() => {
@@ -51,7 +53,7 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
 
       const solveResponse = await axiosInstance.post('/solve', {
         solver,
-        dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, ''),
+        dimacs: dimacs.replaceAll(/c .*\n|c\n|\nc$|\nc .*|c$/g, '')
       });
 
       if (solveResponse.data.satisfiable) {
@@ -72,7 +74,7 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
         while (loop.current === Status.PENDING) {
           const nextResponse = await axiosInstance.post('/next-solution', {
             solver,
-            formula: sessionStorage.getItem('formula'),
+            formula: sessionStorage.getItem('formula')
           });
 
           if (nextResponse.data.satisfiable) {
@@ -99,7 +101,7 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
       } else {
         if (loop.current === Status.END) {
           toast.success('Successfully found all solutions!', {
-            duration: 3000,
+            duration: 3000
           });
         } else if (loop.current === Status.STOPPED) {
           toast.success(
@@ -142,7 +144,7 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
 
       const firstSolutionTry = await axiosInstance.post('/next-solution', {
         solver,
-        formula: sessionStorage.getItem('formula'),
+        formula: sessionStorage.getItem('formula')
       });
 
       if (firstSolutionTry.data.satisfiable) {
@@ -151,7 +153,7 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
         while (loop.current === Status.PENDING) {
           const response = await axiosInstance.post('/next-solution', {
             solver,
-            formula: sessionStorage.getItem('formula'),
+            formula: sessionStorage.getItem('formula')
           });
 
           if (response.data.satisfiable) {
@@ -178,7 +180,7 @@ export const FindAll: FC<FindAllProps> = ({ solver }) => {
       } else {
         if (loop.current === Status.END) {
           toast.success('Successfully found all solutions!', {
-            duration: 3000,
+            duration: 3000
           });
         } else if (loop.current === Status.STOPPED) {
           toast.success(

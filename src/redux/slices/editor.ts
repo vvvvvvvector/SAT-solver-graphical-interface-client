@@ -1,12 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { IError } from '../../shared/types';
+import { type IError } from '../../shared/types';
 
 export const editorSlice = createSlice({
   name: 'editor',
   initialState: {
     dimacs: '',
-    errors: [] as IError[],
+    errors: [] as IError[]
   },
   reducers: {
     setDimacs(state, action: PayloadAction<string>) {
@@ -97,8 +97,8 @@ export const editorSlice = createSlice({
       state.errors = state.errors.filter((e) => e.line !== action.payload);
 
       state.dimacs = fixedLines.join('\n');
-    },
-  },
+    }
+  }
 });
 
 export const {
@@ -109,7 +109,7 @@ export const {
   clearErrors,
   addZero,
   deleteLine,
-  editLine,
+  editLine
 } = editorSlice.actions;
 
 export default editorSlice.reducer;

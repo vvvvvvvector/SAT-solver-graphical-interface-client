@@ -24,7 +24,7 @@ export const Link: FC = () => {
 
       const response = await axiosInstance.post('/link', {
         firstDimacs: first,
-        secondDimacs: second,
+        secondDimacs: second
       });
 
       setLoading(false);
@@ -62,7 +62,7 @@ export const Link: FC = () => {
     <Button
       sx={{
         maxWidth: '310px',
-        width: '100%',
+        width: '100%'
       }}
       disabled={loading || first === '' || second === ''}
       variant='outlined'

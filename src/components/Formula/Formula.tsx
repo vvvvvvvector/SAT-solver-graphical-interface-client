@@ -80,7 +80,7 @@ export const Formula: FC = () => {
             <Pagination
               sx={{
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: 'center'
               }}
               color='primary'
               page={page / clausesPerPage + 1}
