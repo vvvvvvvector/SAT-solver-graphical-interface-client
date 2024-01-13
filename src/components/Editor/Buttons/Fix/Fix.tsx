@@ -13,19 +13,21 @@ export const Fix = () => {
 
   const { dimacs } = useAppSelector((state) => state.editor);
 
-  return dimacs.length > 0 ? (
+  if (!dimacs.length) return null;
+
+  return (
     <Tooltip title='Try to fix all errors in DIMACS CNF' arrow>
       <IconButton
         onClick={async () => {
           try {
             if (
               window.confirm(
-                'Are you sure you want to fix dimacs?\n\n' +
-                  'It can permanently damage the formula!\n' +
-                  '\n1. Variables and clauses amount will be recalculated' +
-                  '\n2. Invalid clauses will be removed' +
-                  '\n3. Comments will be removed' +
-                  '\n4. Each clause will end with a zero'
+                'Are you sure you want to fix DIMACS?\n\n' +
+                  'Be carefull, it may permanently damage the formula!\n' +
+                  '\n1. Variables and clauses amount to be recalculated' +
+                  '\n2. Invalid clauses to be removed' +
+                  '\n3. Comments to be removed' +
+                  '\n4. Each clause to end with a zero'
               )
             ) {
               const response = await toast.promise(
@@ -50,7 +52,5 @@ export const Fix = () => {
         <AutoFixHighOutlinedIcon color='primary' />
       </IconButton>
     </Tooltip>
-  ) : (
-    <></>
   );
 };

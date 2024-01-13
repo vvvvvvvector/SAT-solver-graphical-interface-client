@@ -23,7 +23,7 @@ const QuickFixByCode = (error: IError) => {
 
   const onEdit = () => {
     const editedLine = window.prompt(
-      'Line edit mode:\n\n-> Right formula def. example: p cnf <variables n> <clauses k>, where n & k > 0\n\n-> Right clause example: 1 2 3 4 0',
+      'Line edit mode:\n\n-> Proper formula definition example: p cnf <variables n> <clauses k>, where n & k > 0\n\n-> Proper clause example: 1 2 3 4 0',
       error.damaged
     );
 

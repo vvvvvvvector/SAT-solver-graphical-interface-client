@@ -73,7 +73,7 @@ const Clause = ({ clause }: ClauseProps) => {
     dispatch(clearSolutions());
   };
 
-  const onClickEditMode = () => {
+  const toogleEditMode = () => {
     setEditMode(true);
     setEditInputValue(clause.variables.join(' | '));
   };
@@ -110,7 +110,7 @@ const Clause = ({ clause }: ClauseProps) => {
             <p>)</p>
           </ul>
           <div className={styles.controls}>
-            <EditMode onClickEditMode={onClickEditMode} />
+            <EditMode onClickEditMode={toogleEditMode} />
             <RemoveClause onRemoveClause={onRemoveClause} />
           </div>
         </>

@@ -16,7 +16,7 @@ const FormulaHeader = () => {
 
   const onClickAddClause = () => {
     const input = window.prompt(
-      "Correct format: 1 | -2 | -3 | ...\nMore spaces are allowed between numbers and '|'."
+      "Proper format: 1 | -2 | -3 | ...\nMore spaces are allowed between numbers and '|'."
     );
 
     if (input) {
@@ -37,9 +37,7 @@ const FormulaHeader = () => {
     <div className={styles.header}>
       <div className={styles.headerLeft}>
         <h2 onClick={() => dispatch(setFormulaOpened(!opened))}>
-          {clauses.length > 0
-            ? 'Formula in CNF'
-            : 'There are no formula so far'}
+          {clauses.length > 0 ? 'Formula in CNF' : 'There is no formula so far'}
         </h2>
         <svg
           className={opened ? styles['opened'] : ''}
