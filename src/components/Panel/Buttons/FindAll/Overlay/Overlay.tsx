@@ -1,4 +1,4 @@
-import { FC, useState, MutableRefObject, useEffect } from 'react';
+import { useState, type MutableRefObject, useEffect } from 'react';
 
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -14,7 +14,7 @@ interface OverlayProps {
   loop: MutableRefObject<Status>;
 }
 
-const Overlay: FC<OverlayProps> = ({ open, counter, loop }) => {
+const Overlay = ({ open, counter, loop }: OverlayProps) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -38,8 +38,8 @@ const Overlay: FC<OverlayProps> = ({ open, counter, loop }) => {
         <Button
           disabled={counter == 0 || loading}
           sx={{
-            maxWidth: '250px',
-            width: '100%',
+            maxWidth: '300px',
+            width: '100%'
           }}
           color='primary'
           variant='outlined'
@@ -48,7 +48,7 @@ const Overlay: FC<OverlayProps> = ({ open, counter, loop }) => {
             loop.current = Status.STOPPED;
           }}
         >
-          {loading ? 'Stopping the search...' : 'Stop'}
+          {loading ? 'Interrupting...' : 'Interrupt'}
         </Button>
       </div>
     </Backdrop>

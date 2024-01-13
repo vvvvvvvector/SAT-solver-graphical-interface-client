@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
   first: '',
   second: '',
-  linked: '',
+  linked: ''
 };
 
 export const linkerSlice = createSlice({
@@ -18,8 +18,8 @@ export const linkerSlice = createSlice({
     },
     setLinked(state, action: PayloadAction<string>) {
       state.linked = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setFirst, setSecond, setLinked } = linkerSlice.actions;

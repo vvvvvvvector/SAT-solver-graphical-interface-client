@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
   opened: true,
-  solutions: [] as number[][],
+  solutions: [] as number[][]
 };
 
 export const solutionsSlice = createSlice({
@@ -24,8 +24,8 @@ export const solutionsSlice = createSlice({
       if (state.solutions.length > 0) {
         state.solutions = [];
       }
-    },
-  },
+    }
+  }
 });
 
 export const { setSolution, setSolutions, setSolutionsOpened, clearSolutions } =

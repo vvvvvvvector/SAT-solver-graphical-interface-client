@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
 import { toast } from 'react-hot-toast';
-
 import { useDispatch } from 'react-redux';
+
 import { setFirst, setLinked, setSecond } from '../../../redux/slices/linker';
 
 import { Button } from '@mui/material';
@@ -13,7 +12,7 @@ interface UploadedFormulaProps {
   index: 1 | 2;
 }
 
-const UploadedFormula: FC<UploadedFormulaProps> = ({ dimacs, index }) => {
+const UploadedFormula = ({ dimacs, index }: UploadedFormulaProps) => {
   const dispatch = useDispatch();
 
   const onClickUpload = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -3,7 +3,7 @@ enum Status {
   STOPPED = 'stopped',
   NOTSTARTED = 'not started',
   END = 'end',
-  UNSATISFIABLE = 'unsatisfiable',
+  UNSATISFIABLE = 'unsatisfiable'
 }
 
 export default Status;

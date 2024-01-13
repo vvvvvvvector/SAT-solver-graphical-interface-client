@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 import { useAppSelector } from '../../redux/hooks/hooks';
 
@@ -6,7 +6,7 @@ import ErrorsTable from './ErrorsTable/ErrorsTable';
 
 import styles from './Problems.module.scss';
 
-export const Problems: FC = () => {
+export const Problems = () => {
   const [isOpened, setIsOpened] = useState(false);
 
   const errors = useAppSelector((state) => state.editor.errors);
@@ -16,13 +16,17 @@ export const Problems: FC = () => {
       {errors.length > 0 ? (
         <div className={styles.errors}>
           <div onClick={() => setIsOpened(!isOpened)} className={styles.header}>
-            <span>{`There are ${errors.length} errors in the formula ❗️❗️❗️`}</span>
+            <span>{`There ${errors.length === 1 ? 'is' : 'are'} ${
+              errors.length
+            } ${
+              errors.length === 1 ? 'error' : 'errors'
+            } in the formula ❗️❗️❗️`}</span>
             <div>
               <span onClick={() => setIsOpened(!isOpened)}>
-                {isOpened ? 'Hide errors list' : 'Show errors list'}
+                {isOpened ? 'Hide' : 'Expand'}
               </span>
               <svg
-                className={isOpened ? styles.active : ''}
+                className={isOpened && styles.opened}
                 width='10'
                 height='6'
                 viewBox='0 0 10 6'

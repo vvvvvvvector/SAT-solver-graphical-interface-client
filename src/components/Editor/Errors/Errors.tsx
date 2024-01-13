@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
 import {
   formulaDefinition,
   lineEndsWithZero,
-  validClause,
+  validClause
 } from '../../../utils/utils';
 
 import debounce from 'lodash.debounce';
@@ -30,7 +30,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
         line,
         errorCode: 0,
         description: 'no empty lines allowed',
-        damaged,
+        damaged
       })
     );
   };
@@ -41,7 +41,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
         line,
         errorCode: 1,
         description: 'invalid formula definition',
-        damaged,
+        damaged
       })
     );
   };
@@ -52,7 +52,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
         line,
         errorCode: 2,
         description: 'clause must end with 0',
-        damaged,
+        damaged
       })
     );
   };
@@ -63,7 +63,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
         line,
         errorCode: 3,
         description: 'invalid clause',
-        damaged,
+        damaged
       })
     );
   };
@@ -74,7 +74,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
         line,
         errorCode: 4,
         description: `formula was already defined in line ${formulaDefinitionRow.current}`,
-        damaged,
+        damaged
       })
     );
   };
@@ -89,7 +89,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
         line,
         errorCode: 5,
         description: `Wrong variable value: ${variable} => range[1..${variablesRange.current}]`,
-        damaged,
+        damaged
       })
     );
   };
@@ -174,7 +174,7 @@ const Errors = forwardRef<HTMLDivElement>((_, ref) => {
         style={{
           height: '20px',
           position: 'relative',
-          top: `1e6px`,
+          top: `1e6px`
         }}
       >
         <span></span>

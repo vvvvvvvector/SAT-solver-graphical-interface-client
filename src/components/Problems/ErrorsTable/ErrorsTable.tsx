@@ -1,4 +1,4 @@
-import { FC, forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 
 import { deleteLine, editLine } from '../../../redux/slices/editor';
 
@@ -16,7 +16,7 @@ import { Button, ButtonGroup } from '@mui/material';
 
 import { AddZero, DeleteLine, EditLine } from '../Buttons';
 
-import { IError } from '../../../shared/types';
+import { type IError } from '../../../shared/types';
 import { useAppDispatch } from '../../../redux/hooks/hooks';
 
 const ButtonByErrorCode = (error: IError, dispatch: any) => {
@@ -77,18 +77,18 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: '#fafafa',
     color: '#28282b',
-    fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+    fontFamily: 'Inter, Helvetica, Arial, sans-serif'
   },
   [`&.${tableCellClasses.body}`]: {
-    fontFamily: 'Inter, Helvetica, Arial, sans-serif',
-  },
+    fontFamily: 'Inter, Helvetica, Arial, sans-serif'
+  }
 }));
 
 interface ErrorsTableProps {
   errors: IError[];
 }
 
-const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
+const ErrorsTable = ({ errors }: ErrorsTableProps) => {
   const dispatch = useAppDispatch();
 
   const tableRef = useRef<HTMLDivElement>(null);
@@ -100,7 +100,7 @@ const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: 'smooth',
+        behavior: 'smooth'
       });
     };
   }, []);
@@ -109,7 +109,7 @@ const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
     <div ref={tableRef}>
       <TableVirtuoso
         style={{
-          height: 'calc((63.75px * 8) + 57px)',
+          height: 'calc((63.75px * 8) + 57px)'
           // boxShadow: '0 2px 2px rgba(0, 0, 0, 0.12)',
           // border: '1px solid #eaeaea',
         }}
@@ -129,14 +129,14 @@ const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
           TableRow: ({ item: _item, ...props }) => <TableRow {...props} />,
           TableBody: forwardRef<HTMLTableSectionElement>((props, ref) => (
             <TableBody {...props} ref={ref} />
-          )),
+          ))
         }}
         fixedHeaderContent={() => (
           <TableRow>
             <StyledTableCell
               sx={{
                 // width: '37%',
-                backgroundColor: 'white',
+                backgroundColor: 'white'
               }}
               align='center'
             >
@@ -145,7 +145,7 @@ const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
             <StyledTableCell
               sx={{
                 // maxWidth: '130px',
-                backgroundColor: 'white',
+                backgroundColor: 'white'
               }}
               align='center'
             >
@@ -153,7 +153,7 @@ const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
             </StyledTableCell>
             <StyledTableCell
               sx={{
-                backgroundColor: 'white',
+                backgroundColor: 'white'
               }}
               align='center'
             >
@@ -167,7 +167,7 @@ const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
             <StyledTableCell
               sx={{
                 whiteSpace: 'nowrap',
-                overflowX: 'scroll',
+                overflowX: 'scroll'
               }}
               className='hide-scrollbars'
               align='center'
@@ -177,7 +177,7 @@ const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
                   fontWeight: 600,
                   textDecorationLine: 'underline',
                   textDecorationStyle: 'wavy',
-                  textDecorationColor: '#dc2626',
+                  textDecorationColor: '#dc2626'
                 }}
               >
                 {error.damaged ? error.damaged : 'Line is empty here 🤷‍♂️'}

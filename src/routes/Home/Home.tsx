@@ -1,10 +1,8 @@
-import React from 'react';
-
 import { Editor, Panel, Formula, Solutions, Problems } from '../../components';
 
 import styles from './Home.module.scss';
 
-const Home: React.FC = () => {
+const Home = () => {
   return (
     <div className={styles.container}>
       <section className={styles.content}>

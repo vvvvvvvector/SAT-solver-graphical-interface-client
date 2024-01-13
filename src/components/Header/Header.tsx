@@ -1,12 +1,10 @@
-import { FC } from 'react';
-
 import { Outlet, Link } from 'react-router-dom';
 
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 import styles from './Header.module.scss';
 
-export const Header: FC = () => {
+export const Header = () => {
   return (
     <>
       <header className={styles.header}>
@@ -19,7 +17,7 @@ export const Header: FC = () => {
               <li>
                 <Link
                   style={{ color: 'inherit', textDecoration: 'inherit' }}
-                  to={'/'}
+                  to='/'
                 >
                   Home
                 </Link>
@@ -27,9 +25,9 @@ export const Header: FC = () => {
               <li>
                 <Link
                   style={{ color: 'inherit', textDecoration: 'inherit' }}
-                  to={'/linker'}
+                  to='/linker'
                 >
-                  Formulas linker
+                  Linker
                 </Link>
               </li>
             </ul>
@@ -41,7 +39,7 @@ export const Header: FC = () => {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'center'
               }}
             >
               <GitHubIcon
@@ -51,8 +49,8 @@ export const Header: FC = () => {
                   color: '#666666',
                   fontSize: '21px',
                   '&:hover': {
-                    color: '#28282b',
-                  },
+                    color: '#28282b'
+                  }
                 }}
               />
             </a>

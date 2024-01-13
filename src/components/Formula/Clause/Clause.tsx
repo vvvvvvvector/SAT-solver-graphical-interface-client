@@ -1,4 +1,4 @@
-import { FC, useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useAppDispatch } from '../../../redux/hooks/hooks';
@@ -10,7 +10,7 @@ import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
 import { EditMode, RemoveClause } from './Buttons';
 import Variable from './Variable/Variable';
 
-import { IClause } from '../../../shared/types';
+import { type IClause } from '../../../shared/types';
 
 import styles from './Clause.module.scss';
 
@@ -18,13 +18,13 @@ interface ClauseProps {
   clause: IClause;
 }
 
-const Clause: FC<ClauseProps> = ({ clause }) => {
+const Clause = ({ clause }: ClauseProps) => {
+  const [editMode, setEditMode] = useState(false);
+  const [editInputValue, setEditInputValue] = useState('');
+
   const dispatch = useAppDispatch();
 
   const clauseRef = useRef<HTMLDivElement>(null);
-
-  const [editMode, setEditMode] = useState(false);
-  const [editInputValue, setEditInputValue] = useState('');
 
   useEffect(() => {
     const clickOutsideClause = (event: MouseEvent) => {
@@ -59,7 +59,7 @@ const Clause: FC<ClauseProps> = ({ clause }) => {
     dispatch(
       editClause({
         id: clause.id,
-        editedClause,
+        editedClause
       })
     );
 
@@ -73,7 +73,7 @@ const Clause: FC<ClauseProps> = ({ clause }) => {
     dispatch(clearSolutions());
   };
 
-  const onClickEditMode = () => {
+  const toogleEditMode = () => {
     setEditMode(true);
     setEditInputValue(clause.variables.join(' | '));
   };
@@ -110,7 +110,7 @@ const Clause: FC<ClauseProps> = ({ clause }) => {
             <p>)</p>
           </ul>
           <div className={styles.controls}>
-            <EditMode onClickEditMode={onClickEditMode} />
+            <EditMode onClickEditMode={toogleEditMode} />
             <RemoveClause onRemoveClause={onRemoveClause} />
           </div>
         </>
