@@ -15,11 +15,12 @@ export const Upload = () => {
   const currentDimacs = useAppSelector((state) => state.editor.dimacs);
 
   return (
-    <Tooltip title='Upload the formula' arrow>
+    <Tooltip title='Upload formula' arrow>
       <IconButton color='primary' component='label'>
         <input
           hidden
           type='file'
+          accept='.txt, .cnf'
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             if (e.target.files instanceof FileList) {
               const file = e.target.files[0];
@@ -50,7 +51,6 @@ export const Upload = () => {
 
             e.target.value = ''; // allows re-add the same file again
           }}
-          accept='.txt, .cnf'
         />
         <UploadFileIcon color='primary' />
       </IconButton>

@@ -38,7 +38,7 @@ const Overlay = ({ open, counter, loop }: OverlayProps) => {
         <Button
           disabled={counter == 0 || loading}
           sx={{
-            maxWidth: '250px',
+            maxWidth: '300px',
             width: '100%'
           }}
           color='primary'
@@ -48,7 +48,7 @@ const Overlay = ({ open, counter, loop }: OverlayProps) => {
             loop.current = Status.STOPPED;
           }}
         >
-          {loading ? 'Stopping the search...' : 'Stop'}
+          {loading ? 'Interrupting...' : 'Interrupt'}
         </Button>
       </div>
     </Backdrop>

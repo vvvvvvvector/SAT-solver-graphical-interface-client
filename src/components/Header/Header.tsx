@@ -27,7 +27,7 @@ export const Header = () => {
                   style={{ color: 'inherit', textDecoration: 'inherit' }}
                   to='/linker'
                 >
-                  Formulas linker
+                  Linker
                 </Link>
               </li>
             </ul>
