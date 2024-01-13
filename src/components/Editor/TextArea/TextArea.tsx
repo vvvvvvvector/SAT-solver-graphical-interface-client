@@ -1,4 +1,4 @@
-import React, { FC, RefObject, useRef } from 'react';
+import React, { type RefObject, useRef } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
 import { setDimacs } from '../../../redux/slices/editor';
@@ -11,19 +11,12 @@ interface TextAreaProps {
   errorsRef: RefObject<HTMLDivElement>;
 }
 
-const TextArea: FC<TextAreaProps> = ({ gutterRef, errorsRef }) => {
+const TextArea = ({ gutterRef, errorsRef }: TextAreaProps) => {
   const dispatch = useAppDispatch();
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const { dimacs } = useAppSelector((state) => state.editor);
-
-  const onChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(setDimacs(e.target.value));
-    dispatch(setFormula([]));
-
-    sessionStorage.setItem('formula', '');
-  };
 
   return (
     <textarea
@@ -43,7 +36,12 @@ const TextArea: FC<TextAreaProps> = ({ gutterRef, errorsRef }) => {
       autoCapitalize='off'
       spellCheck='false'
       value={dimacs}
-      onChange={onChangeTextArea}
+      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        dispatch(setDimacs(e.target.value));
+        dispatch(setFormula([]));
+
+        sessionStorage.setItem('formula', '');
+      }}
     />
   );
 };

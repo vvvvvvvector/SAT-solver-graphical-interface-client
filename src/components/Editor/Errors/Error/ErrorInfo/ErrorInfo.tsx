@@ -1,33 +1,19 @@
-import { FC, useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useAppDispatch } from '../../../../../redux/hooks/hooks';
 import {
   addZero,
   deleteLine,
-  editLine,
+  editLine
 } from '../../../../../redux/slices/editor';
 
-import { IError } from '../../../../../shared/types';
+import { type IError } from '../../../../../shared/types';
 
 import styles from './ErrorInfo.module.scss';
 
 const QuickFixByCode = (error: IError) => {
   const dispatch = useAppDispatch();
-
-  const onReplace = () => {
-    const splitedDescription = error.description.split(' ');
-    const firstFormulaDefinitionLine =
-      +splitedDescription[splitedDescription.length - 1];
-
-    dispatch(
-      editLine({ line: firstFormulaDefinitionLine, editedLine: error.damaged })
-    );
-
-    dispatch(deleteLine(error.line));
-
-    toast.success('Line was successfully replaced!');
-  };
 
   const onDelete = () => {
     dispatch(deleteLine(error.line));
@@ -35,15 +21,9 @@ const QuickFixByCode = (error: IError) => {
     toast.success('Line was successfully deleted!');
   };
 
-  const onAddZero = () => {
-    dispatch(addZero(error.line));
-
-    toast.success('Zero was successfully added!');
-  };
-
   const onEdit = () => {
     const editedLine = window.prompt(
-      'Line edit mode:\n\n-> Right formula def. example: p cnf <variables n> <clauses k>, where n & k > 0\n\n-> Right clause example: 1 2 3 4 0',
+      'Line edit mode:\n\n-> Proper formula definition example: p cnf <variables n> <clauses k>, where n & k > 0\n\n-> Proper clause example: 1 2 3 4 0',
       error.damaged
     );
 
@@ -82,7 +62,15 @@ const QuickFixByCode = (error: IError) => {
       return (
         <>
           {'Quick fix is available: '}
-          <button onClick={onAddZero}>add zero</button>
+          <button
+            onClick={() => {
+              dispatch(addZero(error.line));
+
+              toast.success('Zero was successfully added!');
+            }}
+          >
+            add zero
+          </button>
         </>
       );
     case 3:
@@ -98,7 +86,26 @@ const QuickFixByCode = (error: IError) => {
       return (
         <>
           {'Fix propositions: '}
-          <button onClick={onReplace}>replace</button>
+          <button
+            onClick={() => {
+              const splitedDescription = error.description.split(' ');
+              const firstFormulaDefinitionLine =
+                +splitedDescription[splitedDescription.length - 1];
+
+              dispatch(
+                editLine({
+                  line: firstFormulaDefinitionLine,
+                  editedLine: error.damaged
+                })
+              );
+
+              dispatch(deleteLine(error.line));
+
+              toast.success('Line was successfully replaced!');
+            }}
+          >
+            replace
+          </button>
           {' | '}
           <button onClick={onDelete}>delete</button>
         </>
@@ -121,7 +128,7 @@ interface ErrorInfoProps {
   error: IError;
 }
 
-const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
+const ErrorInfo = ({ cursorX, error }: ErrorInfoProps) => {
   let errorInfoRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -144,7 +151,7 @@ const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
     <div
       ref={errorInfoRef}
       style={{
-        top: `${error.line < 7 ? 20 : -116}px`,
+        top: `${error.line < 7 ? 20 : -116}px`
       }}
       className={styles.errorInfo}
     >
@@ -158,10 +165,10 @@ const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
           error.line < 7
             ? {
                 bottom: '100%',
-                transform: 'rotate(180deg)',
+                transform: 'rotate(180deg)'
               }
             : {
-                top: '100%',
+                top: '100%'
               }
         }
         className={styles.errorInfoArrow}

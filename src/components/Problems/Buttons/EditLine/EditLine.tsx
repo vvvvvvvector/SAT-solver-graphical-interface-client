@@ -1,7 +1,6 @@
-import { FC } from 'react';
 import { toast } from 'react-hot-toast';
-
 import { useDispatch } from 'react-redux';
+
 import { editLine } from '../../../../redux/slices/editor';
 
 import { Button } from '@mui/material';
@@ -11,7 +10,7 @@ interface EditLineProps {
   damaged: string;
 }
 
-export const EditLine: FC<EditLineProps> = ({ line, damaged }) => {
+export const EditLine = ({ line, damaged }: EditLineProps) => {
   const dispatch = useDispatch();
 
   const onClick = () => {

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { Backdrop, Button } from '@mui/material';
@@ -11,19 +11,19 @@ interface FullSolutionProps {
   solution: number[];
   solutionIndex: number;
   isOpened: boolean;
-  setIsOpened: (isOpened: boolean) => void;
+  setIsOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const FullSolution: FC<FullSolutionProps> = ({
+const FullSolution = ({
   solution,
   solutionIndex,
   isOpened,
-  setIsOpened,
-}) => {
+  setIsOpened
+}: FullSolutionProps) => {
+  const [fullSolution, setFullSolution] = useState('');
+
   const isFirstRender = useRef(false);
   const fullSolutionRef = useRef<HTMLDivElement>(null);
-
-  const [fullSolution, setFullSolution] = useState('');
 
   useEffect(() => {
     const onClickOutside = (event: MouseEvent) => {
@@ -57,32 +57,6 @@ const FullSolution: FC<FullSolutionProps> = ({
     };
   }, []);
 
-  const onClickSaveBinary = () => {
-    const filename = window.prompt('Enter a filename: ');
-
-    if (filename) {
-      let result = '';
-
-      solution.forEach((variable, index) => {
-        result += `${variable > 0 ? '1' : '0'}${
-          solution.length - 1 > index ? '\n' : ''
-        }`;
-      });
-
-      const blob = new Blob([result], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-
-      link.download = `${filename}.txt`;
-      link.href = url;
-      link.click();
-
-      setIsOpened(false);
-
-      toast.success('Solution was successfully saved to a file!');
-    }
-  };
-
   return (
     <Backdrop
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -102,8 +76,35 @@ const FullSolution: FC<FullSolutionProps> = ({
           readOnly={true}
           value={fullSolution}
         />
-        <Button onClick={onClickSaveBinary} variant='outlined'>
-          Save to a file in a 1-0 form
+        <Button
+          onClick={() => {
+            const filename = window.prompt('Enter a filename: ');
+
+            if (filename) {
+              let result = '';
+
+              solution.forEach((variable, index) => {
+                result += `${variable > 0 ? '1' : '0'}${
+                  solution.length - 1 > index ? '\n' : ''
+                }`;
+              });
+
+              const blob = new Blob([result], { type: 'text/plain' });
+              const url = URL.createObjectURL(blob);
+              const link = document.createElement('a');
+
+              link.download = `${filename}.txt`;
+              link.href = url;
+              link.click();
+
+              setIsOpened(false);
+
+              toast.success('Solution was successfully saved to a file!');
+            }
+          }}
+          variant='outlined'
+        >
+          Save to a file in 1-0 form
         </Button>
       </div>
     </Backdrop>

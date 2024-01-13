@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 import VariableValue from './VariableValue/VariableValue';
 import FullSolution from './FullSolution/FullSolution';
@@ -10,7 +10,7 @@ interface SolutionProps {
   solutionIndex: number;
 }
 
-const Solution: FC<SolutionProps> = ({ solution, solutionIndex }) => {
+const Solution = ({ solution, solutionIndex }: SolutionProps) => {
   const [isOpened, setIsOpened] = useState(false);
 
   return (

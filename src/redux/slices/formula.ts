@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { IClause } from '../../shared/types';
+import { type IClause } from '../../shared/types';
 
 const initialState = {
   opened: true,
   changed: false,
-  clauses: [] as IClause[],
+  clauses: [] as IClause[]
 };
 
 export const formulaSlice = createSlice({
@@ -24,7 +24,7 @@ export const formulaSlice = createSlice({
       if (state.clauses.length > 0) {
         state.clauses.push({
           id: state.clauses[state.clauses.length - 1].id + 1,
-          variables: action.payload,
+          variables: action.payload
         });
       } else {
         state.clauses.push({ id: 0, variables: action.payload });
@@ -59,8 +59,8 @@ export const formulaSlice = createSlice({
       );
 
       state.changed = true;
-    },
-  },
+    }
+  }
 });
 
 export const {
@@ -68,7 +68,7 @@ export const {
   addClause,
   editClause,
   removeClause,
-  setFormulaOpened,
+  setFormulaOpened
 } = formulaSlice.actions;
 
 export default formulaSlice.reducer;

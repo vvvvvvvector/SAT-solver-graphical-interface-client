@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
 import { useAppSelector } from '../../redux/hooks/hooks';
 
 import { Paste, Link } from './Buttons';
@@ -7,7 +5,7 @@ import UploadedFormula from './UploadedFormula/UploadedFormula';
 
 import styles from './Linker.module.scss';
 
-const Linker: FC = () => {
+const Linker = () => {
   const { first, second, linked } = useAppSelector((state) => state.linker);
 
   return (

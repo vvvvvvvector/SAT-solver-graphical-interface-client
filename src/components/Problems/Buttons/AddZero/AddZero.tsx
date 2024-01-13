@@ -1,7 +1,6 @@
-import { FC } from 'react';
 import { toast } from 'react-hot-toast';
-
 import { useDispatch } from 'react-redux';
+
 import { addZero } from '../../../../redux/slices/editor';
 
 import { Button } from '@mui/material';
@@ -10,7 +9,7 @@ interface AddZeroProps {
   line: number;
 }
 
-export const AddZero: FC<AddZeroProps> = ({ line }) => {
+export const AddZero = ({ line }: AddZeroProps) => {
   const dispatch = useDispatch();
 
   const onClick = () => {

@@ -1,11 +1,9 @@
-import { FC } from 'react';
-
 import { setSolutionsOpened } from '../../../redux/slices/solutions';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
 
 import styles from './SolutionsHeader.module.scss';
 
-const SolutionsHeader: FC = () => {
+const SolutionsHeader = () => {
   const dispatch = useAppDispatch();
 
   const { solutions, opened } = useAppSelector((state) => state.solutions);
@@ -21,7 +19,7 @@ const SolutionsHeader: FC = () => {
             : 'There are no solutions so far'}
         </h2>
         <svg
-          className={opened ? styles.opened : ''}
+          className={opened && styles.opened}
           width='10'
           height='6'
           viewBox='0 0 10 6'

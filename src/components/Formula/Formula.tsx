@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import { clearDimacs, setDimacs } from '../../redux/slices/editor';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks';
@@ -13,12 +13,12 @@ import { parseToDimacs } from './../../utils/utils';
 
 import styles from './Formula.module.scss';
 
-export const Formula: FC = () => {
-  const dispatch = useAppDispatch();
+export const Formula = () => {
+  const [page, setPage] = useState(0);
 
   const clausesPerPage = 115;
 
-  const [page, setPage] = useState(0);
+  const dispatch = useAppDispatch();
 
   const { clauses, opened, changed } = useAppSelector((state) => state.formula);
 
@@ -80,7 +80,7 @@ export const Formula: FC = () => {
             <Pagination
               sx={{
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: 'center'
               }}
               color='primary'
               page={page / clausesPerPage + 1}

@@ -1,4 +1,4 @@
-import { IClause } from '../shared/types';
+import { type IClause } from '../shared/types';
 
 export const formulaDefinition = /^p\s+cnf\s+[1-9][0-9]*\s+[1-9][0-9]*\s*$/;
 export const lineEndsWithZero = /\s+0\s*$/;

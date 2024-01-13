@@ -1,14 +1,14 @@
-import { FC } from 'react';
-
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-export const EditMode: FC<{
+export const EditMode = ({
+  onClickEditMode
+}: {
   onClickEditMode: () => void;
-}> = ({ onClickEditMode }) => {
+}) => {
   return (
     <EditOutlinedIcon
       sx={{
-        fontSize: '1.3rem',
+        fontSize: '1.3rem'
       }}
       onClick={onClickEditMode}
     />
