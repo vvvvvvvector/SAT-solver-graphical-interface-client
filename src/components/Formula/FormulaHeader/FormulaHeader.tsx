@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
@@ -10,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 import styles from './FormulaHeader.module.scss';
 
-const FormulaHeader: FC = () => {
+const FormulaHeader = () => {
   const dispatch = useAppDispatch();
 
   const { clauses, opened } = useAppSelector((state) => state.formula);

@@ -1,11 +1,9 @@
-import { FC } from 'react';
-
 import { setSolutionsOpened } from '../../../redux/slices/solutions';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
 
 import styles from './SolutionsHeader.module.scss';
 
-const SolutionsHeader: FC = () => {
+const SolutionsHeader = () => {
   const dispatch = useAppDispatch();
 
   const { solutions, opened } = useAppSelector((state) => state.solutions);

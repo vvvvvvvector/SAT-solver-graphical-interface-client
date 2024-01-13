@@ -1,4 +1,4 @@
-import { FC, useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useAppDispatch } from '../../../../../redux/hooks/hooks';
@@ -8,37 +8,17 @@ import {
   editLine
 } from '../../../../../redux/slices/editor';
 
-import { IError } from '../../../../../shared/types';
+import { type IError } from '../../../../../shared/types';
 
 import styles from './ErrorInfo.module.scss';
 
 const QuickFixByCode = (error: IError) => {
   const dispatch = useAppDispatch();
 
-  const onReplace = () => {
-    const splitedDescription = error.description.split(' ');
-    const firstFormulaDefinitionLine =
-      +splitedDescription[splitedDescription.length - 1];
-
-    dispatch(
-      editLine({ line: firstFormulaDefinitionLine, editedLine: error.damaged })
-    );
-
-    dispatch(deleteLine(error.line));
-
-    toast.success('Line was successfully replaced!');
-  };
-
   const onDelete = () => {
     dispatch(deleteLine(error.line));
 
     toast.success('Line was successfully deleted!');
-  };
-
-  const onAddZero = () => {
-    dispatch(addZero(error.line));
-
-    toast.success('Zero was successfully added!');
   };
 
   const onEdit = () => {
@@ -82,7 +62,15 @@ const QuickFixByCode = (error: IError) => {
       return (
         <>
           {'Quick fix is available: '}
-          <button onClick={onAddZero}>add zero</button>
+          <button
+            onClick={() => {
+              dispatch(addZero(error.line));
+
+              toast.success('Zero was successfully added!');
+            }}
+          >
+            add zero
+          </button>
         </>
       );
     case 3:
@@ -98,7 +86,26 @@ const QuickFixByCode = (error: IError) => {
       return (
         <>
           {'Fix propositions: '}
-          <button onClick={onReplace}>replace</button>
+          <button
+            onClick={() => {
+              const splitedDescription = error.description.split(' ');
+              const firstFormulaDefinitionLine =
+                +splitedDescription[splitedDescription.length - 1];
+
+              dispatch(
+                editLine({
+                  line: firstFormulaDefinitionLine,
+                  editedLine: error.damaged
+                })
+              );
+
+              dispatch(deleteLine(error.line));
+
+              toast.success('Line was successfully replaced!');
+            }}
+          >
+            replace
+          </button>
           {' | '}
           <button onClick={onDelete}>delete</button>
         </>
@@ -121,7 +128,7 @@ interface ErrorInfoProps {
   error: IError;
 }
 
-const ErrorInfo: FC<ErrorInfoProps> = ({ cursorX, error }) => {
+const ErrorInfo = ({ cursorX, error }: ErrorInfoProps) => {
   let errorInfoRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {

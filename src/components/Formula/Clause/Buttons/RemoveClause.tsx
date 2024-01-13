@@ -1,10 +1,10 @@
-import { FC } from 'react';
-
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 
-export const RemoveClause: FC<{
+export const RemoveClause = ({
+  onRemoveClause
+}: {
   onRemoveClause: () => void;
-}> = ({ onRemoveClause }) => {
+}) => {
   return (
     <DeleteForeverOutlinedIcon
       sx={{

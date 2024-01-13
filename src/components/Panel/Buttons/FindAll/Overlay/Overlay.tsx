@@ -1,4 +1,4 @@
-import { FC, useState, MutableRefObject, useEffect } from 'react';
+import { useState, type MutableRefObject, useEffect } from 'react';
 
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -14,7 +14,7 @@ interface OverlayProps {
   loop: MutableRefObject<Status>;
 }
 
-const Overlay: FC<OverlayProps> = ({ open, counter, loop }) => {
+const Overlay = ({ open, counter, loop }: OverlayProps) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { FC, useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import { useAppSelector } from '../../redux/hooks/hooks';
 
@@ -10,12 +10,12 @@ import { Pagination } from '@mui/material';
 
 import styles from './Solutions.module.scss';
 
-export const Solutions: FC = () => {
+export const Solutions = () => {
+  const [page, setPage] = useState(0);
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   const solutionsPerPage = 10;
-
-  const [page, setPage] = useState(0);
 
   const { solutions, opened } = useAppSelector((state) => state.solutions);
 

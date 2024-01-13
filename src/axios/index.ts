@@ -1,6 +1,6 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { type AxiosRequestConfig } from 'axios';
 
-import { baseURL } from "./constants";
+import { baseURL } from './constants';
 
 const config: AxiosRequestConfig = { baseURL };
 

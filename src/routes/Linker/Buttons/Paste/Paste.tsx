@@ -1,7 +1,6 @@
-import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { useDispatch } from 'react-redux';
+
 import { clearErrors, setDimacs } from '../../../../redux/slices/editor';
 import { clearSolutions } from '../../../../redux/slices/solutions';
 import { setFormula } from '../../../../redux/slices/formula';
@@ -18,7 +17,7 @@ interface PasteProps {
   dimacs: string;
 }
 
-export const Paste: FC<PasteProps> = ({ dimacs }) => {
+export const Paste = ({ dimacs }: PasteProps) => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();

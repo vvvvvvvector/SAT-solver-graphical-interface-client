@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 import { useAppSelector } from '../../redux/hooks/hooks';
 
@@ -6,7 +6,7 @@ import ErrorsTable from './ErrorsTable/ErrorsTable';
 
 import styles from './Problems.module.scss';
 
-export const Problems: FC = () => {
+export const Problems = () => {
   const [isOpened, setIsOpened] = useState(false);
 
   const errors = useAppSelector((state) => state.editor.errors);

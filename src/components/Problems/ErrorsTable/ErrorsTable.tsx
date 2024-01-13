@@ -1,4 +1,4 @@
-import { FC, forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 
 import { deleteLine, editLine } from '../../../redux/slices/editor';
 
@@ -16,7 +16,7 @@ import { Button, ButtonGroup } from '@mui/material';
 
 import { AddZero, DeleteLine, EditLine } from '../Buttons';
 
-import { IError } from '../../../shared/types';
+import { type IError } from '../../../shared/types';
 import { useAppDispatch } from '../../../redux/hooks/hooks';
 
 const ButtonByErrorCode = (error: IError, dispatch: any) => {
@@ -88,7 +88,7 @@ interface ErrorsTableProps {
   errors: IError[];
 }
 
-const ErrorsTable: FC<ErrorsTableProps> = ({ errors }) => {
+const ErrorsTable = ({ errors }: ErrorsTableProps) => {
   const dispatch = useAppDispatch();
 
   const tableRef = useRef<HTMLDivElement>(null);

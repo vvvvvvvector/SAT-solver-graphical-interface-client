@@ -1,4 +1,4 @@
-import { FC, useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
@@ -22,14 +22,14 @@ interface FindAllProps {
   solver: string;
 }
 
-export const FindAll: FC<FindAllProps> = ({ solver }) => {
-  const dispatch = useAppDispatch();
-
-  const loop = useRef<Status>(Status.NOTSTARTED);
-
+export const FindAll = ({ solver }: FindAllProps) => {
   const [counter, setCounter] = useState(0);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const dispatch = useAppDispatch();
+
+  const loop = useRef<Status>(Status.NOTSTARTED);
 
   const solutionsLength = useAppSelector(
     (state) => state.solutions.solutions.length

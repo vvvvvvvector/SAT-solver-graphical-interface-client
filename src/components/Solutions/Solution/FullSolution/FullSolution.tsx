@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { Backdrop, Button } from '@mui/material';
@@ -11,15 +11,15 @@ interface FullSolutionProps {
   solution: number[];
   solutionIndex: number;
   isOpened: boolean;
-  setIsOpened: (isOpened: boolean) => void;
+  setIsOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const FullSolution: FC<FullSolutionProps> = ({
+const FullSolution = ({
   solution,
   solutionIndex,
   isOpened,
   setIsOpened
-}) => {
+}: FullSolutionProps) => {
   const isFirstRender = useRef(false);
   const fullSolutionRef = useRef<HTMLDivElement>(null);
 

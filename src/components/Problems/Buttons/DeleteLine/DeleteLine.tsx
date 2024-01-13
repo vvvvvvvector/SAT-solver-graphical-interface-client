@@ -1,16 +1,15 @@
-import { FC } from 'react';
+import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 
 import { Button } from '@mui/material';
-import { toast } from 'react-hot-toast';
 
-import { useDispatch } from 'react-redux';
 import { deleteLine } from '../../../../redux/slices/editor';
 
 interface DeleteLineProps {
   line: number;
 }
 
-export const DeleteLine: FC<DeleteLineProps> = ({ line }) => {
+export const DeleteLine = ({ line }: DeleteLineProps) => {
   const dispatch = useDispatch();
 
   const onClick = () => {

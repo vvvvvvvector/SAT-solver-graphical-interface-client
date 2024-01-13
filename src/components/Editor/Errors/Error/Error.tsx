@@ -1,6 +1,6 @@
-import { FC, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
-import { IError } from '../../../../shared/types';
+import { type IError } from '../../../../shared/types';
 
 import ErrorInfo from './ErrorInfo/ErrorInfo';
 
@@ -11,14 +11,14 @@ interface ErrorProps {
   index: number;
 }
 
-const Error: FC<ErrorProps> = ({ error, index }) => {
+const Error = ({ error, index }: ErrorProps) => {
+  const [isOpened, setIsOpened] = useState(false);
+
   const interval = useRef<number>(0);
 
   const errorRef = useRef<HTMLDivElement>(null);
 
   const cursorPosition = useRef<number>(0);
-
-  const [isOpened, setIsOpened] = useState(false);
 
   return (
     <div

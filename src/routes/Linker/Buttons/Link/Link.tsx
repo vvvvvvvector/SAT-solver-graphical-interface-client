@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import axiosInstance from '../../../../axios';
@@ -9,7 +9,7 @@ import { setLinked } from '../../../../redux/slices/linker';
 import { Button } from '@mui/material';
 import InsertLinkOutlinedIcon from '@mui/icons-material/InsertLinkOutlined';
 
-export const Link: FC = () => {
+export const Link = () => {
   const dispatch = useAppDispatch();
 
   const { first, second } = useAppSelector((state) => state.linker);
