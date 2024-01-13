@@ -14,25 +14,6 @@ const FormulaHeader = () => {
 
   const { clauses, opened } = useAppSelector((state) => state.formula);
 
-  const onClickAddClause = () => {
-    const input = window.prompt(
-      "Proper format: 1 | -2 | -3 | ...\nMore spaces are allowed between numbers and '|'."
-    );
-
-    if (input) {
-      const clause = input?.split('|').map((item) => parseInt(item));
-
-      if (clause) {
-        dispatch(addClause(clause));
-
-        toast.success('Clause was successfully added!');
-
-        sessionStorage.setItem('formula', '');
-        dispatch(clearSolutions());
-      }
-    }
-  };
-
   return (
     <div className={styles.header}>
       <div className={styles.headerLeft}>
@@ -40,7 +21,7 @@ const FormulaHeader = () => {
           {clauses.length > 0 ? 'Formula in CNF' : 'There is no formula so far'}
         </h2>
         <svg
-          className={opened ? styles['opened'] : ''}
+          className={opened && styles['opened']}
           width='10'
           height='6'
           viewBox='0 0 10 6'
@@ -56,7 +37,29 @@ const FormulaHeader = () => {
       {opened && (
         <>
           <Tooltip title='Add a new clause' arrow>
-            <IconButton color='primary' onClick={onClickAddClause}>
+            <IconButton
+              color='primary'
+              onClick={() => {
+                const input = window.prompt(
+                  "Proper format: 1 | -2 | -3 | ...\nMore spaces are allowed between numbers and '|'."
+                );
+
+                if (input) {
+                  const clause = input
+                    ?.split('|')
+                    .map((item) => parseInt(item));
+
+                  if (clause) {
+                    dispatch(addClause(clause));
+
+                    toast.success('Clause was successfully added!');
+
+                    sessionStorage.setItem('formula', '');
+                    dispatch(clearSolutions());
+                  }
+                }
+              }}
+            >
               <AddIcon color='primary' />
             </IconButton>
           </Tooltip>
