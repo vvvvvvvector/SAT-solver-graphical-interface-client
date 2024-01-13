@@ -77,7 +77,7 @@ export const editorSlice = createSlice({
 
       const fixedLines = lines.map((line, index) => {
         if (index === action.payload - 1) {
-          return line + ' 0';
+          return line.trim() + ' 0';
         }
 
         return line;
