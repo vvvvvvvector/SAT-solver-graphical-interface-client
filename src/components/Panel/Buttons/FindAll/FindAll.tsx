@@ -46,6 +46,19 @@ export const FindAll = ({ solver }: FindAllProps) => {
 
   const onClickFindAll = async () => {
     try {
+      toast(
+        () => (
+          <span>
+            You <b>can't</b> interrupt the search process until{' '}
+            <b>at least one solution</b> will be found
+          </span>
+        ),
+        {
+          icon: 'ℹ️',
+          duration: 3000
+        }
+      );
+
       setLoading(true);
       setOpen(true);
 
@@ -137,6 +150,19 @@ export const FindAll = ({ solver }: FindAllProps) => {
 
   const onClickFindOther = async () => {
     try {
+      toast(
+        () => (
+          <span>
+            You <b>can't</b> interrupt the search process until{' '}
+            <b>at least one solution</b> will be found
+          </span>
+        ),
+        {
+          icon: 'ℹ️',
+          duration: 3000
+        }
+      );
+
       setLoading(true);
       setOpen(true);
 
