@@ -8,7 +8,7 @@ I designed and implemented a helpful application for the Institute of Computer S
 
 ## Screenshots
 
-![prod_1](./public/prod_1.png)
+![prod_1](./public/screenshots/prod_1.png)
 
 ## Running locally
 
