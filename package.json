@@ -1,6 +1,6 @@
 {
   "name": "bachelor-client",
-  "version": "0.0.0",
+  "version": "1.1.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,23 +10,23 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.15.4",
-    "@mui/material": "^5.15.4",
-    "@reduxjs/toolkit": "^2.0.1",
-    "axios": "^1.6.5",
+    "@mui/icons-material": "^5.15.8",
+    "@mui/material": "^5.15.7",
+    "@reduxjs/toolkit": "^2.1.0",
+    "axios": "^1.6.7",
     "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-redux": "^9.1.0",
-    "react-router-dom": "^6.21.2",
-    "react-virtuoso": "^4.6.2",
-    "sass": "^1.69.7"
+    "react-router-dom": "^6.22.0",
+    "react-virtuoso": "^4.6.3",
+    "sass": "^1.70.0"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.9",
-    "@types/react": "^18.2.47",
-    "@types/react-dom": "^18.2.18",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",
     "typescript": "^5.3.3",
     "vite": "^5.0.12"
